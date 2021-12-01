@@ -9,6 +9,9 @@ class MoHinhKinhDoanh extends Model
 {
     use HasFactory;
     protected $table ='mohinhkinhdoanh';
+     protected $fillable = [
+        'tenmohinhkinhdoanh',
+    ];
     public function DoanhNghiep()
     {
         return $this->hasMany(DoanhNghiep::class, 'mohinhkinhdoanh_id','id');

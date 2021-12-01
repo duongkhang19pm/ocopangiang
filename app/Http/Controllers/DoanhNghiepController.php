@@ -58,7 +58,7 @@ class DoanhNghiepController extends Controller
             'SDT'=>['required','string','min:10','max:12'],
             'website'=>['required','url'],
             'ngaythanhlap'=>['nullable','date'],
-            'hinhanh' => ['required','image','max:1024'],
+            'hinhanh' => ['nullable','image','max:1024'],
            
 
         ]);

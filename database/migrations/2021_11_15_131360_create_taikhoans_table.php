@@ -17,7 +17,7 @@ class CreateTaiKhoansTable extends Migration
             $table->id();
             $table->foreignId('donviquanly_id')->nullable()->constrained('donviquanly');
             $table->foreignId('doanhnghiep_id')->nullable()->constrained('doanhnghiep');
-
+            $table->foreignId('chucvu_id')->nullable()->constrained('chucvu');
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();

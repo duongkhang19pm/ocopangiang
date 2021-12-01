@@ -35,6 +35,10 @@ class TaiKhoan extends Authenticatable
     {
         return $this->belongsTo(DonViQuanLy::class, 'donviquanly_id', 'id');
     }
+    public function ChucVu()
+    {
+        return $this->belongsTo(ChucVu::class, 'chucvu_id', 'id');
+    }
     public function DoanhNghiep()
     {
         return $this->belongsTo(DoanhNghiep::class, 'doanhnghiep_id', 'id');

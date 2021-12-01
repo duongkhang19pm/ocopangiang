@@ -12,8 +12,8 @@ class ChucVu extends Model
     protected $fillable = [
         'tenchucvu', 
     ];
-    public function NhanVien ()
+    public function TaiKhoan ()
     {
-        return $this->hasMany(NhanVien::class,'chucvu_id','id');
+        return $this->hasMany(TaiKhoan::class,'chucvu_id','id');
     }
 }

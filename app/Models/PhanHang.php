@@ -9,6 +9,9 @@ class PhanHang extends Model
 {
     use HasFactory;
     protected $table ='phanhang';
+     protected $fillable = [
+        'tenphanhang', 'tenphanhang_slug',
+    ];
      public function SanPham()
     {
         return $this->hasMany(SanPham::class, 'phanhang_id','id');

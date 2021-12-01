@@ -9,7 +9,9 @@ class TinhTrang extends Model
 {
     use HasFactory;
      protected $table ='tinhtrang';
-
+     protected $fillable = [
+        'tinhtrang',
+    ];
     public function DonHang()
     {
         return $this->hasMany(DonHang::class, 'tinhtrang_id','id');

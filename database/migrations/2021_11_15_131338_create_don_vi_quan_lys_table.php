@@ -24,7 +24,9 @@ class CreateDonViQuanLysTable extends Migration
             $table->string('tenthutruong');
             $table->string('email');
             $table->string('SDT');
-             $table->string('hinhanh')->nullable();
+            $table->string('website')->nullable();
+            $table->string('hinhanh')->nullable();
+            $table->text('gioithieu')->nullable();
             $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();
              $table->engine = 'InnoDB';

@@ -16,12 +16,12 @@
                     </li>
                   </ol>
                 </nav>
-                <a type="button" href="{{route('admin.taikhoan_donviquanly.them')}}" class="btn btn-success btn-floated">
+                <a type="button" href="{{route('admin.taikhoan_doanhnghiep.them')}}" class="btn btn-success btn-floated">
                   <i class="fa fa-plus"></i>
                 </a>
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Tài Khoản Cán Bộ Quản Lý </h1>
+                  <h1 class="page-title mr-sm-auto"> Tài Khoản Doanh Nghiệp </h1>
                 </div>
             <!-- /title and toolbar -->
           </header>
@@ -45,7 +45,8 @@
                             <th >Email</th>
                             <th >Điện Thoại</th>
                             <th >Quyền Hạn</th>
-                            <th>Đơn vị quản lý</th>
+                            <th>Doanh Nghiệp</th>
+                            <th>Chức Vụ</th>
                             <th>Trạng Thái</th>
                             <th style="width:100px; min-width:100px;"> &nbsp; </th>
                           </tr>
@@ -62,9 +63,10 @@
 	                            <td class="align-middle"> {{ $value->username }} </td>
 	                            <td class="align-middle"> {{ $value->email }} </td>
 	                             <td class="align-middle"> {{ $value->phone }} </td>
-                              <td class="align-middle"><span class="badge badge-pill badge-warning">Cán bộ quản lý</span></td>
-                              <td class="align-middle">{{ $value->donviquanly->tendonviquanly ?? 'N/A' }}</td>
-                              <td class="align-middle">
+                              <td class="align-middle"><span class="badge badge-pill badge-success">Cán Bộ Doanh Nghiệp</span></td>
+                              <td class="align-middle">{{ $value->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</td>
+                               <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>
+                               <td class="align-middle">
                                 @if($value->kichhoat == 0)
                                 <a href="#"></a> 
                                 <span class="badge badge-pill badge-info">Đang sử dụng</span>
@@ -73,11 +75,11 @@
                                 @endif
                                 </td>
 	                            <td class="align-middle text-right">
-	                              <a href="{{ route('admin.taikhoan_donviquanly.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+	                              <a href="{{ route('admin.taikhoan_doanhnghiep.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 	                                <i class="fa fa-pencil-alt"></i>
 	                                <span class="sr-only">Edit</span>
 	                              </a>
-	                               <a   href="{{ route('admin.taikhoan_donviquanly.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+	                               <a   href="{{ route('admin.taikhoan_doanhnghiep.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
                                       <i class="far fa-trash-alt"></i>
                                       <span class="sr-only">Remove</span>
                                     </a>

@@ -34,9 +34,9 @@ class DoanhNghiep extends Model
     return $this->belongsTo(LoaiHinhKinhDoanh::class, 'loaihinhkinhdoanh_id', 'id');
     }
 
-    public function NhanVien()
+    public function TaiKhoan()
     {
-    return $this->hasMany(NhanVien::class, 'doanhnghiep_id', 'id');
+    return $this->hasMany(TaiKhoan::class, 'doanhnghiep_id', 'id');
     }
     public function SanPham()
     {

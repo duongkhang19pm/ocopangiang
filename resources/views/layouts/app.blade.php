@@ -26,7 +26,7 @@
     disabledSkinStylesheet.setAttribute('disabled', true);
     if (isCompact == true) document.querySelector('html').classList.add('preparing-compact-menu');
   </script>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <!-- .app -->
@@ -216,7 +216,7 @@
                       <a href="{{route('admin.taikhoan_donviquanly')}}" class="menu-link">Tài Khoản Đơn Vị Quản Lý</a>
                     </li>
                     <li class="menu-item">
-                      <a href="#" class="menu-link">Tài Khoản Doanh Nghiệp</a>
+                      <a href="{{route('admin.taikhoan_doanhnghiep')}}" class="menu-link">Tài Khoản Doanh Nghiệp</a>
                     </li>
                   
                   </ul>
@@ -288,7 +288,7 @@
                       <a href="{{route('admin.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
                     </li>
                     <li class="menu-item">
-                      <a href="{{route('admin.nhanvien')}}" class="menu-link">Nhân Viên</a>
+                      <a href="{{route('admin.donviquanly')}}" class="menu-link">Đơn Vị Quản Lý</a>
                     </li>
                     <li class="menu-item">
                       <a href="{{route('admin.donhang')}}" class="menu-link">Thông Tin đặt Hàng</a>

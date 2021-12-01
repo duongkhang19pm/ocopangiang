@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\TinhTrang;
 class CreateTinhTrangsTable extends Migration
 {
     /**
@@ -21,6 +21,16 @@ class CreateTinhTrangsTable extends Migration
              $table->engine = 'InnoDB';
 
         });
+       TinhTrang::create(['tinhtrang' => 'Mới']);
+       TinhTrang::create(['tinhtrang' => 'Đang Xác Nhận']);
+       TinhTrang::create(['tinhtrang' => 'Đã Hủy']);
+       TinhTrang::create(['tinhtrang' => 'Đang Đóng Gói']);
+       TinhTrang::create(['tinhtrang' => 'Đang Đi Nhận']);
+       TinhTrang::create(['tinhtrang' => 'Đang Chuyển']);
+       TinhTrang::create(['tinhtrang' => 'Thất Bại']);
+       TinhTrang::create(['tinhtrang' => 'Đang Chuyển Hoàn']);
+       TinhTrang::create(['tinhtrang' => 'Đã Chuyển Hoàn']);
+       TinhTrang::create(['tinhtrang' => 'Thành Công']);
     }
 
     /**

@@ -9,7 +9,7 @@
                
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Thêm tài khoản cán bộ đơn vị </h1>
+                  <h1 class="page-title mr-sm-auto"> Thêm tài khoản doanh nghiệp</h1>
                 </div>
             <!-- /title and toolbar -->
         </header>
@@ -21,18 +21,30 @@
               <div class="table-responsive">
 
                 <!-- form .needs-validation -->
-                <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_donviquanly.them') }}" method="post">
+                <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_doanhnghiep.them') }}" method="post">
                   @csrf
                   <!-- .form-group -->
                   <div class="form-group">
-                    <label for="donviquanly_id">Đơn vị quản lý <abbr title="Bắt buộc nhập">*</abbr></label>
-                    <select class="custom-select @error('donviquanly_id') is-invalid @enderror" id="donviquanly_id" name="donviquanly_id" required>
+                    <label for="doanhnghiep_id">Doanh Nghiệp <abbr title="Bắt buộc nhập">*</abbr></label>
+                    <select class="custom-select @error('doanhnghiep_id') is-invalid @enderror" id="doanhnghiep_id" name="doanhnghiep_id" required>
                       <option value="">-- Chọn --</option>
-                      @foreach($donviquanly as $value)
-                        <option value="{{ $value->id }}">{{ $value->tendonviquanly }}</option>
+                      @foreach($doanhnghiep as $value)
+                        <option value="{{ $value->id }}">{{ $value->tendoanhnghiep }}</option>
                       @endforeach
                     </select>
-                    @error('donviquanly_id')
+                    @error('doanhnghiep_id')
+                      <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
+                    @enderror
+                  </div>
+                   <div class="form-group">
+                    <label for="chucvu_id">Chức Vụ <abbr title="Bắt buộc nhập">*</abbr></label>
+                    <select class="custom-select @error('chucvu_id') is-invalid @enderror" id="chucvu_id" name="chucvu_id" required>
+                      <option value="">-- Chọn --</option>
+                      @foreach($chucvu as $value)
+                        <option value="{{ $value->id }}">{{ $value->tenchucvu }}</option>
+                      @endforeach
+                    </select>
+                    @error('chucvu_id')
                       <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                     @enderror
                   </div>

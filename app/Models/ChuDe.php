@@ -9,7 +9,9 @@ class ChuDe extends Model
 {
     use HasFactory;
     protected $table ='chude';
-
+    protected $fillable = [
+        'tenchude', 'tenchude_slug',
+    ];
     public function BaiViet()
     {
         return $this->hasMany(BaiViet::class, 'chude_id','id');
