@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\DonViQuanLy;
 use App\Models\DoanhNghiep;
 use App\Models\ChucVu;
+use Illuminate\Support\Facades\Auth;
 class TaiKhoanController extends Controller
 {
     public function __construct()

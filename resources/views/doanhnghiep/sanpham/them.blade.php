@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.doanhnghiep')
 @section('content')
 
 <div class="wrapper">
@@ -21,7 +21,7 @@
               <div class="table-responsive">
 
                 <!-- form .needs-validation -->
-                <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.sanpham.them') }}" method="post" enctype="multipart/form-data">
+                <form class="needs-validation was-validated" novalidate="" action="{{ route('doanhnghiep.sanpham.them') }}" method="post" enctype="multipart/form-data">
                   @csrf
 
                  
@@ -57,21 +57,7 @@
                          
                     </div>
                  <div class="row">
-                     <div class="col-md-6">
-                          <label for="doanhnghiep_id">Doanh Nghiệp
-                            <abbr title="Required">*</abbr>
-                          </label>
-                          <select class="custom-select d-block w-100 @error('doanhnghiep_id') is-invalid @enderror" id="doanhnghiep_id" name="doanhnghiep_id" required>
-                            <option value="" >-- Chọn Doanh Nghiệp --</option>
-                             @foreach($doanhnghiep as $value)
-                                <option value="{{ $value->id }}">{{ $value->tendoanhnghiep }}</option>
-                             @endforeach
-                          </select>
-                          <div class="invalid-feedback">Vui lòng chọn doanh nghiệp. </div>
-                           @error('doanhnghiep_id')
-                                <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                            @enderror
-                     </div>
+                     
                        <div class="col-md-6">
                               <label for="phanhang_id">Phân Hạng
                                 <abbr title="Required">*</abbr>
@@ -186,7 +172,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "{{ route('admin.sanpham.getLoai') }}?nhomsanpham_id=" + NhomID,
+                        url: "{{ route('doanhnghiep.sanpham.getLoai') }}?nhomsanpham_id=" + NhomID,
                         success: function(res) {
 
                             if (res) {

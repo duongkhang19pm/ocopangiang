@@ -11,19 +11,26 @@ use App\Models\PhanHang;
 use Str;
 use File;
 use Storage;
+use Illuminate\Support\Facades\Auth;
 class SanPhamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function getDanhSach()
     {
-        $sanpham = SanPham::paginate(20);
-        return view('admin.sanpham.danhsach',compact('sanpham'));
+        $iddoanhnghiep = Auth::user()->doanhnghiep->id;
+        $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->get();
+        return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
     }
     public function getThem()
     {
         $nhomsanpham =NhomSanPham::all();
        $phanhang =PhanHang::all();
         $doanhnghiep =DoanhNghiep::all();
-        return view('admin.sanpham.them',compact('nhomsanpham','doanhnghiep','phanhang'));
+        return view('doanhnghiep.sanpham.them',compact('nhomsanpham','doanhnghiep','phanhang'));
     }
      public function getLoai(Request $request)
     {
@@ -36,7 +43,7 @@ class SanPhamController extends Controller
         $this->validate($request,[
             'nhomsanpham_id' => ['required'],
             'loaisanpham_id'=>['required'],
-            'doanhnghiep_id'=>['required'],
+          
             'phanhang_id'=>['required'],
             
             'tensanpham'=>['required','string','max:191','unique:sanpham'],
@@ -53,7 +60,7 @@ class SanPhamController extends Controller
         {
            
         // Tạo thư mục nếu chưa có
-             $doanhnghiep = DoanhNghiep::find($request->doanhnghiep_id);
+             $doanhnghiep = Auth::user()->doanhnghiep;
              File::isDirectory($doanhnghiep->tendoanhnghiep_slug) or Storage::makeDirectory($doanhnghiep->tendoanhnghiep_slug, 0775);
          
             $extension = $request->file('hinhanh')->extension();
@@ -65,7 +72,7 @@ class SanPhamController extends Controller
         $orm = new SanPham();
         $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
-        $orm->doanhnghiep_id = $request->doanhnghiep_id;
+        $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
         $orm->phanhang_id = $request->phanhang_id;
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
@@ -77,7 +84,7 @@ class SanPhamController extends Controller
         if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
-        return redirect()->route('admin.sanpham');
+        return redirect()->route('doanhnghiep.sanpham');
 
     }
     public function getSua($id)
@@ -87,14 +94,14 @@ class SanPhamController extends Controller
         $loaisanpham=LoaiSanPham::all();
         $doanhnghiep =DoanhNghiep::all();
          $phanhang =PhanHang::all();
-        return view('admin.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','phanhang','doanhnghiep'));
+        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','phanhang','doanhnghiep'));
     }
     public function postSua(Request $request , $id)
     {
         $this->validate($request,[
              'nhomsanpham_id' => ['required'],
             'loaisanpham_id'=>['required'],
-            'doanhnghiep_id'=>['required'],
+            
             'phanhang_id'=>['required'],
             
             'tensanpham'=>['required','string','max:191','unique:sanpham,tensanpham,'.$id],
@@ -110,7 +117,7 @@ class SanPhamController extends Controller
            $orm = SanPham::find($id);
             Storage::delete($orm->hinhanh);
          // Tạo thư mục nếu chưa có
-         $doanhnghiep = DoanhNghiep::find($request->doanhnghiep_id);
+         $doanhnghiep = Auth::user()->doanhnghiep;
          File::isDirectory($doanhnghiep->tendoanhnghiep_slug) or Storage::makeDirectory($doanhnghiep->tendoanhnghiep_slug, 0775);
 
 
@@ -122,7 +129,7 @@ class SanPhamController extends Controller
         $orm = SanPham::find($id);
          $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
-        $orm->doanhnghiep_id = $request->doanhnghiep_id;
+        $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
         $orm->phanhang_id = $request->phanhang_id;
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
@@ -134,7 +141,7 @@ class SanPhamController extends Controller
         if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
-        return redirect()->route('admin.sanpham');
+        return redirect()->route('doanhnghiep.sanpham');
 
     }
     public function getXoa($id)
@@ -142,6 +149,6 @@ class SanPhamController extends Controller
         $orm=SanPham::find($id);
         $orm->delete();
         Storage::delete($orm->hinhanh);
-          return redirect()->route('admin.sanpham');
+          return redirect()->route('doanhnghiep.sanpham');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
 <div class="wrapper">
    <div class="page"><div class="sidebar-backdrop"></div>

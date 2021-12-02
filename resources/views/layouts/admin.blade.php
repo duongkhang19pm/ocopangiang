@@ -201,11 +201,99 @@
                         </li>
                     @endif
                @else
-                <!-- .menu-item -->
+
+               <li class="menu-header">Doanh Mục</li>
+                <!-- /Doanh Mục -->
+               <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+
+                    <span class="menu-icon fas fa-globe-americas"></span>
+                    <span class="menu-text">Vị Trí</span>
+                  </a>
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="{{route('admin.tinh')}}" class="menu-link">Tỉnh/Thành Phố</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="{{route('admin.huyen')}}" class="menu-link">Quận/Huyện</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="{{route('admin.xa')}}" class="menu-link">Xã/Phường</a>
+                    </li>
+                   
+                   
+                     
+                  </ul>
+                 
+                </li>
+
+                 <!-- /Đơn Vị-->
                 <li class="menu-item has-child">
                   <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Quản Lý Tài Khoản</span>
+                   <span class="menu-icon fas fa-layer-group"></span>
+                    <span class="menu-text">Doanh Mục </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                     <li class="menu-item">
+                      <a href="{{route('admin.chucvu')}}" class="menu-link">Chức Vụ</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="{{route('admin.loaihinhkinhdoanh')}}" class="menu-link">Loại Hình Kinh Doanh</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="{{route('admin.mohinhkinhdoanh')}}" class="menu-link">Mô Hình Kinh Doanh</a>
+                    </li>
+                  </ul>
+                 
+                </li>
+
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-dice-d20"></span>
+                    <span class="menu-text">Doanh Mục Sản Phẩm </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                     <li class="menu-item">
+                      <a href="{{route('admin.tinhtrang')}}" class="menu-link">Tình Trạng</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="{{route('admin.phanhang')}}" class="menu-link">Phân Hạng</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="{{route('admin.nhomsanpham')}}" class="menu-link">Nhóm sản phẩm</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="{{route('admin.loaisanpham')}}" class="menu-link">Loại sản phẩm</a>
+                    </li>
+                  </ul>
+                 
+                </li>
+                <li class="menu-header">Đơn Vị</li>
+                 <!-- /Đơn Vị-->
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                    <span class="menu-icon fas fa-city"></span>
+                    <span class="menu-text">Quản Lý </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="{{route('admin.donviquanly')}}" class="menu-link">Đơn Vị Quản Lý</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="{{route('admin.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
+                    </li>
+                  </ul>
+                 
+                </li>
+                <li class="menu-header">Tài Khoản</li>
+                <!-- Tài Khoản -->
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-user-circle"></span>
+                    <span class="menu-text">Tài Khoản</span>
                   </a>
                   <!-- child menu -->
                   <ul class="menu">
@@ -220,100 +308,12 @@
                     </li>
                   
                   </ul>
-                  <!-- /child menu -->
+                 
                 </li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Doanh Mục Sản Phẩm</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{route('admin.nhomsanpham')}}" class="menu-link">Nhóm sản phẩm</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.loaisanpham')}}" class="menu-link">Loại sản phẩm</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.sanpham')}}" class="menu-link">Sản phẩm</a>
-                    </li>
-                    
-                  </ul>
-                  <!-- /child menu -->
-                </li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Quản lý Doanh Mục</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{route('admin.tinh')}}" class="menu-link">Tỉnh/Thành Phố</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.huyen')}}" class="menu-link">Quận/Huyện</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.xa')}}" class="menu-link">Xã/Phường</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.chucvu')}}" class="menu-link">Chức Vụ</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.loaihinhkinhdoanh')}}" class="menu-link">Loại Hình Kinh Doanh</a>
-                    </li>
-                     <li class="menu-item">
-                      <a href="{{route('admin.mohinhkinhdoanh')}}" class="menu-link">Mô Hình Kinh Doanh</a>
-                    </li>
-                     <li class="menu-item">
-                      <a href="{{route('admin.tinhtrang')}}" class="menu-link">Tình Trạng</a>
-                    </li>
-                     <li class="menu-item">
-                      <a href="{{route('admin.phanhang')}}" class="menu-link">Phân Hạng</a>
-                    </li>
-                    
-                  </ul>
-                  <!-- /child menu -->
-                </li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Quản Lý Doanh Nghiêp</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{route('admin.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.donviquanly')}}" class="menu-link">Đơn Vị Quản Lý</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.donhang')}}" class="menu-link">Thông Tin đặt Hàng</a>
-                    </li>
-                  
-                  </ul>
-                  <!-- /child menu -->
-                </li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Doanh Mục Bài Viết</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{route('admin.chude')}}" class="menu-link">Chủ Đề</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.baiviet')}}" class="menu-link">Bài Viết</a>
-                    </li>
-                    
-                  </ul>
-                  <!-- /child menu -->
-                </li>
+                
+                
+                
+                
                  @endguest
                  
                 <!-- /.menu-item -->

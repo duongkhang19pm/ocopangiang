@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.doanhnghiep')
 
 @section('content')
 
@@ -10,7 +10,7 @@
           <!-- .page-title-bar -->
           <header class="page-title-bar">
             
-                <a type="button" href="{{route('admin.sanpham.them')}}" class="btn btn-success btn-floated">
+                <a type="button" href="{{route('doanhnghiep.sanpham.them')}}" class="btn btn-success btn-floated">
                   <i class="fa fa-plus"></i>
                 </a>
          
@@ -168,11 +168,11 @@
 		                            <td>{{ $value->tensanpham_slug }}</td>
 		                             
 		                             <td class="align-middle text-right">
-			                              <a href="{{ route('admin.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+			                              <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 			                                <i class="fa fa-pencil-alt"></i>
 			                                <span class="sr-only">Edit</span>
 			                              </a>
-			                              <a   href="{{ route('admin.sanpham.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+			                              <a   href="{{ route('doanhnghiep.sanpham.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 			                                <i class="far fa-trash-alt"></i>
 			                                <span class="sr-only">Remove</span>
 			                              </a>
@@ -185,7 +185,7 @@
                       <!-- /.table -->
                     </div>
                       <ul class="pagination justify-content-center mt-4">
-                       {{ $sanpham->links() }}
+                       
                      </ul>
                   </div>
                 </section>

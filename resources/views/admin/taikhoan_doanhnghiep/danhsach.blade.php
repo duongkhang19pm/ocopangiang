@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -63,7 +63,7 @@
 	                            <td class="align-middle"> {{ $value->username }} </td>
 	                            <td class="align-middle"> {{ $value->email }} </td>
 	                             <td class="align-middle"> {{ $value->phone }} </td>
-                              <td class="align-middle"><span class="badge badge-pill badge-success">Cán Bộ Doanh Nghiệp</span></td>
+                              <td class="align-middle"><span class="badge badge-pill badge-success">Nhân Viên Doanh Nghiệp</span></td>
                               <td class="align-middle">{{ $value->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</td>
                                <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>
                                <td class="align-middle">
