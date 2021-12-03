@@ -37,9 +37,15 @@
         <div class="form-group mb-4">
           <label class="d-block text-left" for="email">Tài khoản</label>
             <div class="position-relative">
-                <input id="email" type="email" class="form-control round @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email hoặc Tên đăng nhập">
+               
+                <input type="text" class="form-control form-control-lg{{ ($errors->has('email') || $errors->has('username')) ? ' is-invalid' : '' }}" id="email" name="email" value="{{ old('email') }}" placeholder="Email hoặc Tên đăng nhập" required />
+
                 @if ($errors->has('email') || $errors->has('username'))
-                  <span class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ empty($errors->first('email')) ? $errors->first('username') : $errors->first('email') }}</strong></span>
+                  <span class="invalid-feedback">
+                      <strong><i class="fa fa-exclamation-circle fa-fw"></i> 
+                      {{ empty($errors->first('email')) ? $errors->first('username') : $errors->first('email') }}
+                    </strong>
+                  </span>
                 @endif
                 
             </div>

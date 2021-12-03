@@ -8,6 +8,7 @@ use App\Models\DonViQuanLy;
 use App\Models\DoanhNghiep;
 use App\Models\ChucVu;
 use Illuminate\Support\Facades\Auth;
+
 class TaiKhoanController extends Controller
 {
     public function __construct()
@@ -172,7 +173,13 @@ class TaiKhoanController extends Controller
         $chucvu = ChucVu::all();
         return view('admin.taikhoan_doanhnghiep.danhsach', compact('taikhoan','doanhnghiep','chucvu'));
     }
-    
+    public function getKichHoat_DoanhNghiep($id)
+    {
+            $taikhoan = TaiKhoan::find($id);
+           $taikhoan->kichhoat = 1 - ($taikhoan->kichhoat);
+           $taikhoan->save();
+        return redirect()->route('admin.taikhoan_doanhnghiep');
+    }
     public function getThem_DoanhNghiep()
     {
          $doanhnghiep = DoanhNghiep::all();

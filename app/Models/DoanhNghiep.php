@@ -42,4 +42,8 @@ class DoanhNghiep extends Model
     {
     return $this->hasMany(SanPham::class, 'doanhnghiep_id', 'id');
     }
+    public function BaiViet()
+    {
+    return $this->hasMany(BaiViet::class, 'doanhnghiep_id', 'id');
+    }
 }

@@ -24,7 +24,8 @@
                 <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_donviquanly.them') }}" method="post">
                   @csrf
                   <!-- .form-group -->
-                  <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
                     <label for="donviquanly_id">Đơn vị quản lý <abbr title="Bắt buộc nhập">*</abbr></label>
                     <select class="custom-select @error('donviquanly_id') is-invalid @enderror" id="donviquanly_id" name="donviquanly_id" required>
                       <option value="">-- Chọn --</option>
@@ -36,28 +37,25 @@
                       <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                     @enderror
                   </div>
-                  <div class="form-group">
+                  <div class="col-md-6">
                       <label for="name">Họ và tên <abbr title="Bắt buộc nhập">*</abbr></label>
                       <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required />
                       @error('name')
                         <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                       @enderror
                     </div>
-                    <div class="form-group">
-                      <label for="username">Tên đăng nhập <abbr title="Bắt buộc nhập">*</abbr></label>
-                      <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required />
-                      @error('username')
-                        <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
-                      @enderror
-                    </div>
-                    <div class="form-group">
+
+                  </div>
+
+                  <div class="row">
+                   <div class="col-md-6">
                       <label for="email">Email <abbr title="Bắt buộc nhập">*</abbr></label>
                       <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required />
                       @error('email')
                         <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                       @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-6">
                       <label for="phone">Điện Thoại <abbr title="Bắt buộc nhập">*</abbr></label>
                       <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required />
                       @error('phone')
@@ -65,7 +63,19 @@
                       @enderror
                     </div>
 
-                    <div class="form-group">
+                  </div>
+
+                  <div class="row">
+                     <div class="col-md-4">
+                      <label for="username">Tên đăng nhập <abbr title="Bắt buộc nhập">*</abbr></label>
+                      <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required />
+                      @error('username')
+                        <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
+                      @enderror
+                    </div>
+                    
+
+                   <div class="col-md-4">
                       <label class="form-label d-flex justify-content-between" for="password"><span>Mật khẩu <abbr title="Bắt buộc nhập">*</abbr></span>
                           <a href="#matkhau" data-toggle="password">
                               <i class="fa fa-fw fa-eye"></i>
@@ -79,7 +89,7 @@
                         <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                       @enderror
                     </div>
-                    <div class="form-group">
+                   <div class="col-md-4">
                       <label class="form-label d-flex justify-content-between" for="password_confirmation"><span>Xác nhận mật khẩu <abbr title="Bắt buộc nhập">*</abbr></span>
                           <a href="#xacnhan" data-toggle="password">
                               <i class="fa fa-fw fa-eye"></i>
@@ -93,6 +103,11 @@
                         <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                       @enderror
                     </div>
+
+                  </div>
+
+                  
+                   
 
                   <!-- /.form-row -->
                   <hr class="mb-4">

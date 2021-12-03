@@ -68,10 +68,12 @@
                                <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>
                                <td class="align-middle">
                                 @if($value->kichhoat == 0)
-                                <a href="#"></a> 
-                                <span class="badge badge-pill badge-info">Đang sử dụng</span>
+                                <a href="{{ route('admin.taikhoan_doanhnghiep.kichhoat',  ['id' => $value->id] ) }}" >
+                                  <span class="badge badge-pill badge-info">Đang sử dụng</span>
+                                </a> 
+                                
                                 @else
-                                <a href="#"></a> <span class="badge badge-pill badge-warning">Bị khóa</span>
+                                <a href="{{ route('admin.taikhoan_doanhnghiep.kichhoat',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
                                 @endif
                                 </td>
 	                            <td class="align-middle text-right">

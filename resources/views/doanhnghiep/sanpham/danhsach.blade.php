@@ -35,6 +35,7 @@
 		                         <th >Hình ảnh</th>
 		                         <th>Thông Tin Sản Phẩm</th>
 		                         <th>Tên Sản Phẩm Không Dấu</th>
+		                       
 															<th style="width:100px; min-width:100px;"> &nbsp; </th>
 		                     </tr>
 		                 </thead>
@@ -166,7 +167,7 @@
 		                             			<br/>
 		                             </td>
 		                            <td>{{ $value->tensanpham_slug }}</td>
-		                             
+		                            
 		                             <td class="align-middle text-right">
 			                              <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 			                                <i class="fa fa-pencil-alt"></i>
