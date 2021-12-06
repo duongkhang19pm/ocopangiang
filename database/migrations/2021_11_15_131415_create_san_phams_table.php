@@ -17,11 +17,17 @@ class CreateSanPhamsTable extends Migration
             $table->id();
             $table->foreignId('nhomsanpham_id')->constrained('nhomsanpham');
             $table->foreignId('loaisanpham_id')->constrained('loaisanpham');
+            $table->foreignId('donvitinh_id')->constrained('donvitinh');
+            $table->foreignId('quycach_id')->constrained('quycach');
             $table->foreignId('doanhnghiep_id')->constrained('doanhnghiep');
             $table->foreignId('phanhang_id')->constrained('phanhang');
             $table->string('tensanpham');
             $table->string('tensanpham_slug');
-            $table->string('nguyenlieu');
+            $table->string('nguyenlieu')->nullable();
+            $table->string('tieuchuan')->nullable();
+            $table->string('dieukienvanchuyen')->nullable();
+            $table->string('dieukienluutru')->nullable();
+            $table->string('khoiluongrieng');
             $table->integer('soluong');
             $table->double('dongia');
             $table->string('hansudung')->nullable();

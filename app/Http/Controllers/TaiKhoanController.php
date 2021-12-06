@@ -7,45 +7,82 @@ use Illuminate\Support\Str;
 use App\Models\DonViQuanLy;
 use App\Models\DoanhNghiep;
 use App\Models\ChucVu;
+use App\Models\Tinh;
+use App\Models\Huyen;
+use App\Models\Xa;
 use Illuminate\Support\Facades\Auth;
-
+use Storage;
 class TaiKhoanController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
+    public function getHuyen(Request $request)
+    {
+        $huyen = Huyen::where("tinh_id", $request->tinh_id)->pluck("tenhuyen", "id");
+        return response()->json($huyen);
+    }
+
+    public function getXa(Request $request)
+    {
+        $xa = Xa::where("huyen_id", $request->huyen_id)->pluck("tenxa", "id");
+        return response()->json($xa);
+    }
     //Tài Khoản Admin
     public function getDanhSach_Admin()
     {
         $taikhoan = TaiKhoan::where('privilege', 'admin')->get();
-        return view('admin.taikhoan_admin.danhsach', compact('taikhoan'));
+        $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_admin.danhsach', compact('taikhoan', 'tinh','huyen','xa'));
     }
 
   
 
     public function getThem_Admin()
     {
-        return view('admin.taikhoan_admin.them');
+        $tinh = Tinh::all();
+        return view('admin.taikhoan_admin.them',compact('tinh'));
     }
 
     public function postThem_Admin(Request $request)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'name' => ['required', 'string', 'max:100'],
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
         'password' => ['required', 'min:4', 'confirmed'],
+        'hinhanh' => ['nullable','image','max:1024'],
         ]);
-
+        // up anh
+        if($request->hasFile('hinhanh'))
+        {
+           
+         
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_admin', $request->file('hinhanh'), $fileName);
+        }
         $orm = new TaiKhoan();
+        $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         $orm->password = Hash::make($request->password);
         $orm->privilege = 'admin';
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_admin');
@@ -56,25 +93,46 @@ class TaiKhoanController extends Controller
     public function getSua_Admin($id)
     {
         $taikhoan = TaiKhoan::find($id);
-        return view('admin.taikhoan_admin.sua', compact('taikhoan'));
+        $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_admin.sua', compact('taikhoan', 'tinh','huyen','xa'));
     }
 
     public function postSua_Admin(Request $request , $id)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'name' => ['required', 'string', 'max:100'],
         'username' => ['required', 'max:255', 'unique:taikhoan,username,'.$id],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan,email,'.$id],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan,phone,'.$id],
         'password' => [ 'confirmed'],
         ]);
+        if($request->hasFile('hinhanh'))
+       {
+            $orm=TaiKhoan::find($id);
+            Storage::delete($orm->hinhanh);
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_admin', $request->file('hinhanh'), $fileName);
 
+       }
         $orm = TaiKhoan::find($id);
+         $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         if(!empty($request->password)) $orm->password = Hash::make($request->password);
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_admin');
@@ -84,7 +142,7 @@ class TaiKhoanController extends Controller
     {
         $orm = TaiKhoan::find($id);
         $orm->delete();
-
+        Storage::delete($orm->hinhanh);
         return redirect()->route('admin.taikhoan_admin');
     }
 
@@ -94,34 +152,58 @@ class TaiKhoanController extends Controller
     {
         $taikhoan = TaiKhoan::where('privilege', 'donviquanly')->get();
         $donviquanly = DonViQuanLy::all();
-        return view('admin.taikhoan_donviquanly.danhsach', compact('taikhoan','donviquanly'));
+        $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_donviquanly.danhsach', compact('taikhoan','donviquanly', 'tinh','huyen','xa'));
     }
     
     public function getThem_DonViQuanLy()
     {
          $donviquanly = DonViQuanLy::all();
-        return view('admin.taikhoan_donviquanly.them',compact('donviquanly'));
+         $tinh = Tinh::all();
+        return view('admin.taikhoan_donviquanly.them',compact('donviquanly','tinh'));
     }
 
     public function postThem_DonViQuanLy(Request $request)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'donviquanly_id' => ['required'],
         'name' => ['required', 'string', 'max:100'],
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
         'password' => ['required', 'min:4', 'confirmed'],
+        'hinhanh' => ['nullable','image','max:1024'],
         ]);
 
+        // up anh
+        if($request->hasFile('hinhanh'))
+        {
+           
+         
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_donviquanly', $request->file('hinhanh'), $fileName);
+        }
         $orm = new TaiKhoan();
+        $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->donviquanly_id = $request->donviquanly_id;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         $orm->password = Hash::make($request->password);
         $orm->privilege = 'donviquanly';
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_donviquanly');
@@ -130,27 +212,49 @@ class TaiKhoanController extends Controller
     {
         $taikhoan = TaiKhoan::find($id);
          $donviquanly = DonViQuanLy::all();
-        return view('admin.taikhoan_donviquanly.sua', compact('taikhoan','donviquanly'));
+         $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_donviquanly.sua', compact('taikhoan','donviquanly', 'tinh','huyen','xa'));
     }
 
     public function postSua_DonViQuanLy(Request $request , $id)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'donviquanly_id' => ['required'],
         'name' => ['required', 'string', 'max:100'],
         'username' => ['required', 'max:255', 'unique:taikhoan,username,'.$id],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan,email,'.$id],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan,phone,'.$id],
         'password' => [ 'confirmed'],
+        'hinhanh' => ['nullable','image','max:1024'],
         ]);
+        if($request->hasFile('hinhanh'))
+       {
+            $orm=TaiKhoan::find($id);
+            Storage::delete($orm->hinhanh);
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_donviquanly', $request->file('hinhanh'), $fileName);
 
+       }
         $orm = TaiKhoan::find($id);
+        $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->donviquanly_id = $request->donviquanly_id;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         if(!empty($request->password)) $orm->password = Hash::make($request->password);
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_donviquanly');
@@ -160,7 +264,7 @@ class TaiKhoanController extends Controller
     {
         $orm = TaiKhoan::find($id);
         $orm->delete();
-
+        Storage::delete($orm->hinhanh);
         return redirect()->route('admin.taikhoan_donviquanly');
     }
 
@@ -171,7 +275,10 @@ class TaiKhoanController extends Controller
         $taikhoan = TaiKhoan::where('privilege', 'doanhnghiep')->get();
         $doanhnghiep = DoanhNghiep::all();
         $chucvu = ChucVu::all();
-        return view('admin.taikhoan_doanhnghiep.danhsach', compact('taikhoan','doanhnghiep','chucvu'));
+        $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_doanhnghiep.danhsach', compact('taikhoan','doanhnghiep','chucvu', 'tinh','huyen','xa'));
     }
     public function getKichHoat_DoanhNghiep($id)
     {
@@ -182,14 +289,19 @@ class TaiKhoanController extends Controller
     }
     public function getThem_DoanhNghiep()
     {
-         $doanhnghiep = DoanhNghiep::all();
-          $chucvu = ChucVu::all();
-        return view('admin.taikhoan_doanhnghiep.them',compact('doanhnghiep','chucvu'));
+        $doanhnghiep = DoanhNghiep::all();
+        $chucvu = ChucVu::all();
+        $tinh = Tinh::all();
+        return view('admin.taikhoan_doanhnghiep.them',compact('doanhnghiep','chucvu','tinh'));
     }
 
     public function postThem_DoanhNghiep(Request $request)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'doanhnghiep_id' => ['required'],
         'chucvu_id' => ['required'],
         'name' => ['required', 'string', 'max:100'],
@@ -197,17 +309,32 @@ class TaiKhoanController extends Controller
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
         'password' => ['required', 'min:4', 'confirmed'],
+        'hinhanh' => ['nullable','image','max:1024'],
         ]);
-
+         // up anh
+        if($request->hasFile('hinhanh'))
+        {
+           
+         
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_doanhnghiep', $request->file('hinhanh'), $fileName);
+        }
         $orm = new TaiKhoan();
+        $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->doanhnghiep_id = $request->doanhnghiep_id;
         $orm->chucvu_id = $request->chucvu_id;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         $orm->password = Hash::make($request->password);
         $orm->privilege = 'doanhnghiep';
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_doanhnghiep');
@@ -217,12 +344,19 @@ class TaiKhoanController extends Controller
         $taikhoan = TaiKhoan::find($id);
          $doanhnghiep = DoanhNghiep::all();
           $chucvu = ChucVu::all();
-        return view('admin.taikhoan_doanhnghiep.sua', compact('taikhoan','doanhnghiep','chucvu'));
+          $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_doanhnghiep.sua', compact('taikhoan','doanhnghiep','chucvu', 'tinh','huyen','xa'));
     }
 
     public function postSua_DoanhNghiep(Request $request , $id)
     {
         $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
         'doanhnghiep_id' => ['required'],
         'chucvu_id' => ['required'],
         'name' => ['required', 'string', 'max:100'],
@@ -230,16 +364,31 @@ class TaiKhoanController extends Controller
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan,email,'.$id],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan,phone,'.$id],
         'password' => [ 'confirmed'],
+        'hinhanh' => ['nullable','image','max:1024'],
         ]);
+         if($request->hasFile('hinhanh'))
+       {
+            $orm=TaiKhoan::find($id);
+            Storage::delete($orm->hinhanh);
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_doanhnghiep', $request->file('hinhanh'), $fileName);
 
+       }
         $orm = TaiKhoan::find($id);
+        $orm->tinh_id = $request->tinh_id;
+        $orm->huyen_id = $request->huyen_id;
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->doanhnghiep_id = $request->doanhnghiep_id;
         $orm->chucvu_id = $request->chucvu_id;
         $orm->name = $request->name;
-        $orm->username = Str::before($request->email, '@');
+        $orm->username = $request->username;
         $orm->email = $request->email;
         $orm->phone = $request->phone;
         if(!empty($request->password)) $orm->password = Hash::make($request->password);
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
         return redirect()->route('admin.taikhoan_doanhnghiep');
@@ -249,7 +398,7 @@ class TaiKhoanController extends Controller
     {
         $orm = TaiKhoan::find($id);
         $orm->delete();
-
+        Storage::delete($orm->hinhanh);
         return redirect()->route('admin.taikhoan_doanhnghiep');
     }
 }

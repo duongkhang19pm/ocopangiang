@@ -45,16 +45,23 @@
 		                             <td class="align-middle">{{ $loop->iteration }}</td>
 		                             <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh}}" height="100" width="150"></td>
 		                             <td class="align-middle">
-		                             	Doanh Nghiệp: {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>
-		                             	Nhóm Sản Phẩm: {{ $value->NhomSanPham->tennhom }}<br/>
-		                             	Loại Sản Phẩm: {{ $value->LoaiSanPham->tenloai }}<br/>
-		                             	Tên Sản Phẩm :{{ $value->tensanpham }}<br/>
-		                             	Nguyên Liệu :{{ $value->nguyenlieu }}<br/>
-		                             	Đơn Giá :{{ number_format($value->dongia) }} VNĐ<br/>
-		                             	Số Lượng : {{ $value->soluong }}<br/>
-		                             	Hạn Sử Dụng : {{ $value->hansudung }}<br/>
-		                             	Hạn Sử Dụng Sau Khi Mở Hộp : {{ $value->hansudungsaumohop }}<br/>
-		                             	Phân Hạng : @if( $value->PhanHang->tenphanhang  == 1)
+		                             	<strong >Tên Sản Phẩm: </strong> <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}">{{ $value->tensanpham }}</a><br/>
+		                             	<strong>Doanh Nghiệp: </strong> {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>
+		                             	<strong>Nhóm Sản Phẩm: </strong>{{ $value->NhomSanPham->tennhom }}<br/>
+		                             	<strong>Loại Sản Phẩm: </strong>{{ $value->LoaiSanPham->tenloai }}<br/>
+		                             	<strong>Nguyên Liệu: </strong>{{ $value->nguyenlieu }}<br/>
+		                             	<strong>Tiêu Chuẩn: </strong>{{ $value->tieuchuan }}<br/>
+		                             	<strong>Điều Kiện Lưu Trữ :</strong>{{ $value->dieukienluutru }}<br/>
+		                             	<strong>Điều Kiện Vận Chuyển: </strong>{{ $value->dieukienvanchuyen }}<br/>
+		                             	<strong>Khối Lượng Riêng: </strong>{{ $value->khoiluongrieng }}<br/>
+		                             	<strong>Đơn Giá: </strong>{{ number_format($value->dongia) }} VNĐ<br/>
+		                             	<strong>Số Lượng: </strong>{{ $value->soluong }}<br/>
+		                             	<strong>Đơn Vị Tính: </strong>{{ $value->DonViTinh->tendonvitinh }}<br/>
+		                             	<strong>Quy Cách Đóng Gói: </strong>{{ $value->QuyCach->tenquycach }}<br/>
+		                             	<strong>Hạn Sử Dụng: </strong>{{ $value->hansudung }}<br/>
+		                             	<strong>Hạn Sử Dụng Sau Khi Mở Hộp :</strong> {{ $value->hansudungsaumohop }}<br/>
+		                             	<strong>Phân Hạng :</strong> 
+		                             	@if( $value->PhanHang->tenphanhang  == 1)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star "></span>

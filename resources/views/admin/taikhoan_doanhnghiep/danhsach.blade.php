@@ -40,10 +40,9 @@
                           <tr>
                            
                             <th >#</th>
-                            <th >Họ Và Tên</th>
-		                        <th >Tên Đăng Nhập</th>
-                            <th >Email</th>
-                            <th >Điện Thoại</th>
+                            <th >Hình Ảnh</th>
+                            <th >Thông Tin</th>
+		                        
                             <th >Quyền Hạn</th>
                             <th>Doanh Nghiệp</th>
                             <th>Chức Vụ</th>
@@ -59,10 +58,14 @@
 	                          <tr>
 	                            
 	                            <td class="align-middle">{{ $loop->iteration }}</td>
-                              <td class="align-middle"> {{ $value->name }} </td>
-	                            <td class="align-middle"> {{ $value->username }} </td>
-	                            <td class="align-middle"> {{ $value->email }} </td>
-	                             <td class="align-middle"> {{ $value->phone }} </td>
+                               <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" height="90" width="100"> </td>
+                              <td class="align-middle"> 
+                                Họ Và Tên: {{ $value->name }} <br/>
+                               Địa Chỉ: {{ $value->tinh->tentinh ?? 'N/A'}} - {{ $value->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
+                               Email: {{ $value->email }} <br/>
+                               Điện Thoại: {{ $value->phone }}<br/>
+                               Tên Đăng Nhập: {{ $value->username }} 
+                                 </td>
                               <td class="align-middle"><span class="badge badge-pill badge-success">Nhân Viên Doanh Nghiệp</span></td>
                               <td class="align-middle">{{ $value->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</td>
                                <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>

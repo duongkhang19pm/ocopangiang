@@ -15,9 +15,13 @@ class CreateTaiKhoansTable extends Migration
     {
         Schema::create('taikhoan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tinh_id')->nullable()->constrained('tinh');
+            $table->foreignId('huyen_id')->nullable()->constrained('huyen');
+            $table->foreignId('xa_id')->nullable()->constrained('xa');
             $table->foreignId('donviquanly_id')->nullable()->constrained('donviquanly');
             $table->foreignId('doanhnghiep_id')->nullable()->constrained('doanhnghiep');
             $table->foreignId('chucvu_id')->nullable()->constrained('chucvu');
+            $table->string('tenduong')->nullable();
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
@@ -26,6 +30,7 @@ class CreateTaiKhoansTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('hinhanh')->nullable();
             $table->tinyInteger('kichhoat')->default(0);
             $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();

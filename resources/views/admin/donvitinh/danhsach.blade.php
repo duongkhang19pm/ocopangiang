@@ -16,12 +16,12 @@
                     </li>
                   </ol>
                 </nav>
-                <a type="button" href="{{route('admin.taikhoan_admin.them')}}" class="btn btn-success btn-floated">
+                <a type="button" href="{{route('admin.donvitinh.them')}}" class="btn btn-success btn-floated">
                   <i class="fa fa-plus"></i>
                 </a>
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Tài Khoản Quản Lý </h1>
+                  <h1 class="page-title mr-sm-auto">Đơn Vị Tính</h1>
                 </div>
             <!-- /title and toolbar -->
           </header>
@@ -40,48 +40,26 @@
                           <tr>
                            
                             <th >#</th>
-                            <th >Hình Ảnh</th>
-                            <th >Thông Tin</th>
-		                        
-                            
-                            <th >Quyền Hạn</th>
-                            <th >Tình Trạng</th>
+                             <th >Tên đơn vị tính</th>
                             <th style="width:100px; min-width:100px;"> &nbsp; </th>
                           </tr>
                         </thead>
                         <!-- /thead -->
                         <!-- tbody -->
                         <tbody>
-	                        @foreach($taikhoan as $value)
+	                        @foreach($donvitinh as $value)
 	                          <!-- tr -->
 	                          <tr>
 	                            
 	                            <td class="align-middle">{{ $loop->iteration }}</td>
-                              <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" height="90" width="100"> </td>
-                              <td class="align-middle"> 
-                                Họ Và Tên: {{ $value->name }} <br/>
-                               Địa Chỉ: {{ $value->tinh->tentinh ?? 'N/A'}} - {{ $value->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
-                               Email: {{ $value->email }} <br/>
-                               Điện Thoại: {{ $value->phone }}<br/>
-                               Tên Đăng Nhập: {{ $value->username }} 
-                                 </td>
-	                            
-                               <td class="align-middle"><span class="badge badge-pill badge-danger">Quản trị</span></td>
-
-                               <td class="align-middle">
-                                @if($value->kichhoat == 0)
-                                <a href="#"></a> 
-                                <span class="badge badge-pill badge-info">Đang sử dụng</span>
-                                @else
-                                <a href="#"></a> <span class="badge badge-pill badge-warning">Bị khóa</span>
-                                @endif
-                                </td>
+	                            <td class="align-middle"> {{ $value->tendonvitinh }} </td>
+	                       
 	                            <td class="align-middle text-right">
-	                              <a href="{{ route('admin.taikhoan_admin.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+	                              <a href="{{ route('admin.donvitinh.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 	                                <i class="fa fa-pencil-alt"></i>
 	                                <span class="sr-only">Edit</span>
 	                              </a>
-	                               <a   href="{{ route('admin.taikhoan_admin.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+	                               <a   href="{{ route('admin.donvitinh.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
                                       <i class="far fa-trash-alt"></i>
                                       <span class="sr-only">Remove</span>
                                     </a>
@@ -97,7 +75,7 @@
                       <!-- /.table -->
                     </div>
                       <ul class="pagination justify-content-center mt-4">
-                     
+                       {{ $donvitinh->links() }}
                      </ul>
                   </div>
                 </section>

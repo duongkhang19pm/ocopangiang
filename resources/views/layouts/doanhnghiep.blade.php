@@ -105,7 +105,7 @@
               <div class="dropdown d-none d-md-flex">
                 <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="user-avatar user-avatar-md">
-                    <img src="{{ asset('public/assets/images/profile.jpg') }}" />
+                    <img src="{{env('APP_URL').'/storage/app/'.Auth::user()->hinhanh  }}" />
                   </span>
                   <span class="account-summary pr-lg-4 d-none d-lg-block">
                     <span class="account-name">{{ Auth::user()->name }}</span>
@@ -139,7 +139,7 @@
             <!-- .btn-account -->
             <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
               <span class="user-avatar user-avatar-lg">
-                <img src="assets/images/avatars/profile.jpg" alt="">
+                <img src="{{env('APP_URL').'/storage/app/'.Auth::user()->hinhanh  }}" />
               </span>
               <span class="account-icon">
                 <span class="fa fa-caret-down fa-lg"></span>

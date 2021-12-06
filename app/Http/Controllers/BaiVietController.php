@@ -17,7 +17,8 @@ class BaiVietController extends Controller
     }
     public function getDanhSach()
     {
-        $baiviet = BaiViet::paginate(10);
+        $iddoanhnghiep = Auth::user()->doanhnghiep->id;
+        $baiviet = BaiViet::where('doanhnghiep_id', $iddoanhnghiep)->get();
         return view('doanhnghiep.baiviet.danhsach',compact('baiviet'));
     }
     public function getThem()
@@ -33,8 +34,8 @@ class BaiVietController extends Controller
         $this->validate($request, [
             'chude_id' => ['required'],
             'tieude' => ['required', 'string', 'max:191','unique:baiviet'],
-            'tomtat' => ['nullable', 'string', 'max:191'],
-            'noidung' => ['required', 'string', 'max:191'],
+            'tomtat' => ['nullable', 'string'],
+            'noidung' => ['required', 'string'],
 
         ]);
 

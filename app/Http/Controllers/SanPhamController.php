@@ -8,6 +8,8 @@ use App\Models\NhomSanPham;
 use App\Models\LoaiSanPham;
 use App\Models\DoanhNghiep;
 use App\Models\PhanHang;
+use App\Models\DonViTinh;
+use App\Models\QuyCach;
 use Str;
 use File;
 use Storage;
@@ -28,26 +30,36 @@ class SanPhamController extends Controller
     public function getThem()
     {
         $nhomsanpham =NhomSanPham::all();
-       $phanhang =PhanHang::all();
+        $donvitinh =DonViTinh::all();
+        $phanhang =PhanHang::all();
         $doanhnghiep =DoanhNghiep::all();
-        return view('doanhnghiep.sanpham.them',compact('nhomsanpham','doanhnghiep','phanhang'));
+        return view('doanhnghiep.sanpham.them',compact('nhomsanpham','donvitinh','doanhnghiep','phanhang'));
     }
      public function getLoai(Request $request)
     {
         $loai = LoaiSanPham::where("nhomsanpham_id", $request->nhomsanpham_id)->pluck("tenloai", "id");
         return response()->json($loai);
     }
-
+     public function getQuyCach(Request $request)
+    {
+        $quycach = QuyCach::where("donvitinh_id", $request->donvitinh_id)->pluck("tenquycach", "id");
+        return response()->json($quycach);
+    }
     public function postThem(Request $request)
     {
         $this->validate($request,[
             'nhomsanpham_id' => ['required'],
             'loaisanpham_id'=>['required'],
-          
+            'donvitinh_id'=>['required'],
+            'quycach_id'=>['required'],
             'phanhang_id'=>['required'],
             
             'tensanpham'=>['required','string','max:191','unique:sanpham'],
-            'nguyenlieu'=>['required','string','max:191'],
+            'nguyenlieu'=>['nullable','string','max:191'],
+            'tieuchuan'=>['nullable','string','max:191'],
+            'dieukienvanchuyen'=>['nullable','string','max:191'],
+            'dieukienluutru'=>['nullable','string','max:191'],
+            'khoiluongrieng'=>['required','string','max:191'],
             'soluong'=>['required','numeric'],
             'dongia'=>['required','numeric'],
             'hansudung'=>['nullable','string','max:191'],
@@ -72,11 +84,17 @@ class SanPhamController extends Controller
         $orm = new SanPham();
         $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
+        $orm->donvitinh_id = $request->donvitinh_id;
+        $orm->quycach_id = $request->quycach_id;
         $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
         $orm->phanhang_id = $request->phanhang_id;
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
         $orm->nguyenlieu = $request->nguyenlieu;
+        $orm->tieuchuan = $request->tieuchuan;
+        $orm->dieukienvanchuyen = $request->dieukienvanchuyen;
+        $orm->dieukienluutru = $request->dieukienluutru;
+        $orm->khoiluongrieng = $request->khoiluongrieng;
         $orm->soluong = $request->soluong;
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;
@@ -91,21 +109,28 @@ class SanPhamController extends Controller
     {
         $sanpham = SanPham::find($id);
         $nhomsanpham=NhomSanPham::all();
+        $donvitinh=DonViTinh::all();
+        $quycach=QuyCach::all();
         $loaisanpham=LoaiSanPham::all();
         $doanhnghiep =DoanhNghiep::all();
          $phanhang =PhanHang::all();
-        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','phanhang','doanhnghiep'));
+        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','donvitinh','quycach','phanhang','doanhnghiep'));
     }
     public function postSua(Request $request , $id)
     {
         $this->validate($request,[
              'nhomsanpham_id' => ['required'],
             'loaisanpham_id'=>['required'],
-            
+             'donvitinh_id'=>['required'],
+              'quycach_id'=>['required'],
             'phanhang_id'=>['required'],
             
             'tensanpham'=>['required','string','max:191','unique:sanpham,tensanpham,'.$id],
-            'nguyenlieu'=>['required','string','max:191'],
+           'nguyenlieu'=>['nullable','string','max:191'],
+            'tieuchuan'=>['nullable','string','max:191'],
+            'dieukienvanchuyen'=>['nullable','string','max:191'],
+            'dieukienluutru'=>['nullable','string','max:191'],
+            'khoiluongrieng'=>['required','string','max:191'],
             'soluong'=>['required','numeric'],
             'dongia'=>['required','numeric'],
             'hansudung'=>['nullable','string','max:191'],
@@ -129,11 +154,17 @@ class SanPhamController extends Controller
         $orm = SanPham::find($id);
          $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
+        $orm->donvitinh_id = $request->donvitinh_id;
+        $orm->quycach_id = $request->quycach_id;
         $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
         $orm->phanhang_id = $request->phanhang_id;
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
         $orm->nguyenlieu = $request->nguyenlieu;
+        $orm->tieuchuan = $request->tieuchuan;
+        $orm->dieukienvanchuyen = $request->dieukienvanchuyen;
+        $orm->dieukienluutru = $request->dieukienluutru;
+        $orm->khoiluongrieng = $request->khoiluongrieng;
         $orm->soluong = $request->soluong;
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;

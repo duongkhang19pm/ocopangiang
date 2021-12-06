@@ -13,6 +13,14 @@ class SanPham extends Model
     // public $incrementing = false;
     // protected $keyType = 'string';
 
+    public function DonViTinh()
+    {
+    return $this->belongsTo(DonViTinh::class, 'donvitinh_id', 'id');
+    }
+    public function QuyCach()
+    {
+    return $this->belongsTo(QuyCach::class, 'quycach_id', 'id');
+    }
     public function NhomSanPham()
     {
     return $this->belongsTo(NhomSanPham::class, 'nhomsanpham_id', 'id');

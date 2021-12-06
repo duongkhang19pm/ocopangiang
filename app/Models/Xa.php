@@ -27,4 +27,8 @@ class Xa extends Model
     {
         return $this->hasMany(NhanVien::class, 'xa_id','id');
     }
+    public function TaiKhoan()
+    {
+        return $this->hasMany(TaiKhoan::class, 'xa_id','id');
+    }
 }

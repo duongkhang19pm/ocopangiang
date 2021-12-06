@@ -20,9 +20,62 @@
               <div class="table-responsive">
 
                 <!-- form .needs-validation -->
-                <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_donviquanly.sua',['id'=> $taikhoan->id]) }}" method="post">
+                <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_donviquanly.sua',['id'=> $taikhoan->id]) }}" method="post" enctype="multipart/form-data">
                   @csrf
-
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="tinh">Tỉnh/Thành Phố
+                            <abbr title="Required">*</abbr>
+                          </label>
+                          <select class="custom-select d-block w-100 @error('tinh_id') is-invalid @enderror" id="tinh_id" name="tinh_id" required>
+                            <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
+                             @foreach($tinh as $value)
+                                <option value="{{ $value->id }}" {{ ($taikhoan->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
+                             @endforeach
+                          </select>
+                          <div class="invalid-feedback">Vui lòng chọn tỉnh/thành phố . </div>
+                           @error('tinh_id')
+                                <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                      </div>
+                      <div class="col-md-3">
+                              <label for="huyen">Quận/Huyện
+                                <abbr title="Required">*</abbr>
+                              </label>
+                              <select class="custom-select d-block w-100 @error('huyen_id') is-invalid @enderror" id="huyen_id" name="huyen_id" required>
+                                
+                                 @foreach($huyen as $value)
+                                    <option value="{{ $value->id }}" {{ ($taikhoan->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
+                                 @endforeach
+                              </select>
+                              <div class="invalid-feedback">Vui lòng chọn quận/huyện . </div>
+                               @error('huyen_id')
+                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                @enderror
+                      </div>
+                      <div class="col-md-3">
+                              <label for="xa">Xã/Phường
+                                <abbr title="Required">*</abbr>
+                              </label>
+                              <select class="custom-select d-block w-100 @error('xa_id') is-invalid @enderror" id="xa_id" name="xa_id" required>
+                                @foreach($xa as $value)
+                                    <option value="{{ $value->id }}" {{ ($taikhoan->xa_id == $value->id) ? 'selected' : '' }}>{{ $value->tenxa }}</option>
+                                 @endforeach
+                              </select>
+                              <div class="invalid-feedback">Vui lòng chọn xã/phường . </div>
+                               @error('xa_id')
+                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                @enderror
+                      </div>
+                      <div class="col-md-3">
+                          <label for="tenduong">Số Đường<span class="text-danger font-weight-bold">*</span></label>
+                          <input type="text" class="form-control @error('tenduong') is-invalid @enderror" id="tenduong" name="tenduong" value="{{ $taikhoan->tenduong }}" placeholder="Tên Đường/Số Nhà" required />
+                              
+                            @error('tenduong')
+                              <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                      </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-6">
                     <label for="donviquanly_id">Đơn vị quản lý <abbr title="Bắt buộc nhập">*</abbr></label>
@@ -71,7 +124,17 @@
                   </div>
 
                   
-                  
+                  <div class="col-md-6">
+                     <label class="form-label" for="hinhanh">Hình ảnh đại diện</label>
+                     @if(!empty($taikhoan->hinhanh))
+                         <img class="d-block rounded" src="{{env('APP_URL').'/storage/app/'.$taikhoan->hinhanh}}" width="100" />
+                         <span class="d-block small text-danger">Bỏ trống nếu muốn giữ nguyên ảnh cũ.</span>
+                     @endif
+                    <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ $taikhoan->hinhanh }}" />
+                     @error('hinhanh')
+                        <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                     @enderror
+                 </div>
                     
                    <div class="mb-3 form-check">
                       <input class="form-check-input" type="checkbox" id="change_password_checkbox" name="change_password_checkbox" />
@@ -152,5 +215,73 @@
       });
     });
   </script>
+<script>
+        $(document).ready(function(){
+            // when country dropdown changes
+            $('#tinh_id').change(function() {
 
+                var tinhID = $(this).val();
+
+                if (tinhID) {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('admin.taikhoan_admin.getHuyen') }}?tinh_id=" + tinhID,
+                        success: function(res) {
+
+                            if (res) {
+
+                                $("#huyen_id").empty();
+                                $("#huyen_id").append('<option>--Chọn Quận/Huyện--</option>');
+                                $.each(res, function(key, value) {
+                                    $("#huyen_id").append('<option value="' + key + '">' + value +
+                                        '</option>');
+                                });
+
+                            } else {
+
+                                $("#huyen_id").empty();
+                            }
+                        }
+                    });
+                } else {
+
+                    $("#huyen_id").empty();
+                    $("#xa_id").empty();
+                }
+            });
+
+            // when state dropdown changes
+            $('#huyen_id').on('change', function() {
+
+                var huyenID = $(this).val();
+
+                if (huyenID) {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('admin.taikhoan_admin.getXa') }}?huyen_id=" + huyenID,
+                        success: function(res) {
+
+                            if (res) {
+                                $("#xa_id").empty();
+                                $("#xa_id").append('<option>--Chọn Xã/Phường--</option>');
+                                $.each(res, function(key, value) {
+                                    $("#xa_id").append('<option value="' + key + '">' + value +
+                                        '</option>');
+                                });
+
+                            } else {
+
+                                $("#xa_id").empty();
+                            }
+                        }
+                    });
+                } else {
+
+                    $("#xa_id").empty();
+                }
+            });
+        });
+</script>
 @endsection

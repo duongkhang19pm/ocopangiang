@@ -106,7 +106,7 @@
               <div class="dropdown d-none d-md-flex">
                 <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="user-avatar user-avatar-md">
-                    <img src="{{ asset('public/assets/images/profile.jpg') }}" />
+                    <img src="{{env('APP_URL').'/storage/app/'.Auth::user()->hinhanh  }}" />
                   </span>
                   <span class="account-summary pr-lg-4 d-none d-lg-block">
                     <span class="account-name">{{ Auth::user()->name }}</span>
@@ -140,7 +140,7 @@
             <!-- .btn-account -->
             <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
               <span class="user-avatar user-avatar-lg">
-                <img src="assets/images/avatars/profile.jpg" alt="">
+                <img src="{{env('APP_URL').'/storage/app/'.Auth::user()->hinhanh  }}" />
               </span>
               <span class="account-icon">
                 <span class="fa fa-caret-down fa-lg"></span>
@@ -255,6 +255,9 @@
                   </a>
                   <!-- child menu -->
                   <ul class="menu">
+                    <li class="menu-item">
+                      <a href="{{route('admin.donvitinh')}}" class="menu-link">Đơn Vị Tính</a>
+                    </li>
                      <li class="menu-item">
                       <a href="{{route('admin.tinhtrang')}}" class="menu-link">Tình Trạng</a>
                     </li>
@@ -264,8 +267,12 @@
                      <li class="menu-item">
                       <a href="{{route('admin.nhomsanpham')}}" class="menu-link">Nhóm sản phẩm</a>
                     </li>
+                    <hr/>
                     <li class="menu-item">
                       <a href="{{route('admin.loaisanpham')}}" class="menu-link">Loại sản phẩm</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="{{route('admin.quycach')}}" class="menu-link">Quy Cách Đóng Gói</a>
                     </li>
                   </ul>
                  

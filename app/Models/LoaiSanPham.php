@@ -9,6 +9,9 @@ class LoaiSanPham extends Model
 {
     use HasFactory;
     protected $table = 'loaisanpham';
+    protected $fillable = [
+        'nhomsanpham_id','tenloai','tenloai_slug',
+    ];
     public function NhomSanPham()
     {
         return $this->belongsTo(NhomSanPham::class, 'nhomsanpham_id', 'id');

@@ -19,7 +19,7 @@ class TaiKhoan extends Authenticatable
      */
     protected $table = 'taikhoan';
     protected $fillable = [
-        'donviquanly_id', 'doanhnghiep_id', 'name', 'username', 'email','phone', 'privilege', 'password',
+        'donviquanly_id', 'doanhnghiep_id','chucvu_id','tinh_id','huyen_id','xa_id', 'name', 'username', 'email','phone', 'privilege', 'password',
     ];
 
     /**
@@ -42,6 +42,18 @@ class TaiKhoan extends Authenticatable
     public function DoanhNghiep()
     {
         return $this->belongsTo(DoanhNghiep::class, 'doanhnghiep_id', 'id');
+    }
+    public function Tinh()
+    {
+        return $this->belongsTo(Tinh::class, 'tinh_id', 'id');
+    }
+    public function Huyen()
+    {
+        return $this->belongsTo(Huyen::class, 'huyen_id', 'id');
+    }
+    public function Xa()
+    {
+        return $this->belongsTo(Xa::class, 'xa_id', 'id');
     }
     /**
      * The attributes that should be cast.
