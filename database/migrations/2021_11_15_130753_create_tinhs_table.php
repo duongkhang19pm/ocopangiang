@@ -16,6 +16,7 @@ class CreateTinhsTable extends Migration
        Schema::create('tinh', function (Blueprint $table) {
              $table->id();
              $table->string('tentinh');
+             
              $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();
              $table->engine = 'InnoDB';

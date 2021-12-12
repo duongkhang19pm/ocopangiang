@@ -1,26 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
+
+@section('pagetitle')
+  Khách Hàng
+@endsection
 
 @section('content')
-
-<div class="container">
-    <div class="card mt-5">
-        <div class="card-header">
-            <h4 class="card-title">Single Layout</h4>
-        </div>
-        <div class="card-body">
-           @guest
-            <p class="lead">
-                  <span class="font-weight-bold">Chào Bạn.</span>
-                  <span class="d-block text-muted">Vui Lòng Đăng Nhập!.</span>
-            </p>
-         @else
-                <p class="lead">
-                  <span class="font-weight-bold">Hi, {{ Auth::user()->name }}.</span>
-                  <span class="d-block text-muted">Chào mừng đền trang quản trị.</span>
-                </p>
-
-         @endguest
-        </div>
+  <div class="page">
+    <div class="page-inner">
+      <header class="page-title-bar">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang chủ</a>
+            </li>
+          </ol>
+        </nav>
+        <h1 class="page-title">Quản trị hệ thống</h1>
+      </header>
+      <div class="page-section">
+        <h3>Trang chủ Quản Trị Viên đang cập nhật!</h3>
+      </div>
     </div>
-</div>
+  </div>
 @endsection

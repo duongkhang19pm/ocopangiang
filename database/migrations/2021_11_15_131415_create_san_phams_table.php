@@ -15,12 +15,9 @@ class CreateSanPhamsTable extends Migration
     {
         Schema::create('sanpham', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nhomsanpham_id')->constrained('nhomsanpham');
             $table->foreignId('loaisanpham_id')->constrained('loaisanpham');
-            $table->foreignId('donvitinh_id')->constrained('donvitinh');
             $table->foreignId('quycach_id')->constrained('quycach');
             $table->foreignId('doanhnghiep_id')->constrained('doanhnghiep');
-            $table->foreignId('phanhang_id')->constrained('phanhang');
             $table->string('tensanpham');
             $table->string('tensanpham_slug');
             $table->string('nguyenlieu')->nullable();

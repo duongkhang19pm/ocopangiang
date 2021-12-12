@@ -12,6 +12,7 @@ class Huyen extends Model
     protected $fillable = [
      'tinh_id',
      'tenhuyen',
+     'phivanchuyen',
      ];
 
     public function Tinh()
@@ -34,5 +35,9 @@ class Huyen extends Model
     public function TaiKhoan()
     {
         return $this->hasMany(TaiKhoan::class, 'huyen_id','id');
+    }
+    public function DonHang()
+    {
+        return $this->hasMany(DonHang::class, 'huyen_id','id');
     }
 }

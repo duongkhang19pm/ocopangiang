@@ -13,6 +13,7 @@ class HuyenImport implements ToModel,WithHeadingRow
          return new Huyen([
         'tinh_id' => $row['ma_tinh'],
          'tenhuyen' => $row['ten_huyen'],
+         'phivanchuyen' => $row['phi_van_chuyen'],
          
          ]);
      }

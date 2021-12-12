@@ -38,6 +38,7 @@
                             <th >#</th>
                             <th>Tỉnh/Thành Phố</th>
                              <th >Tên Quận/Huyện</th> 
+                              <th >Phí Vận Chuyển</th> 
                         
                           </tr>
                         </thead>
@@ -51,6 +52,7 @@
 	                            <td class="align-middle">{{ $loop->iteration }}</td>
                               <td class="align-middle"> {{ $value->Tinh->tentinh }} </td>
 	                            <td class="align-middle"> {{ $value->tenhuyen }} </td>
+                              <td class="align-middle"> {{ $value->phivanchuyen }} </td>
 	    
 	                          </tr>
                           <!-- /tr -->

@@ -8,16 +8,16 @@
   <meta name="author" content="AGChain Lab." />
   <meta name="theme-color" content="#3063A0" />
   <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.short_name', 'Laravel') }}</title>
-  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/assets/apple-touch-icon.png') }}" />
-  <link rel="shortcut icon" href="{{ asset('public/assets/favicon.ico') }}" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/Image/logo.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('public/Image/logo.ico') }}" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" />
-  <link rel="stylesheet" href="{{ asset('public/assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('public/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('public/assets/vendor/flatpickr/flatpickr.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/theme.min.css') }}" data-skin="default" />
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/theme-dark.min.css') }}" data-skin="dark" />
+  <link rel="stylesheet" href="{{ asset('public/backend/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/vendor/@fortawesome/fontawesome-pro/css/all.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/vendor/flatpickr/flatpickr.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/theme.min.css') }}" data-skin="default" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/theme-dark.min.css') }}" data-skin="dark" />
   @yield('css')
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/custom.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/custom.css') }}" />
   <script>
     var skin = localStorage.getItem('skin') || 'default';
     var isCompact = JSON.parse(localStorage.getItem('hasCompactMenu'));
@@ -180,7 +180,7 @@
               <ul class="menu">
                 <!-- .menu-item -->
                 <li class="menu-item has-active">
-                  <a href="{{route('home')}}" class="menu-link">
+                  <a href="{{route('admin.home')}}" class="menu-link">
                     <span class="menu-icon fas fa-home"></span>
                     <span class="menu-text">Trang Chủ</span>
                   </a>
@@ -244,6 +244,9 @@
                      <li class="menu-item">
                       <a href="{{route('admin.mohinhkinhdoanh')}}" class="menu-link">Mô Hình Kinh Doanh</a>
                     </li>
+                    <li class="menu-item">
+                      <a href="{{route('admin.hinhthucthanhtoan')}}" class="menu-link">Hình Thức Thanh Toán</a>
+                    </li>
                   </ul>
                  
                 </li>
@@ -289,9 +292,7 @@
                     <li class="menu-item">
                       <a href="{{route('admin.donviquanly')}}" class="menu-link">Đơn Vị Quản Lý</a>
                     </li>
-                    <li class="menu-item">
-                      <a href="{{route('admin.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
-                    </li>
+                    
                   </ul>
                  
                 </li>
@@ -310,8 +311,9 @@
                     <li class="menu-item">
                       <a href="{{route('admin.taikhoan_donviquanly')}}" class="menu-link">Tài Khoản Đơn Vị Quản Lý</a>
                     </li>
+                 
                     <li class="menu-item">
-                      <a href="{{route('admin.taikhoan_doanhnghiep')}}" class="menu-link">Tài Khoản Doanh Nghiệp</a>
+                      <a href="{{route('admin.taikhoan_khachhang')}}" class="menu-link">Tài Khoản Khách Hàng</a>
                     </li>
                   
                   </ul>
@@ -362,17 +364,17 @@
     </main>
       <!-- /.app-main -->
     </div>
-    <script src="{{ asset('public/assets/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/popper.js/umd/popper.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/pace-progress/pace.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/stacked-menu/js/stacked-menu.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/flatpickr/flatpickr.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/chart.js/Chart.min.js') }}"></script>
-  <script src="{{ asset('public/assets/javascript/theme.min.js') }}"></script>
-  <script src="{{ asset('public/assets/javascript/main.min.js') }}"></script>
+    <script src="{{ asset('public/backend/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/popper.js/umd/popper.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/pace-progress/pace.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/stacked-menu/js/stacked-menu.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/flatpickr/flatpickr.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/chart.js/Chart.min.js') }}"></script>
+  <script src="{{ asset('public/backend/javascript/theme.min.js') }}"></script>
+  <script src="{{ asset('public/backend/javascript/main.min.js') }}"></script>
   @yield('javascript')
   </body>
 </html>

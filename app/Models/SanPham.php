@@ -12,22 +12,29 @@ class SanPham extends Model
     // protected $primaryKey = 'id';
     // public $incrementing = false;
     // protected $keyType = 'string';
+    protected $fillable = [
+        'loaisanpham_id',
+        'quycach_id',
+        'doanhnghiep_id',
+        'tensanpham',
+        'tensanpham_slug',
+        'nguyenlieu',
+        'tieuchuan',
+        'dieukienluutru',
+        'dieukienvanchuyen',
+        'khoiluongrieng',
+        'soluong',
+        'dongia',
+        'hansudung',
+        'hansudungsaumohop',
+        'hinhanh',
+        'motasanpham',
 
-    public function DonViTinh()
-    {
-    return $this->belongsTo(DonViTinh::class, 'donvitinh_id', 'id');
-    }
+    ];
+  
     public function QuyCach()
     {
     return $this->belongsTo(QuyCach::class, 'quycach_id', 'id');
-    }
-    public function NhomSanPham()
-    {
-    return $this->belongsTo(NhomSanPham::class, 'nhomsanpham_id', 'id');
-    }
-    public function PhanHang()
-    {
-    return $this->belongsTo(PhanHang::class, 'phanhang_id', 'id');
     }
     public function LoaiSanPham()
     {
@@ -42,5 +49,9 @@ class SanPham extends Model
     public function DonHang_ChiTiet()
     {
     return $this->hasMany(DonHang_ChiTiet::class, 'sanpham_id', 'id');
+    }
+     public function ChiTiet_PhanHang_SanPham()
+    {
+    return $this->hasMany(ChiTiet_PhanHang_SanPham::class, 'sanpham_id', 'id');
     }
 }

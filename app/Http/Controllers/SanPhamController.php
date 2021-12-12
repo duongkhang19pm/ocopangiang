@@ -14,17 +14,32 @@ use Str;
 use File;
 use Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Imports\SanPhamImport;
+use App\Exports\SanPhamExport;
+use Excel;
 class SanPhamController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
+    // Nhập từ Excel
+     public function postNhap(Request $request)
+     {
+     Excel::import(new SanPhamImport, $request->file('file_excel'));
+     
+     return redirect()->route('doanhnghiep.sanpham');
+     }
+     
+     // Xuất ra Excel
+     public function getXuat()
+     {
+     return Excel::download(new SanPhamExport, 'danh-sach-san-pham.xlsx');
+     }
     public function getDanhSach()
     {
         $iddoanhnghiep = Auth::user()->doanhnghiep->id;
-        $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->get();
+        $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->paginate(10);
         return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
     }
     public function getThem()

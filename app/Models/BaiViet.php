@@ -17,9 +17,9 @@ class BaiViet extends Model
     {
     return $this->belongsTo(ChuDe::class, 'chude_id', 'id');
     }
-    public function DoanhNghiep()
+    public function TaiKhoan()
     {
-    return $this->belongsTo(DoanhNghiep::class, 'doanhnghiep_id', 'id');
+    return $this->belongsTo(TaiKhoan::class, 'taikhoan_id', 'id');
     }
 
     

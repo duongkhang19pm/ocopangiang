@@ -31,4 +31,8 @@ class Xa extends Model
     {
         return $this->hasMany(TaiKhoan::class, 'xa_id','id');
     }
+     public function DonHang()
+    {
+        return $this->hasMany(DonHang::class, 'xa_id','id');
+    }
 }

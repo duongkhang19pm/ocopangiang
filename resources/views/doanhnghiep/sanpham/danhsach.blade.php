@@ -13,9 +13,15 @@
                 <a type="button" href="{{route('doanhnghiep.sanpham.them')}}" class="btn btn-success btn-floated">
                   <i class="fa fa-plus"></i>
                 </a>
+                
          
                 <div class="d-md-flex align-items-md-start">
                   <h1 class="page-title mr-sm-auto"> Sản Phẩm </h1>
+                  <div class="btn-toolbar">
+                    <a type="button" href="{{ route('doanhnghiep.sanpham.xuat') }}" class="btn btn-light" ><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
+                    <a type="button" href="#nhap" class="btn btn-light" data-toggle="modal" data-target="#importModal"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
+                    
+                  </div>
                 </div>
             <!-- /title and toolbar -->
           </header>
@@ -43,7 +49,7 @@
 		                     @foreach($sanpham as $value)
 		                         <tr>
 		                             <td class="align-middle">{{ $loop->iteration }}</td>
-		                             <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh}}" height="100" width="150"></td>
+		                             <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh}}" height="100" width="100"></td>
 		                             <td class="align-middle">
 		                             	<strong >Tên Sản Phẩm: </strong> <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}">{{ $value->tensanpham }}</a><br/>
 		                             	<strong>Doanh Nghiệp: </strong> {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>
@@ -193,7 +199,7 @@
                       <!-- /.table -->
                     </div>
                       <ul class="pagination justify-content-center mt-4">
-                       
+                       {{$sanpham->links()}}
                      </ul>
                   </div>
                 </section>
@@ -205,6 +211,28 @@
   </div>
   <!-- /.page -->
 </div>
-
+<form action="{{ route('doanhnghiep.sanpham.nhap') }}" method="post" enctype="multipart/form-data">
+	 @csrf
+		 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+			 <div class="modal-dialog">
+				 <div class="modal-content">
+					 <div class="modal-header">
+						 <h5 class="modal-title" id="importModalLabel">Nhập từ Excel</h5>
+						 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+					 </div>
+					<div class="modal-body">
+						 <div class="mb-0">
+							 <label for="file_excel" class="form-label">Chọn tập tin Excel</label>
+							 <input type="file" class="form-control" id="file_excel" name="file_excel" required />
+							 </div>
+						 </div>
+					<div class="modal-footer">
+					 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
+					 <button type="submit" class="btn btn-danger"><i class="fal fa-upload"></i> Nhập dữ liệu</button>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+ </form>
 
 @endsection

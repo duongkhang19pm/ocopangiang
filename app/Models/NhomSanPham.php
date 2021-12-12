@@ -16,8 +16,5 @@ class NhomSanPham extends Model
     {
         return $this->hasMany(LoaiSanPham::class, 'nhomsanpham_id','id');
     }
-    public function SanPham()
-    {
-        return $this->hasMany(SanPham::class, 'nhomsanpham_id','id');
-    }
+    
 }

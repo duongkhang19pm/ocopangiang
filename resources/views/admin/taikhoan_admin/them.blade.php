@@ -24,7 +24,35 @@
                 <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_admin.them') }}" method="post" enctype="multipart/form-data">
                   @csrf
                   <!-- .form-group -->
-                   <h4 class="card-title text-center"> Địa Chỉ </h4>
+                   
+                      <div class="row">
+                         <div class="col-md-4">
+                          <label for="name">Họ và tên <abbr title="Bắt buộc nhập">*</abbr></label>
+                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required />
+                          @error('name')
+                            <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
+                          @enderror
+                        </div>
+                          <div class="col-md-4">
+                          <label for="email">Email <abbr title="Bắt buộc nhập">*</abbr></label>
+                          <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required />
+                          @error('email')
+                            <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
+                          @enderror
+                        </div>
+                        
+                    
+                        <div class="col-md-4">
+                          <label for="phone">Điện Thoại <abbr title="Bắt buộc nhập">*</abbr></label>
+                          <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required />
+                          @error('phone')
+                            <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
+                          @enderror
+                        </div>
+                    
+                      </div>
+                      <hr/>
+                      <h4 class="card-title text-center"> Địa Chỉ </h4>
                   <div class="row">
                        <div class="col-md-3">
                           <label for="tinh">Tỉnh/Thành Phố
@@ -75,41 +103,24 @@
                                 @enderror
                           </div>
                     </div>
-                  <div class="row">
-                     <div class="col-md-6">
-                      <label for="name">Họ và tên <abbr title="Bắt buộc nhập">*</abbr></label>
-                      <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required />
-                      @error('name')
-                        <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
-                      @enderror
-                    </div>
-                      <div class="col-md-6">
-                      <label for="email">Email <abbr title="Bắt buộc nhập">*</abbr></label>
-                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required />
-                      @error('email')
-                        <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
-                      @enderror
-                    </div>
-                    
-                  </div>
-                      <hr/>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label for="phone">Điện Thoại <abbr title="Bắt buộc nhập">*</abbr></label>
-                      <input type="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required />
-                      @error('phone')
-                        <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
-                      @enderror
-                    </div>
-                  <div class="col-md-6">
+                     <hr/>
+                     <div class="row">
+                   <div class="col-md-6">
+                         <label class="form-label" for="hinhanh">Hình ảnh </label>
+                         <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ old('hinhanh') }}" />
+                         @error('hinhanh')
+                            <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                         @enderror
+                     </div>
+                       <div class="col-md-6">
                       <label for="username">Tên đăng nhập <abbr title="Bắt buộc nhập">*</abbr></label>
                       <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required />
                       @error('username')
                         <div class="invalid-feedback"><strong><i class="fa fa-exclamation-circle fa-fw"></i> {{ $message }}</strong></div>
                       @enderror
                     </div>
-                  </div>
-                      <hr/>
+                    </div>
+                     <hr/>
                  <div class="row">
                      
                    
@@ -144,14 +155,7 @@
                     </div>
                   </div>
 
-                    
-                   <div class="col-md-6">
-                         <label class="form-label" for="hinhanh">Hình ảnh </label>
-                         <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ old('hinhanh') }}" />
-                         @error('hinhanh')
-                            <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                         @enderror
-                     </div>
+
                   <!-- /.form-row -->
                   <hr class="mb-4">
                  

@@ -17,6 +17,7 @@ class CreateHuyensTable extends Migration
             $table->id();
             $table->foreignId('tinh_id')->constrained('tinh');
             $table->string('tenhuyen');
+            $table->double('phivanchuyen');
             $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();
              $table->engine = 'InnoDB';

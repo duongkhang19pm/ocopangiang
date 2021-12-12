@@ -15,7 +15,7 @@
 						</li>
 					</ol>
 				</nav>
-				<h1 class="page-title">Cán Bộ Đơn Vị Quản Lý</h1>
+				<h1 class="page-title">Đơn Vị Quản Lý  {{ Auth::user()->donviquanly->tendonviquanly }}</h1>
 			</header>
 			<div class="page-section">
 				<h3>Trang chủ Đơn Vị Quản Lý đang cập nhật!</h3>

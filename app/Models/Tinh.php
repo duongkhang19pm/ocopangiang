@@ -29,4 +29,8 @@ class Tinh extends Model
     {
         return $this->hasMany(TaiKhoan::class, 'tinh_id','id');
     }
+     public function DonHang()
+    {
+        return $this->hasMany(DonHang::class, 'tinh_id','id');
+    }
 }

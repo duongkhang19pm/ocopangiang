@@ -13,15 +13,20 @@ use Str;
 use Storage;
 use Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 class DoanhNghiepController extends Controller
 {   
 
-     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function getDanhSach()
     {
-        $doanhnghiep = DoanhNghiep::paginate(10);
-        return view('admin.doanhnghiep.danhsach',compact('doanhnghiep'));
+        $iddonviquanly = Auth::user()->donviquanly->id;
+        $doanhnghiep = DoanhNghiep::where('donviquanly_id', $iddonviquanly)->paginate(10);
+        return view('donviquanly.doanhnghiep.danhsach',compact('doanhnghiep'));
     }
     public function getThem()
     {
@@ -29,7 +34,7 @@ class DoanhNghiepController extends Controller
         $mohinhkinhdoanh = MoHinhKinhDoanh::all();
         $loaihinhkinhdoanh = LoaiHinhKinhDoanh::all();
 
-        return view('admin.doanhnghiep.them',compact('tinh','loaihinhkinhdoanh','mohinhkinhdoanh'));
+        return view('donviquanly.doanhnghiep.them',compact('tinh','loaihinhkinhdoanh','mohinhkinhdoanh'));
     }
 
     public function getHuyen(Request $request)
@@ -74,6 +79,7 @@ class DoanhNghiepController extends Controller
         }
 
         $orm = new DoanhNghiep();
+        $orm->donviquanly_id = Auth::user()->donviquanly->id;
         $orm->tinh_id = $request->tinh_id;
         $orm->huyen_id = $request->huyen_id;
         $orm->xa_id = $request->xa_id;
@@ -93,7 +99,7 @@ class DoanhNghiepController extends Controller
        $orm->vido = $request->vido;
         $orm->save();
 
-        return redirect()->route('admin.doanhnghiep');
+        return redirect()->route('donviquanly.doanhnghiep');
     }
     public function getSua($id)
     {
@@ -103,7 +109,7 @@ class DoanhNghiepController extends Controller
         $xa =Xa::all();
         $mohinhkinhdoanh = MoHinhKinhDoanh::all();
         $loaihinhkinhdoanh = LoaiHinhKinhDoanh::all();
-        return view('admin.doanhnghiep.sua', compact('doanhnghiep', 'tinh','huyen','xa','mohinhkinhdoanh','loaihinhkinhdoanh'));
+        return view('donviquanly.doanhnghiep.sua', compact('doanhnghiep', 'tinh','huyen','xa','mohinhkinhdoanh','loaihinhkinhdoanh'));
 
     }
     public function postSua(Request $request , $id)
@@ -136,6 +142,7 @@ class DoanhNghiepController extends Controller
 
        }
        $orm=DoanhNghiep::find($id);
+        $orm->donviquanly_id = Auth::user()->donviquanly->id;
         $orm->tinh_id = $request->tinh_id;
         $orm->huyen_id = $request->huyen_id;
         $orm->xa_id = $request->xa_id;
@@ -152,13 +159,13 @@ class DoanhNghiepController extends Controller
        $orm->gioithieu = $request->gioithieu;
         $orm->save();
 
-        return redirect()->route('admin.doanhnghiep');
+        return redirect()->route('donviquanly.doanhnghiep');
     }
     public function getXoa($id)
     {
         $orm=DoanhNghiep::find($id);
         $orm->delete();
         Storage::delete($orm->hinhanh);
-          return redirect()->route('admin.doanhnghiep');
+          return redirect()->route('donviquanly.doanhnghiep');
     }
 }

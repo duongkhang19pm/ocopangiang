@@ -29,5 +29,9 @@ class DonViQuanLy extends Model
     {
     return $this->hasMany(TaiKhoan::class, 'donviquanly_id', 'id');
     }
+     public function DoanhNghiep()
+    {
+    return $this->hasMany(DoanhNghiep::class, 'doanhnghiep_id', 'id');
+    }
    
 }

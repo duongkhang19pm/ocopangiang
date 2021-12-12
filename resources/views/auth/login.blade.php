@@ -7,14 +7,14 @@
   <meta name="author" content="AGChain Lab." />
   <meta name="theme-color" content="#3063A0" />
   <title>Đăng nhập - {{ config('app.short_name', 'Laravel') }}</title>
-  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/assets/apple-touch-icon.png') }}" />
-  <link rel="shortcut icon" href="{{ asset('public/assets/favicon.ico') }}" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/backend/apple-touch-icon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('public/Image/logo.ico') }}" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" />
-  <link rel="stylesheet" href="{{ asset('public/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/theme.min.css') }}" data-skin="default" />
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/theme-dark.min.css') }}" data-skin="dark" />
+  <link rel="stylesheet" href="{{ asset('public/backend/vendor/@fortawesome/fontawesome-pro/css/all.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/theme.min.css') }}" data-skin="default" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/theme-dark.min.css') }}" data-skin="dark" />
   @yield('css')
-  <link rel="stylesheet" href="{{ asset('public/assets/stylesheets/custom.css') }}" />
+  <link rel="stylesheet" href="{{ asset('public/backend/stylesheets/custom.css') }}" />
   <script>
     var skin = localStorage.getItem('skin') || 'default';
     var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
@@ -98,7 +98,7 @@
 
       <!-- /.auth-form -->
       <!-- .auth-announcement -->
-     <div id="announcement" class="auth-announcement" style="background-image: url({{ asset('public/assets/images/img-1.png') }});">
+     <div id="announcement" class="auth-announcement" style="background-image: url({{ asset('public/backend/images/img-1.png') }});">
       <div class="announcement-body">
         <h2 class="announcement-title">Hướng dẫn sử dụng phần mềm {{ config('app.short_name', 'Laravel') }}</h2>
         <a href="#huongdan" class="btn btn-warning"><i class="fa fa-fw fa-angle-right"></i> Xem tại đây</a>
@@ -106,17 +106,17 @@
     </div>
 </main>
 
-<script src="{{ asset('public/assets/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/popper.js/umd/popper.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('public/assets/vendor/particles.js/particles.min.js') }}"></script>
+<script src="{{ asset('public/backend/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/popper.js/umd/popper.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/particles.js/particles.min.js') }}"></script>
   <script>
     $(document).on('theme:init', () =>
     {
-      particlesJS.load('announcement', '{{ asset('public/assets/javascript/pages/particles.json') }}');
+      particlesJS.load('announcement', '{{ asset('public/backend/javascript/pages/particles.json') }}');
     });
   </script>
-  <script src="{{ asset('public/assets/javascript/theme.min.js') }}"></script>
+  <script src="{{ asset('public/backend/javascript/theme.min.js') }}"></script>
 
 </body>
 </html>
