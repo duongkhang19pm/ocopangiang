@@ -50,19 +50,7 @@
                                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                                 @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label for="phanhang_id">Phân Hạng<abbr title="Required">*</abbr></label>
-                                <select class="custom-select d-block w-100 @error('phanhang_id') is-invalid @enderror" id="phanhang_id" name="phanhang_id"  required>
-                                    <option value="" >-- Chọn Phân Hạng --</option>
-                                    @foreach($phanhang as $value)
-                                        <option value="{{ $value->id }}">{{ $value->tenphanhang }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">Vui lòng chọn phân hạng . </div>
-                                @error('phanhang_id')
-                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                                @enderror
-                            </div>      
+                                  
                         </div>
                         <hr/>
                         <div class="row">
@@ -187,7 +175,44 @@
                             <label for="motasanpham" class="form-label">Mô Tả Sản Phẩm</label>
                             <textarea class="form-control" id="motasanpham" name="motasanpham"></textarea>
                         </div>
-                      
+                       <div class="col-md-6">
+                          <label for="phanhang_id">Phân Hạng
+                            <abbr title="Required">*</abbr>
+                          </label>
+                          <select class="custom-select d-block w-100 @error('phanhang_id') is-invalid @enderror" id="phanhang_id" name="phanhang_id" required>
+                            <option value="" selected disabled>-- Chọn Phân Hạng --</option>
+                            @foreach ($phanhang as $value)
+                            <option value="{{ $value->id }}">{{ $value->tenphanhang }}</option>
+                        @endforeach
+                          </select>
+                          <div class="invalid-feedback">Vui lòng chọn phân hạng  . </div>
+                           @error('phanhang_id')
+                                <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        </div>
+                 
+                         
+                         
+                    </div>
+                
+                   <div class="row">
+                       <div class="col-md-6">
+                          <label for="ngaybatdau"> Ngày bắt đầu<span class="text-danger font-weight-bold">*</span></label>
+                          <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ old('ngaybatdau')}}" placeholder="mm/dd/yyyy"required />
+                          
+                            @error('ngaybatdau')
+                              <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        </div>
+                          <div class="col-md-6">
+                          <label for="ngayketthuc"> Ngày kết thúc<span class="text-danger font-weight-bold">*</span></label>
+                          <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ old('ngayketthuc')}}" placeholder="mm/dd/yyyy" />
+                          
+                            @error('ngayketthuc')
+                              <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        </div>
+                  </div>
                       <!-- /.form-row -->
                         <hr class="mb-4">
                         <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Thêm</button>

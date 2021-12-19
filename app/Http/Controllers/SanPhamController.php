@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Imports\SanPhamImport;
 use App\Exports\SanPhamExport;
 use Excel;
+use App\Models\ChiTiet_PhanHang_SanPham;
 class SanPhamController extends Controller
 {
     public function __construct()
@@ -38,6 +39,7 @@ class SanPhamController extends Controller
      }
     public function getDanhSach()
     {
+        
         $iddoanhnghiep = Auth::user()->doanhnghiep->id;
         $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->paginate(10);
         return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
@@ -46,7 +48,7 @@ class SanPhamController extends Controller
     {
         $nhomsanpham =NhomSanPham::all();
         $donvitinh =DonViTinh::all();
-        $phanhang =PhanHang::all();
+       $phanhang =PhanHang::all();
         $doanhnghiep =DoanhNghiep::all();
         return view('doanhnghiep.sanpham.them',compact('nhomsanpham','donvitinh','doanhnghiep','phanhang'));
     }
@@ -63,11 +65,11 @@ class SanPhamController extends Controller
     public function postThem(Request $request)
     {
         $this->validate($request,[
-            'nhomsanpham_id' => ['required'],
+           
             'loaisanpham_id'=>['required'],
-            'donvitinh_id'=>['required'],
+           
             'quycach_id'=>['required'],
-            'phanhang_id'=>['required'],
+            
             
             'tensanpham'=>['required','string','max:191','unique:sanpham'],
             'nguyenlieu'=>['nullable','string','max:191'],
@@ -80,6 +82,9 @@ class SanPhamController extends Controller
             'hansudung'=>['nullable','string','max:191'],
             'hansudungsaumohop'=>['nullable','string','max:191'],
             'hinhanh' => ['nullable','image','max:1024'],
+            'phanhang_id'=>['required'],
+            'ngaybatdau'=>['required','date'],
+            'ngayketthuc'=>['nullable','date','after:ngaybatdau'],
 
         ]);
         // up anh
@@ -91,18 +96,18 @@ class SanPhamController extends Controller
              File::isDirectory($doanhnghiep->tendoanhnghiep_slug) or Storage::makeDirectory($doanhnghiep->tendoanhnghiep_slug, 0775);
          
             $extension = $request->file('hinhanh')->extension();
-            $fileName = Str::slug($request->tennhanvien,'-').'.'.$extension;
+            $fileName = Str::slug($request->tensanpham,'-').'.'.$extension;
             // Upload vào thư mục và trả về đường dẫn
             $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
 
         $orm = new SanPham();
-        $orm->nhomsanpham_id = $request->nhomsanpham_id;
+       // $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
-        $orm->donvitinh_id = $request->donvitinh_id;
+        //$orm->donvitinh_id = $request->donvitinh_id;
         $orm->quycach_id = $request->quycach_id;
         $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
-        $orm->phanhang_id = $request->phanhang_id;
+       // $orm->phanhang_id = $request->phanhang_id;
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
         $orm->nguyenlieu = $request->nguyenlieu;
@@ -117,6 +122,16 @@ class SanPhamController extends Controller
         if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
+
+
+        $ct = new ChiTiet_PhanHang_SanPham();
+        $ct->phanhang_id = $request->phanhang_id;
+        $ct->sanpham_id = $orm->id;
+        $ct->ngaybatdau = $request->ngaybatdau;
+        $ct->ngayketthuc = $request->ngayketthuc;
+        $ct->save();
+
+
         return redirect()->route('doanhnghiep.sanpham');
 
     }
@@ -124,19 +139,21 @@ class SanPhamController extends Controller
     {
         $sanpham = SanPham::find($id);
         $nhomsanpham=NhomSanPham::all();
+        $loai= LoaiSanPham::where('id',$sanpham->loaisanpham_id);
         $donvitinh=DonViTinh::all();
         $quycach=QuyCach::all();
         $loaisanpham=LoaiSanPham::all();
         $doanhnghiep =DoanhNghiep::all();
-         $phanhang =PhanHang::all();
-        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','donvitinh','quycach','phanhang','doanhnghiep'));
+        $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$sanpham->id)->first();
+      $phanhang =PhanHang::all();
+        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','donvitinh','quycach','ct','phanhang','doanhnghiep'));
     }
     public function postSua(Request $request , $id)
     {
         $this->validate($request,[
-             'nhomsanpham_id' => ['required'],
+           
             'loaisanpham_id'=>['required'],
-             'donvitinh_id'=>['required'],
+            
               'quycach_id'=>['required'],
             'phanhang_id'=>['required'],
             
@@ -151,6 +168,10 @@ class SanPhamController extends Controller
             'hansudung'=>['nullable','string','max:191'],
             'hansudungsaumohop'=>['nullable','string','max:191'],
             'hinhanh' => ['nullable','image','max:1024'],
+            'phanhang_id'=>['required'],
+            'ngaybatdau'=>['required','date'],
+            'ngayketthuc'=>['nullable','date'],
+
         ]);
          if($request->hasFile('hinhanh'))
         {
@@ -167,12 +188,12 @@ class SanPhamController extends Controller
          $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
         $orm = SanPham::find($id);
-         $orm->nhomsanpham_id = $request->nhomsanpham_id;
+        
         $orm->loaisanpham_id = $request->loaisanpham_id;
-        $orm->donvitinh_id = $request->donvitinh_id;
+       
         $orm->quycach_id = $request->quycach_id;
         $orm->doanhnghiep_id = Auth::user()->doanhnghiep->id;
-        $orm->phanhang_id = $request->phanhang_id;
+       
         $orm->tensanpham = $request->tensanpham;
         $orm->tensanpham_slug = Str::slug($request->tensanpham, '-');
         $orm->nguyenlieu = $request->nguyenlieu;
@@ -187,14 +208,28 @@ class SanPhamController extends Controller
         if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
+
+
+        $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->first();
+        $ct->sanpham_id = $orm->id;
+        $ct->phanhang_id = $request->phanhang_id;
+        
+        $ct->ngaybatdau = $request->ngaybatdau;
+        $ct->ngayketthuc = $request->ngayketthuc;
+        $ct->save();
+
+
         return redirect()->route('doanhnghiep.sanpham');
 
     }
     public function getXoa($id)
     {
         $orm=SanPham::find($id);
-        $orm->delete();
+       
         Storage::delete($orm->hinhanh);
-          return redirect()->route('doanhnghiep.sanpham');
+        $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->first();
+        $ct->delete();
+        $orm->delete();
+        return redirect()->route('doanhnghiep.sanpham');
     }
 }

@@ -55,7 +55,7 @@
 		                             	Email: {{ $value->email }}<br/>
 		                             	Điện Thoại: {{ $value->SDT }}<br/>
 		                             	Website:{{ $value->website }}<br/>
-		                             	Ngày Thành Lập: {{ $value->ngaythanhlap }}<br/>
+		                             	Ngày Thành Lập: {{ Carbon\Carbon::parse( $value->ngaythanhlap)->format('d/m/Y') }}<br/>
 		                             </td>
 		                             <td class="align-middle">{{ $value->tendoanhnghiep_slug }}</td>
 		                             

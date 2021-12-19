@@ -394,7 +394,7 @@ class TaiKhoanController extends Controller
 
         $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'doanhnghiep')->get();
 
-$doanhnghiep = DoanhNghiep::all();
+    $doanhnghiep = DoanhNghiep::all();
         $chucvu = ChucVu::all();
         $tinh = Tinh::all();
         $huyen =Huyen::all();
@@ -410,12 +410,10 @@ $doanhnghiep = DoanhNghiep::all();
     }
     public function getThem_DoanhNghiep()
     {
-        $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'doanhnghiep')->get();
+
         $chucvu = ChucVu::all();
         $tinh = Tinh::all();
-        $doanhnghiep_id = Arr::pluck($taikhoan, 'doanhnghiep_id');
-        $doanhnghiep = DoanhNghiep::where('donviquanly_id', Auth::user()->donviquanly_id)
-            ->whereNotIn('doanhnghiep_id', $doanhnghiep_id)->get();
+        $doanhnghiep = DoanhNghiep::where('donviquanly_id', Auth::user()->donviquanly_id)->get();
         return view('donviquanly.taikhoan_doanhnghiep.them',compact('doanhnghiep','chucvu','tinh'));
     }
 

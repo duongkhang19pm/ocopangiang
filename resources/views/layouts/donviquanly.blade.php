@@ -213,7 +213,9 @@
                     <li class="menu-item">
                       <a href="{{route('donviquanly.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
                     </li>
-                    
+                     <li class="menu-item">
+                      <a href="{{route('donviquanly.baiviet')}}" class="menu-link">Bài Viết</a>
+                    </li>
 
                    
                   

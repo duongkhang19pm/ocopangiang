@@ -62,7 +62,7 @@ class DoanhNghiepController extends Controller
             'email'=>['required','email:rfc,dns'],
             'SDT'=>['required','string','min:10','max:12'],
             'website'=>['required','url'],
-            'ngaythanhlap'=>['nullable','date'],
+            'ngaythanhlap'=>['nullable','date','before:now'],
             'hinhanh' => ['nullable','image','max:1024'],
            
 

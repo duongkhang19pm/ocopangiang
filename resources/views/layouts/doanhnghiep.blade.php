@@ -216,7 +216,9 @@
                     <li class="menu-item">
                       <a href="{{route('doanhnghiep.donhang')}}" class="menu-link">Thông Tin đặt Hàng</a>
                     </li>
-                  
+                  <li class="menu-item">
+                      <a href="{{route('doanhnghiep.chitiet_phanhang_sanpham')}}" class="menu-link">Chi Tiet Phan Hang</a>
+                    </li>
                   </ul>
                   <!-- /child menu -->
                 </li>

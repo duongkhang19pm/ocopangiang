@@ -12,8 +12,8 @@ class PhanHang extends Model
      protected $fillable = [
         'tenphanhang', 'tenphanhang_slug',
     ];
-     public function SanPham()
+     public function ChiTiet_PhanHang_SanPham()
     {
-        return $this->hasMany(SanPham::class, 'phanhang_id','id');
+        return $this->hasMany(ChiTiet_PhanHang_SanPham::class, 'phanhang_id','id');
     }
 }

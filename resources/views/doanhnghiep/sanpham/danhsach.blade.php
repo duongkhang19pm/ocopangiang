@@ -53,21 +53,13 @@
 		                             <td class="align-middle">
 		                             	<strong >Tên Sản Phẩm: </strong> <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}">{{ $value->tensanpham }}</a><br/>
 		                             	<strong>Doanh Nghiệp: </strong> {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>
-		                             	<strong>Nhóm Sản Phẩm: </strong>{{ $value->NhomSanPham->tennhom }}<br/>
-		                             	<strong>Loại Sản Phẩm: </strong>{{ $value->LoaiSanPham->tenloai }}<br/>
-		                             	<strong>Nguyên Liệu: </strong>{{ $value->nguyenlieu }}<br/>
-		                             	<strong>Tiêu Chuẩn: </strong>{{ $value->tieuchuan }}<br/>
-		                             	<strong>Điều Kiện Lưu Trữ :</strong>{{ $value->dieukienluutru }}<br/>
-		                             	<strong>Điều Kiện Vận Chuyển: </strong>{{ $value->dieukienvanchuyen }}<br/>
-		                             	<strong>Khối Lượng Riêng: </strong>{{ $value->khoiluongrieng }}<br/>
-		                             	<strong>Đơn Giá: </strong>{{ number_format($value->dongia) }} VNĐ<br/>
-		                             	<strong>Số Lượng: </strong>{{ $value->soluong }}<br/>
-		                             	<strong>Đơn Vị Tính: </strong>{{ $value->DonViTinh->tendonvitinh }}<br/>
-		                             	<strong>Quy Cách Đóng Gói: </strong>{{ $value->QuyCach->tenquycach }}<br/>
-		                             	<strong>Hạn Sử Dụng: </strong>{{ $value->hansudung }}<br/>
-		                             	<strong>Hạn Sử Dụng Sau Khi Mở Hộp :</strong> {{ $value->hansudungsaumohop }}<br/>
-		                             	<strong>Phân Hạng :</strong> 
-		                             	@if( $value->PhanHang->tenphanhang  == 1)
+		                             		<strong>Nhóm Sản Phẩm: </strong>{{ $value->loaisanpham->nhomsanpham->tennhom }}<br/>
+		                             	<strong>Loại Sản Phẩm: </strong>{{ $value->loaisanpham->tenloai }}<br/>
+		                             	
+ 																	@foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+
+ 																	<strong>Phân Hạng: </strong>
+ 																			@if( $ct->phanhang_id  == 1)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star "></span>
@@ -89,7 +81,7 @@
 
 				                              </span>
 				                              @endif
-				                              @if( $value->PhanHang->tenphanhang  == 2)
+				                              @if( $ct->phanhang_id  == 2)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star"></span>
@@ -111,7 +103,7 @@
 
 				                              </span>
 				                              @endif
-				                              @if( $value->PhanHang->tenphanhang  == 3)
+				                              @if( $ct->phanhang_id  == 3)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star"></span>
@@ -133,7 +125,7 @@
 
 				                              </span>
 				                              @endif
-				                              @if( $value->PhanHang->tenphanhang  == 4)
+				                              @if( $ct->phanhang_id  == 4)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star"></span>
@@ -155,7 +147,7 @@
 
 				                              </span>
 				                              @endif
-				                              @if( $value->PhanHang->tenphanhang  == 5)
+				                              @if( $ct->phanhang_id  == 5)
 				                                <span class="rating has-readonly">
 				                                <label >
 				                                  <span class="fa fa-star"style="color:Gold"></span>
@@ -177,7 +169,27 @@
 
 				                              </span>
 				                              @endif
-		                             			<br/>
+				                              <br/>
+
+
+		                             	<strong>Ngày Bắt Đầu: </strong>{{ Carbon\Carbon::parse($ct->ngaybatdau)->format('d/m/Y') }}<br/>
+		                             	<strong>Ngày Kết Thúc: </strong>{{ Carbon\Carbon::parse( $ct->ngayketthuc)->format('d/m/Y') ?? 'N/A'}}<br/>
+
+		                             	
+		                             	@endforeach
+
+		                             	<strong>Nguyên Liệu: </strong>{{ $value->nguyenlieu ?? 'N/A'}}<br/>
+		                             	<strong>Tiêu Chuẩn: </strong>{{ $value->tieuchuan ?? 'N/A'}}<br/>
+		                             	<strong>Điều Kiện Lưu Trữ :</strong>{{ $value->dieukienluutru ?? 'N/A'}}<br/>
+		                             	<strong>Điều Kiện Vận Chuyển: </strong>{{ $value->dieukienvanchuyen ?? 'N/A'}}<br/>
+		                             	<strong>Khối Lượng Riêng: </strong>{{ $value->khoiluongrieng }}<br/>
+		                             	<strong>Đơn Giá: </strong>{{ number_format($value->dongia) }} VNĐ<br/>
+		                             	<strong>Số Lượng: </strong>{{ $value->soluong }}<br/>
+		                             <strong>Đơn Vị Tính: </strong>{{ $value->QuyCach->DonViTinh->tendonvitinh }}<br/>
+		                             	<strong>Quy Cách Đóng Gói: </strong>{{ $value->QuyCach->tenquycach }}<br/>
+		                             	<strong>Hạn Sử Dụng: </strong>{{ $value->hansudung ?? 'N/A'}}<br/>
+		                             	<strong>Hạn Sử Dụng Sau Khi Mở Hộp :</strong> {{ $value->hansudungsaumohop ?? 'N/A'}}<br/>
+		                             
 		                             </td>
 		                            <td>{{ $value->tensanpham_slug }}</td>
 		                            

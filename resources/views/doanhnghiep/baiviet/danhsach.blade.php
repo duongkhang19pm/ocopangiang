@@ -45,7 +45,7 @@
 		                         <tr>
 		                             <td class="align-middle">{{ $loop->iteration }}</td>
 		                             <td class="align-middle">
-		                             	Doanh Nghiệp: {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>
+		                             	Người Đăng: {{ $value->taikhoan->name }}<br/>
 		                             	Chủ Đề: {{ $value->ChuDe->tenchude }}<br/>
 		                             	Tiêu Đề :{{ $value->tieude }}<br/>
 		                             

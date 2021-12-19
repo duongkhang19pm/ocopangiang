@@ -27,6 +27,7 @@ use App\Http\Controllers\PhanHangController;
 use App\Http\Controllers\DonViTinhController;
 use App\Http\Controllers\QuyCachController;
 use App\Http\Controllers\HinhThucThanhToanController;
+use App\Http\Controllers\ChiTietPhanHangSanPhamController;
 // Trang chủ
 Route::get('/', [HomeController::class, 'getHome'])->name('frontend');
 Route::get('/403', [HomeController::class, 'getForbidden'])->name('403');
@@ -254,6 +255,17 @@ Route::prefix('donviquanly')->name('donviquanly.')->middleware('donviquanly')->g
      Route::get('/taikhoan/doanhnghiep/kichhoat/{id}', [TaiKhoanController::class, 'getKichHoat_DoanhNghiep'])->name('taikhoan_doanhnghiep.kichhoat');
 
 
+
+      // Quản lý Bai Viet
+    Route::get('/baiviet', [BaiVietController::class, 'getDanhSach_DonViQuanLy'])->name('baiviet');
+    Route::get('/baiviet/them', [BaiVietController::class, 'getThem_DonViQuanLy'])->name('baiviet.them');
+    Route::post('/baiviet/them', [BaiVietController::class, 'postThem_DonViQuanLy'])->name('baiviet.them');
+    Route::get('/baiviet/sua/{id}', [BaiVietController::class, 'getSua_DonViQuanLy'])->name('baiviet.sua');
+    Route::post('/baiviet/sua/{id}', [BaiVietController::class, 'postSua_DonViQuanLy'])->name('baiviet.sua');
+    Route::get('/baiviet/xoa/{id}', [BaiVietController::class, 'getXoa_DonViQuanLy'])->name('baiviet.xoa');
+    Route::get('/baiviet/kiemduyet/{id}', [BaiVietController::class, 'getKiemDuyet_DonViQuanLy'])->name('baiviet.kiemduyet');
+
+
 });
 //Trang Chủ doanh nghiệp 
 Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->group(function()
@@ -284,6 +296,15 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::get('/sanpham/xoa/{id}', [SanPhamController::class, 'getXoa'])->name('sanpham.xoa');
     Route::post('/sanpham/nhap', [SanPhamController::class, 'postNhap'])->name('sanpham.nhap');
     Route::get('/sanpham/xuat', [SanPhamController::class, 'getXuat'])->name('sanpham.xuat');
+
+    // Quản lý Chi Tiet Phan Hang San Pham
+    Route::get('/chitiet_phanhang_sanpham', [ChiTietPhanHangSanPhamController::class, 'getDanhSach'])->name('chitiet_phanhang_sanpham');
+    Route::get('/chitiet_phanhang_sanpham/them', [ChiTietPhanHangSanPhamController::class, 'getThem'])->name('chitiet_phanhang_sanpham.them');
+    Route::post('/chitiet_phanhang_sanpham/them', [ChiTietPhanHangSanPhamController::class, 'postThem'])->name('chitiet_phanhang_sanpham.them');
+    Route::get('/chitiet_phanhang_sanpham/sua/{id}', [ChiTietPhanHangSanPhamController::class, 'getSua'])->name('chitiet_phanhang_sanpham.sua');
+    Route::post('/chitiet_phanhang_sanpham/sua/{id}', [ChiTietPhanHangSanPhamController::class, 'postSua'])->name('chitiet_phanhang_sanpham.sua');
+    Route::get('/chitiet_phanhang_sanpham/xoa/{id}', [ChiTietPhanHangSanPhamController::class, 'getXoa'])->name('chitiet_phanhang_sanpham.xoa');
+
 
     // Quản lý Đơn hàng
     Route::get('/donhang', [DonHangController::class, 'getDanhSach'])->name('donhang');
