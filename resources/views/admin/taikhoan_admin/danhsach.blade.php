@@ -57,7 +57,14 @@
 	                          <tr>
 	                            
 	                            <td class="align-middle">{{ $loop->iteration }}</td>
-                              <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" height="90" width="100"> </td>
+                              <td class="align-middle">
+                                  @if(empty($value->hinhanh))
+                                   <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
+                                  @else
+                                  <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"height="90" width="100" />
+                                  @endif
+                              </td>
+            
                               <td class="align-middle"> 
                                 Họ Và Tên: {{ $value->name }} <br/>
                                Địa Chỉ: {{ $value->tinh->tentinh ?? 'N/A'}} - {{ $value->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>

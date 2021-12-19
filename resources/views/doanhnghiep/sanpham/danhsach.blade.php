@@ -49,7 +49,19 @@
 		                     @foreach($sanpham as $value)
 		                         <tr>
 		                             <td class="align-middle">{{ $loop->iteration }}</td>
-		                             <td class="align-middle"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh}}" height="100" width="100"></td>
+		                             <td class="align-middle">
+		                             @if(($value->hinhanh)->isEmpty())
+
+		                             <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" height="100" width="150">
+		                             @else
+		                             	@foreach($value->hinhanh as $image)
+                                        <img src="{{ $hinhanh_first[$image->id] }}"  height="100" width="150"/>
+                                         @break
+                                   @endforeach
+                                 @endif
+
+
+		                             </td>
 		                             <td class="align-middle">
 		                             	<strong >Tên Sản Phẩm: </strong> <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}">{{ $value->tensanpham }}</a><br/>
 		                             	<strong>Doanh Nghiệp: </strong> {{ $value->DoanhNghiep->tendoanhnghiep }}<br/>

@@ -27,7 +27,7 @@ class SanPham extends Model
         'dongia',
         'hansudung',
         'hansudungsaumohop',
-        'hinhanh',
+       
         'motasanpham',
 
     ];
@@ -53,5 +53,9 @@ class SanPham extends Model
      public function ChiTiet_PhanHang_SanPham()
     {
     return $this->hasMany(ChiTiet_PhanHang_SanPham::class, 'sanpham_id', 'id');
+    }
+       public function HinhAnh()
+    {
+    return $this->hasMany(HinhAnh::class, 'sanpham_id', 'id');
     }
 }

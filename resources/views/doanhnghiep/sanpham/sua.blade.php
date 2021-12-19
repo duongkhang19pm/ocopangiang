@@ -50,31 +50,31 @@
                                  <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
-                       
-                             
-                    </div>
-                    
-                    <div class="row">
-                         
-                       
                         <div class="col-md-4">
-                            <label for="tieuchuan">Tiêu Chuẩn<span class="text-danger font-weight-bold">*</span></label>
+                            <label for="tieuchuan">Tiêu Chuẩn</label>
                             <input type="text" class="form-control @error('tieuchuan') is-invalid @enderror" id="tieuchuan" name="tieuchuan" value="{{ $sanpham->tieuchuan }}" placeholder="Tiêu Chuẩn"  />
                               
                             @error('tieuchuan')
                                 <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
-                            <label for="dieukienluutru">Điều Kiện Lưu Trữ<span class="text-danger font-weight-bold">*</span></label>
+                             
+                    </div>
+                         <hr class="mb-4">
+                    <div class="row">
+                         
+                       
+                       
+                        <div class="col-md-6">
+                            <label for="dieukienluutru">Điều Kiện Lưu Trữ</label>
                             <input type="text" class="form-control @error('dieukienluutru') is-invalid @enderror" id="dieukienluutru" name="dieukienluutru" value="{{ $sanpham->dieukienluutru }}" placeholder="Điều Kiện Lưu Trữ"  />
                               
                             @error('dieukienluutru')
                                 <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
-                            <label for="dieukienvanchuyen">Điều Kiện Vận Chuyển<span class="text-danger font-weight-bold">*</span></label>
+                        <div class="col-md-6">
+                            <label for="dieukienvanchuyen">Điều Kiện Vận Chuyển</label>
                             <input type="text" class="form-control @error('dieukienvanchuyen') is-invalid @enderror" id="dieukienvanchuyen" name="dieukienvanchuyen" value="{{ $sanpham->dieukienvanchuyen }}" placeholder="Điều Kiện Vận Chuyễn"  />
                               
                             @error('dieukienvanchuyen')
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                             
-                         <hr/>
+                              <hr class="mb-4">
                     <div class="row">
                         <div class="col-md-3">
                             <label for="tensanpham">Tên Sản Phẩm<span class="text-danger font-weight-bold">*</span></label>
@@ -94,7 +94,7 @@
                             @enderror
                         </div>
                         <div class="col-md-3">
-                            <label for="nguyenlieu">Nguyên Liệu<span class="text-danger font-weight-bold">*</span></label>
+                            <label for="nguyenlieu">Nguyên Liệu</label>
                             <input type="text" class="form-control @error('nguyenlieu') is-invalid @enderror" id="nguyenlieu" name="nguyenlieu" value="{{ $sanpham->nguyenlieu }}" placeholder="Nguyên Liệu"  />
                               
                             @error('nguyenlieu')
@@ -118,6 +118,7 @@
                             @enderror
                         </div>
                     </div>
+                         <hr class="mb-4">
                     <div class="row">
                         <div class="col-md-4">
                             <label for="khoiluongrieng">Khối Lượng Riêng<span class="text-danger font-weight-bold">*</span></label>
@@ -155,37 +156,28 @@
                         </div>
                              
                     </div>
-                    <hr/>
+                        <hr class="mb-4">
                     <div class="row">
-                        <div class="col-md-4">
-                            <label for="hansudung">Hạn Sử Dụng<span class="text-danger font-weight-bold">*</span></label>
+                        <div class="col-md-6">
+                            <label for="hansudung">Hạn Sử Dụng</label>
                             <input type="text" class="form-control @error('hansudung') is-invalid @enderror" id="hansudung" name="hansudung" value="{{ $sanpham->hansudung }}" placeholder="Hạng Sử Dụng"  />
                               
                             @error('hansudung')
                                  <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
-                            <label for="hansudungsaumohop">Hạn Sử Dụng Sau Khi Mở<span class="text-danger font-weight-bold">*</span></label>
+                        <div class="col-md-6">
+                            <label for="hansudungsaumohop">Hạn Sử Dụng Sau Khi Mở</label>
                             <input type="text" class="form-control @error('hansudungsaumohop') is-invalid @enderror" id="hansudungsaumohop" name="hansudungsaumohop" value="{{ $sanpham->hansudungsaumohop }}" placeholder="Hạn Sử Dụng Sau Khi Mở"  />
                               
                             @error('hansudungsaumohop')
                                 <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label" for="hinhanh">Hình ảnh sản phẩm </label>
-                            @if(!empty($sanpham->hinhanh))
-                                <img class="d-block rounded" src="{{env('APP_URL').'/storage/app/'.$sanpham->hinhanh}}" width="100" />
-                                <span class="d-block small text-danger">Bỏ trống nếu muốn giữ nguyên ảnh cũ.</span>
-                            @endif
-                            <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ $sanpham->hinhanh }}" />
-                            @error('hinhanh')
-                                <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                            @enderror
-                        </div>
+                        
                     </div>
-                    <hr/>
+                         <hr class="mb-4">
+
                     <div class="row">
                        
                 
@@ -213,8 +205,8 @@
                             @enderror
                         </div>
                           <div class="col-md-4">
-                          <label for="ngayketthuc"> Ngày kết thúc<span class="text-danger font-weight-bold">*</span></label>
-                          <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ $ct->ngayketthuc}}" placeholder="mm/dd/yyyy" />
+                          <label for="ngayketthuc"> Ngày kết thúc</label>
+                          <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"  type="date" value="{{ $ct->ngayketthuc}}" placeholder="mm/dd/yyyy" />
                           
                             @error('ngayketthuc')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -223,6 +215,27 @@
                          
                          
                     </div>
+                    <hr class="mb-4">
+                    <div class="form-group">
+                            @foreach($sanpham->HinhAnh as $value)
+                                @if(!empty($value->thumuc))
+                                     <img src="{{env('APP_URL').'/storage/app/'.$value->thumuc.'/'.$value->hinhanh}}" height="70" width="100" >
+                                @endif
+                                 
+                            @endforeach
+                             
+                            <span class="d-block small text-danger">Bỏ trống nếu muốn giữ nguyên ảnh cũ.</span>
+                        
+                          <input type="file" name="hinhanh[]" multiple class="form-control" accept="hinhanh/*">
+                          @if ($errors->has('files'))
+                            @foreach ($errors->get('files') as $error)
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $error }}</strong>
+                            </span>
+                            @endforeach
+                          @endif
+                      </div>
+                     <hr class="mb-4">
                     <div class="form-group">
                         <label for="motasanpham" class="form-label">Mô Tả Sản Phẩm</label>
                         <textarea class="form-control" id="motasanpham" name="motasanpham">{{$sanpham->motasanpham}}</textarea>

@@ -29,7 +29,7 @@ class CreateSanPhamsTable extends Migration
             $table->double('dongia');
             $table->string('hansudung')->nullable();
             $table->string('hansudungsaumohop')->nullable();
-            $table->string('hinhanh')->nullable();
+            
             $table->text('motasanpham')->nullable();
             $table->unsignedTinyInteger('hienthi')->default(1);
             $table->timestamp('created_at')->useCurrent();

@@ -10,6 +10,7 @@ use App\Models\DoanhNghiep;
 use App\Models\PhanHang;
 use App\Models\DonViTinh;
 use App\Models\QuyCach;
+use App\Models\HinhAnh;
 use Str;
 use File;
 use Storage;
@@ -42,7 +43,24 @@ class SanPhamController extends Controller
         
         $iddoanhnghiep = Auth::user()->doanhnghiep->id;
         $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->paginate(10);
-        return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
+        $no_image = config('app.url') . '/public/Image/noimage.png';
+        $hinhanh = HinhAnh::all();
+        $hinhanh_first = array();
+        foreach($hinhanh as $value)
+        {
+            $dir = 'storage/app/' . $value->thumuc . '/';
+            if(file_exists($dir))
+            {
+                $files = scandir($dir);
+                if(isset($files[2]))
+                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
+                else
+                    $hinhanh_first[$value->id] = $no_image;
+            }
+            else
+                $hinhanh_first[$value->id] = $no_image;
+        }
+        return view('doanhnghiep.sanpham.danhsach',compact('sanpham','hinhanh_first','hinhanh'));
     }
     public function getThem()
     {
@@ -81,12 +99,14 @@ class SanPhamController extends Controller
             'dongia'=>['required','numeric'],
             'hansudung'=>['nullable','string','max:191'],
             'hansudungsaumohop'=>['nullable','string','max:191'],
-            'hinhanh' => ['nullable','image','max:1024'],
+            
             'phanhang_id'=>['required'],
             'ngaybatdau'=>['required','date'],
             'ngayketthuc'=>['nullable','date','after:ngaybatdau'],
+            'hinhanh' => ['nullable'],
 
         ]);
+        /*
         // up anh
         if($request->hasFile('hinhanh'))
         {
@@ -100,7 +120,7 @@ class SanPhamController extends Controller
             // Upload vào thư mục và trả về đường dẫn
             $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
-
+        */
         $orm = new SanPham();
        // $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
@@ -119,7 +139,7 @@ class SanPhamController extends Controller
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;
         $orm->hansudungsaumohop = $request->hansudungsaumohop;
-        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+       // if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
 
@@ -131,6 +151,19 @@ class SanPhamController extends Controller
         $ct->ngayketthuc = $request->ngayketthuc;
         $ct->save();
 
+         if ($request->hasfile('hinhanh')) {
+            $hinhanh = $request->file('hinhanh');
+
+            foreach($hinhanh as $image) {
+                $name = $image->getClientOriginalName();
+                $path = $image->storeAs($orm->tensanpham_slug, $name, 'public');
+                $anh = new HinhAnh();
+                $anh->sanpham_id = $orm->id;
+                $anh->hinhanh = $name;
+                $anh->thumuc = 'public/'.$orm->tensanpham_slug;
+                $anh->save();
+            }
+         }
 
         return redirect()->route('doanhnghiep.sanpham');
 
@@ -167,12 +200,13 @@ class SanPhamController extends Controller
             'dongia'=>['required','numeric'],
             'hansudung'=>['nullable','string','max:191'],
             'hansudungsaumohop'=>['nullable','string','max:191'],
-            'hinhanh' => ['nullable','image','max:1024'],
+            
             'phanhang_id'=>['required'],
             'ngaybatdau'=>['required','date'],
             'ngayketthuc'=>['nullable','date'],
 
         ]);
+        /*
          if($request->hasFile('hinhanh'))
         {
            $orm = SanPham::find($id);
@@ -187,6 +221,7 @@ class SanPhamController extends Controller
             // Upload vào thư mục và trả về đường dẫn
          $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
+        */
         $orm = SanPham::find($id);
         
         $orm->loaisanpham_id = $request->loaisanpham_id;
@@ -205,7 +240,7 @@ class SanPhamController extends Controller
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;
         $orm->hansudungsaumohop = $request->hansudungsaumohop;
-        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+       // if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
 
@@ -219,6 +254,23 @@ class SanPhamController extends Controller
         $ct->save();
 
 
+        
+        if ($request->hasfile('hinhanh')) {
+            $hinhanh = $request->file('hinhanh');
+            Storage::deleteDirectory('public/'.$orm->tensanpham_slug);
+             $anh = HinhAnh::where('sanpham_id',$orm->id)->delete();
+            foreach($hinhanh as $image) {
+                $name = $image->getClientOriginalName();
+                $path = $image->storeAs($orm->tensanpham_slug, $name, 'public');
+                $anh = new HinhAnh();
+                $anh->sanpham_id = $orm->id;
+                $anh->hinhanh = $name;
+                $anh->thumuc =  'public/'.$orm->tensanpham_slug;
+                $anh->save();
+            }
+         }
+
+
         return redirect()->route('doanhnghiep.sanpham');
 
     }
@@ -226,9 +278,11 @@ class SanPhamController extends Controller
     {
         $orm=SanPham::find($id);
        
-        Storage::delete($orm->hinhanh);
+        
         $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->first();
         $ct->delete();
+        $hinhanh = HinhAnh::where('sanpham_id',$orm->id)->delete();
+        Storage::deleteDirectory('public/'.$orm->tensanpham_slug);
         $orm->delete();
         return redirect()->route('doanhnghiep.sanpham');
     }
