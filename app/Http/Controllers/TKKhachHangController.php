@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Models\SanPham;
-use App\Models\BaiViet;
-use Gloudemans\Shoppingcart\Facades\Cart;
-
+use App\Models\NhomSanPham;
+use App\Models\TaiKhoan;
+use Illuminate\Support\Facades\Auth;
 class TKKhachHangController extends Controller
 {
    public function __construct()
@@ -17,8 +16,9 @@ class TKKhachHangController extends Controller
     
     public function getHome ()
     {   
-        $sanpham = SanPham::paginate(12);
-        return view('khachhang.index',compact('sanpham'));
+        $nhomsanpham = NhomSanPham::all();
+        $taikhoan = TaiKhoan::where('id',Auth::user()->id)->first();
+       return view('khachhang.index',compact('nhomsanpham','taikhoan'));
     }
     
 }

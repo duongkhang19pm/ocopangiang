@@ -41,7 +41,7 @@
 		                 <tbody>
 		                     @foreach($loaisanpham as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $loop->iteration }}</td>
+		                             <td class="align-middle">{{ $loaisanpham->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">{{ $value->NhomSanPham->tennhom }}</td>
 		                             <td class="align-middle">{{ $value->tenloai }}</td>
 		                             <td class="align-middle">{{ $value->tenloai_slug }}</td>

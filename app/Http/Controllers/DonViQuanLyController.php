@@ -13,6 +13,10 @@ use Str;
 use Storage;
 use Carbon;
 use DB;
+use App\Imports\DonViQuanLyImport;
+use App\Exports\DonViQuanLyExport;
+use Excel;
+
 class DonViQuanLyController extends Controller
 {
      public function getDanhSach()
@@ -20,6 +24,19 @@ class DonViQuanLyController extends Controller
         $donviquanly = DonViQuanLy::paginate(10);
         return view('admin.donviquanly.danhsach',compact('donviquanly'));
     }
+    // Nhập từ Excel
+     public function postNhap(Request $request)
+     {
+     Excel::import(new DonViQuanLyImport, $request->file('file_excel'));
+     
+     return redirect()->route('admin.donviquanly');
+     }
+     
+     // Xuất ra Excel
+     public function getXuat()
+     {
+     return Excel::download(new DonViQuanLyExport, 'danh-sach-don-vi-quan-ly.xlsx');
+     }
     public function getThem()
     {
         $tinh = Tinh::all();

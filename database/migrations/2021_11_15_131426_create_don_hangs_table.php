@@ -24,8 +24,7 @@ class CreateDonHangsTable extends Migration
             $table->string('tenduong');
             $table->string('dienthoaigiaohang', 20);
             $table->string('hoten');
-            $table->string('email')->unique();
-            $table->string('SDT')->unique();
+            $table->string('email');
             $table->text('ghichu')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();

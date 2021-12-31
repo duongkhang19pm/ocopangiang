@@ -46,7 +46,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $chude->firstItem() + $loop->index }}</td>
 	                            <td class="align-middle"> {{ $value->tenchude }} </td>
 	                            <td class="align-middle"> {{ $value->tenchude_slug }} </td>
 	                       

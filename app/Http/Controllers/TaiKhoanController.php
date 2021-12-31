@@ -33,7 +33,7 @@ class TaiKhoanController extends Controller
     //Tài Khoản Admin
     public function getDanhSach_Admin()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'admin')->get();
+        $taikhoan = TaiKhoan::where('privilege', 'admin')->paginate(10);
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
@@ -151,7 +151,7 @@ class TaiKhoanController extends Controller
     //Tài Khoản Khách Hàng
     public function getDanhSach_KhachHang()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'user')->get();
+        $taikhoan = TaiKhoan::where('privilege', 'user')->paginate(10);
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
@@ -269,7 +269,7 @@ class TaiKhoanController extends Controller
     //Tài Khoản Đơn Vị Quản Lý
     public function getDanhSach_DonViQuanLy()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'donviquanly')->get();
+        $taikhoan = TaiKhoan::where('privilege', 'donviquanly')->paginate(10);
         $donviquanly = DonViQuanLy::all();
         $tinh = Tinh::all();
         $huyen =Huyen::all();
@@ -392,7 +392,7 @@ class TaiKhoanController extends Controller
     public function getDanhSach_DoanhNghiep()
     {
 
-        $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'doanhnghiep')->get();
+        $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'doanhnghiep')->paginate(10);
 
     $doanhnghiep = DoanhNghiep::all();
         $chucvu = ChucVu::all();

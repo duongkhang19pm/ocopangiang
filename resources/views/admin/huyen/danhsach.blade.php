@@ -49,7 +49,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $huyen->firstItem() + $loop->index }}</td>
                               <td class="align-middle"> {{ $value->Tinh->tentinh }} </td>
 	                            <td class="align-middle"> {{ $value->tenhuyen }} </td>
                               <td class="align-middle"> {{ $value->phivanchuyen }} </td>

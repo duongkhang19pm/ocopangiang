@@ -56,7 +56,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $taikhoan->firstItem() + $loop->index }}</td>
                               <td class="align-middle">
                                   @if(empty($value->hinhanh))
                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >

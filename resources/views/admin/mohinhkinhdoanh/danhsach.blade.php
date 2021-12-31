@@ -46,7 +46,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $mohinhkinhdoanh->firstItem() + $loop->index }}</td>
 	                            <td class="align-middle"> {{ $value->tenmohinhkinhdoanh }} </td>
 
 	                       

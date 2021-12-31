@@ -52,7 +52,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $nhomsanpham->firstItem() + $loop->index }}</td>
 	                            <td class="align-middle"> {{ $value->tennhom }} </td>
 	                            <td class="align-middle"> {{ $value->tennhom_slug }} </td>
 	                       

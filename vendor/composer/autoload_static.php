@@ -596,6 +596,7 @@ class ComposerStaticInitf4c41d8f7d4e481d282cfff76e2d6f40
         'App\\Http\\Controllers\\DonHangController' => __DIR__ . '/../..' . '/app/Http/Controllers/DonHangController.php',
         'App\\Http\\Controllers\\DonViQuanLyController' => __DIR__ . '/../..' . '/app/Http/Controllers/DonViQuanLyController.php',
         'App\\Http\\Controllers\\DonViTinhController' => __DIR__ . '/../..' . '/app/Http/Controllers/DonViTinhController.php',
+        'App\\Http\\Controllers\\HinhAnhController' => __DIR__ . '/../..' . '/app/Http/Controllers/HinhAnhController.php',
         'App\\Http\\Controllers\\HinhThucThanhToanController' => __DIR__ . '/../..' . '/app/Http/Controllers/HinhThucThanhToanController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\HuyenController' => __DIR__ . '/../..' . '/app/Http/Controllers/HuyenController.php',

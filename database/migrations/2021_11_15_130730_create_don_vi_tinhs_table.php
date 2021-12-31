@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\DonViTinh;
 class CreateDonViTinhsTable extends Migration
 {
     /**
@@ -20,6 +20,17 @@ class CreateDonViTinhsTable extends Migration
             $table->timestamp('updated_at')->useCurrentOnUpdate();
             $table->engine = 'InnoDB';
         });
+        DonViTinh::create(['tendonvitinh' => 'Chai']);
+        DonViTinh::create(['tendonvitinh' => 'Gram']);
+        DonViTinh::create(['tendonvitinh' => 'Gói']);
+        DonViTinh::create(['tendonvitinh' => 'KG']);
+        DonViTinh::create(['tendonvitinh' => 'Hộp']);
+        DonViTinh::create(['tendonvitinh' => 'Bao']);
+        DonViTinh::create(['tendonvitinh' => 'Túi']);
+        DonViTinh::create(['tendonvitinh' => 'Thùng']);
+        DonViTinh::create(['tendonvitinh' => 'Kiện']);
+        DonViTinh::create(['tendonvitinh' => 'Khác']);
+        
     }
 
     /**

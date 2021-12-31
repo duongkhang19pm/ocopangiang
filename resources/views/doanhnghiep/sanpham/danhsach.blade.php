@@ -41,21 +41,21 @@
 		                         <th >Hình ảnh</th>
 		                         <th>Thông Tin Sản Phẩm</th>
 		                         <th>Tên Sản Phẩm Không Dấu</th>
-		                       
+		                       		<th>Hiển Thị</th>
 															<th style="width:100px; min-width:100px;"> &nbsp; </th>
 		                     </tr>
 		                 </thead>
 		                 <tbody>
 		                     @foreach($sanpham as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $loop->iteration }}</td>
+		                             <td class="align-middle">{{ $sanpham->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">
 		                             @if(($value->hinhanh)->isEmpty())
 
-		                             <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" height="100" width="150">
+		                             <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" height="350" width="250">
 		                             @else
 		                             	@foreach($value->hinhanh as $image)
-                                        <img src="{{ $hinhanh_first[$image->id] }}"  height="100" width="150"/>
+                                        <img src="{{ $hinhanh_first[$image->id] }}"  height="350" width="250"/>
                                          @break
                                    @endforeach
                                  @endif
@@ -204,6 +204,7 @@
 		                             
 		                             </td>
 		                            <td>{{ $value->tensanpham_slug }}</td>
+		                             <td>{{ $value->hienthi }}</td>
 		                            
 		                             <td class="align-middle text-right">
 			                              <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">

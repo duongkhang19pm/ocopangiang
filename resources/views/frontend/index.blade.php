@@ -6,330 +6,308 @@
 
 @section('content')
 	
-   <!-- home page slider -->
-    <div class="homepage-slider">
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Fresh & Organic</p>
-                                <h1>Delicious Seasonal Fruits</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Fruit Collection</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 offset-lg-1 text-center">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Fresh Everyday</p>
-                                <h1>100% Organic Collection</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 offset-lg-1 text-right">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Mega Sale Going On!</p>
-                                <h1>Get December Discount</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end home page slider -->
-
-    <!-- features list section -->
-    <div class="list-section pt-80 pb-80">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="list-box d-flex align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-shipping-fast"></i>
-                        </div>
-                        <div class="content">
-                            <h3>Free Shipping</h3>
-                            <p>When order over $75</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="list-box d-flex align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-phone-volume"></i>
-                        </div>
-                        <div class="content">
-                            <h3>24/7 Support</h3>
-                            <p>Get support all day</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="list-box d-flex justify-content-start align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-sync"></i>
-                        </div>
-                        <div class="content">
-                            <h3>Refund</h3>
-                            <p>Get refund within 3 days!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- end features list section -->
-
-    <!-- product section -->
-    <div class="product-section mt-150 mb-150">
+    <section class="hero">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="section-title"> 
-                        <h3><span class="orange-text">Our</span> Products</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>Doanh Mục</span>
+                        </div>
+                        <ul>
+                            @foreach($nhomsanpham as $value)
+                                <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>$value->tennhom_slug])}}">{{$value->tennhom}}</a></li>
+                            @endforeach
+                           
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                
+                                <input type="text" placeholder="Bạn cần tìm gì ?">
+                                <button type="submit" class="site-btn">Tìm Kiếm</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+84 328 789 376</h5>
+                                <span>Hỗ Trợ 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero__item set-bg "  data-setbg="{{ asset('public/Image/background1.jpg') }}" >
+                       
                     </div>
                 </div>
             </div>
-
+        </div>
+    </section>
+     
+    <!-- Categories Section Begin -->
+    <section class="categories">
+        <div class="container">
             <div class="row">
+                <div class="categories__slider owl-carousel">
+                     <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-5.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thuc-pham'])}}">Thực Phẩm</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-4.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'do-uong'])}}">Đồ Uống</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-3.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'nong-san'])}}">Nông Sản</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/thaoduoc.png') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thao-duoc'])}}">Thảo Dược</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{  asset('public/Image/tieudung.png') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'tieu-dung'])}}">Tiêu Dùng</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/dichvu.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'dich-vu'])}}">Dịch Vụ</a></h5>
+                        </div>
+                    </div>
+                  
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+    <!-- Modal -->
+    <!-- Featured Section Begin -->
+    <section class="featured spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Sản Phẩm OCOP</h2>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="row featured__filter">
                 @foreach($sanpham as $value)
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh}}" alt=""></a>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix ">
+                        <div class="featured__item">
+                           
+                                    @foreach($value->hinhanh as $image)
+                     
+                                    <div class="featured__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                        <ul class="featured__item__pic__hover">
+                                            
+                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                     @break
+                               @endforeach
+                         
+                            
+                            <div class="featured__item__text">
+                                <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h6>
+                                <h5>{{ number_format($value->dongia ) }} <sup>VNĐ</sup></h5>
+                                @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+                                    @if( $ct->phanhang_id  == 1)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 2)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 3)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 4)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 5)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
-                        <h3>Strawberry</h3>
-                        <p class="product-price"><span>Per Kg</span> 85$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
-                </div>
+
+                   
                 @endforeach
             </div>
-
-            <ul class="pagination justify-content-center mt-4">
-               {{$sanpham->links()}}
-             </ul>
-        </div>
-    </div>
-    <!-- end product section -->
-
-    <!-- cart banner section -->
-    <section class="cart-banner pt-100 pb-100">
-        <div class="container">
-            <div class="row clearfix">
-                <!--Image Column-->
-                <div class="image-column col-lg-6">
-                    <div class="image">
-                        <div class="price-box">
-                            <div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                        <img src="assets/img/a.jpg" alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-                    <h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                    <a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
+             <div class="section-title from-blog__title">
+                <a href="{{route('frontend.sanpham')}}"  class="primary-btn ">XEM NHIỀU HƠN</a>
             </div>
         </div>
     </section>
-    <!-- end cart banner section -->
+    <!-- Featured Section End -->
 
-    <!-- testimonail-section -->
-    <div class="testimonail-section mt-150 mb-150">
+    <!-- Banner Begin -->
+    <div class="banner">
         <div class="container">
             <div class="row">
-                <div class="col-lg-10 offset-lg-1 text-center">
-                    <div class="testimonial-sliders">
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar1.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Saira Hakim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar2.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>David Niph <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="assets/img/avaters/avatar3.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Jacob Sikim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('public/Image/banner1.jpg') }}"  alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('public/Image/banner2.png') }}" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end testimonail-section -->
-    
-    <!-- advertisement section -->
-    <div class="abt-section mb-150">
+    <!-- Banner End -->
+
+    <!-- Latest Product Section Begin -->
+     <section class="categories mt-3">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="abt-bg">
-                        <a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Doanh Nghiệp</h2>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="abt-text">
-                        <p class="top-sub">Since Year 1999</p>
-                        <h2>We are <span class="orange-text">Fruitkha</span></h2>
-                        <p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-                        <a href="about.html" class="boxed-btn mt-4">know more</a>
-                    </div>
+                  
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- end advertisement section -->
-    
-    <!-- shop banner -->
-    <section class="shop-banner">
-        <div class="container">
-            <h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
+            <div class="row">
+                 
+                <div class="categories__slider owl-carousel">
+
+                    @foreach($doanhnghiep as $value)
+                     <div class="col-lg-3">
+                         @if(empty($value->hinhanh))
+                                   <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
+                                        <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
+                                    </div>
+                                  @else
+                                  <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
+                                          <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
+                                    </div>
+                                 
+                                  @endif
+                        
+                    </div>
+                    @endforeach
+                  
+                    
+                   
+                </div>
+
+            </div>
         </div>
     </section>
-    <!-- end shop banner -->
+    <!-- Latest Product Section End -->
 
-    <!-- latest news -->
-    <div class="latest-news pt-150 pb-150">
+    <!-- Blog Section Begin -->
+    <section class="from-blog spad">
         <div class="container">
-
             <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="section-title"> 
-                        <h3><span class="orange-text">Our</span> News</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-news">
-                        <a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
-                        <div class="news-text-box">
-                            <h3><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></h3>
-                            <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                            </p>
-                            <p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-                            <a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-news">
-                        <a href="single-news.html"><div class="latest-news-bg news-bg-2"></div></a>
-                        <div class="news-text-box">
-                            <h3><a href="single-news.html">A man's worth has its season, like tomato.</a></h3>
-                            <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                            </p>
-                            <p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-                            <a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-                    <div class="single-latest-news">
-                        <a href="single-news.html"><div class="latest-news-bg news-bg-3"></div></a>
-                        <div class="news-text-box">
-                            <h3><a href="single-news.html">Good thoughts bear good fresh juicy fruit.</a></h3>
-                            <p class="blog-meta">
-                                <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                            </p>
-                            <p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-                            <a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                        </div>
+                <div class="col-lg-12">
+                    <div class="section-title from-blog__title">
+                        <h2>Tin Tức</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <a href="news.html" class="boxed-btn">More News</a>
-                </div>
+                @foreach($baiviet as $value)
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="{{ asset('public/Image/logo.jpg') }}" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> {{ Carbon\Carbon::parse($value->ngaydang)->format('d/m/Y') }}</li>
+                                    <li><i class="far fa-eye"></i> {{$value->luotxem}}</li>
+                                </ul>
+                                <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
+                                <p><?php echo Str::limit($value->tomtat, 120); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                
+               
             </div>
         </div>
-    </div>
-    <!-- end latest news -->
+    </section>
+
+     <section class="categories mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Đơn Vị Quản Lý</h2>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="row">
+                 
+                <div class="categories__slider owl-carousel">
+
+                    @foreach($donviquanly as $value)
+                     <div class="col-lg-3">
+                         @if(empty($value->hinhanh))
+                                   <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
+                            
+                                    </div>
+                                  @else
+                                  <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
+                            
+                                    </div>
+                                 
+                                  @endif
+                        
+                    </div>
+                    @endforeach
+                  
+                    
+                   
+                </div>
+                
+            </div>
+        </div>
+    </section>
+ 
 
 
 @endsection

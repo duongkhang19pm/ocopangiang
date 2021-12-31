@@ -40,21 +40,18 @@
                             @enderror
                         </div>
                  
-                         
+                        <div class="col-md-6">
+                          <label for="tieude">Tiêu Đề<span class="text-danger font-weight-bold">*</span></label>
+                          <input type="text" class="form-control @error('tieude') is-invalid @enderror" id="tieude" name="tieude" value="{{ $baiviet->tieude }}" placeholder="Tiêu đề" required />
+                          
+                            @error('tieude')
+                              <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                            @enderror
+                        </div>
                          
                     </div>
                 
-                   <div class="row">
-                       <div class="col-md-3">
-                      <label for="tieude">Tiêu Đề<span class="text-danger font-weight-bold">*</span></label>
-                      <input type="text" class="form-control @error('tieude') is-invalid @enderror" id="tieude" name="tieude" value="{{ $baiviet->tieude }}" placeholder="Tiêu đề" required />
-                      
-                        @error('tieude')
-                          <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                        @enderror
-                      </div>
-                      
-                  </div>
+                   
                  <hr/>
                  
                   <div class="form-group">

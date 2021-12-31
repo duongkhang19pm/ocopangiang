@@ -40,7 +40,7 @@
 		                 <tbody>
 		                     @foreach($quycach as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $loop->iteration }}</td>
+		                             <td class="align-middle">{{ $quycach->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">{{ $value->DonViTinh->tendonvitinh }}</td>
 		                             <td class="align-middle">{{ $value->tenquycach }}</td>
 		                             <td class="align-middle text-right">

@@ -48,7 +48,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $xa->firstItem() + $loop->index }}</td>
                               <td class="align-middle"> {{ $value->Huyen->tenhuyen }} </td>
 	                            <td class="align-middle"> {{ $value->tenxa }} </td>
 	    

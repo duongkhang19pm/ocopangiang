@@ -51,7 +51,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $donvitinh->firstItem() + $loop->index }}</td>
 	                            <td class="align-middle"> {{ $value->tendonvitinh }} </td>
 	                       
 	                            <td class="align-middle text-right">

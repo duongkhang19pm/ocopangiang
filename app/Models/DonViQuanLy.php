@@ -9,9 +9,17 @@ class DonViQuanLy extends Model
 {
     use HasFactory;
    protected $table = 'donviquanly';
-    // protected $primaryKey = 'id';
-    // public $incrementing = false;
-    // protected $keyType = 'string';
+    protected $fillable = [
+     'tinh_id',
+     'huyen_id',
+     'xa_id',
+     'tenduong',
+     'tendonviquanly',
+     'tendonviquanly_slug',
+     'tenthutruong',
+     'email',
+     'SDT',
+     ];
 
     public function Tinh()
     {

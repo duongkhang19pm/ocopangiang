@@ -9,7 +9,7 @@ class DonViTinhController extends Controller
 {
      public function getDanhSach()
     {
-        $donvitinh = DonViTinh::paginate(10);
+        $donvitinh = DonViTinh::paginate(5);
         return view('admin.donvitinh.danhsach',compact('donvitinh'));
     }
     public function getThem()

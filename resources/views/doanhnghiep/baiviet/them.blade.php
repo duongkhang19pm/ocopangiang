@@ -26,7 +26,7 @@
 
                  
                   <div class="row">
-                       <div class="col-md-6">
+                        <div class="col-md-6">
                           <label for="chude_id">Chủ Đề
                             <abbr title="Required">*</abbr>
                           </label>
@@ -34,7 +34,7 @@
                             <option value="" selected disabled>-- Chọn Chủ Đề --</option>
                             @foreach ($chude as $value)
                             <option value="{{ $value->id }}">{{ $value->tenchude }}</option>
-                        @endforeach
+                            @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn chủ đề . </div>
                            @error('chude_id')
@@ -42,21 +42,18 @@
                             @enderror
                         </div>
                  
-                         
+                        <div class="col-md-6">
+                              <label for="tieude">Tiêu Đề<span class="text-danger font-weight-bold">*</span></label>
+                              <input type="text" class="form-control @error('tieude') is-invalid @enderror" id="tieude" name="tieude" value="{{ old('tieude') }}" placeholder="Tiêu đề" required />
+                              
+                                @error('tieude')
+                                  <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                @enderror
+                        </div>
                          
                     </div>
                 
-                   <div class="row">
-                       <div class="col-md-3">
-                      <label for="tieude">Tiêu Đề<span class="text-danger font-weight-bold">*</span></label>
-                      <input type="text" class="form-control @error('tieude') is-invalid @enderror" id="tieude" name="tieude" value="{{ old('tieude') }}" placeholder="Tiêu đề" required />
-                      
-                        @error('tieude')
-                          <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                        @enderror
-                      </div>
-                      
-                  </div>
+                   
                  <hr/>
                  
                   <div class="form-group">

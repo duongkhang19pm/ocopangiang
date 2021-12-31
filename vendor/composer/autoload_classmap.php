@@ -25,6 +25,7 @@ return array(
     'App\\Http\\Controllers\\DonHangController' => $baseDir . '/app/Http/Controllers/DonHangController.php',
     'App\\Http\\Controllers\\DonViQuanLyController' => $baseDir . '/app/Http/Controllers/DonViQuanLyController.php',
     'App\\Http\\Controllers\\DonViTinhController' => $baseDir . '/app/Http/Controllers/DonViTinhController.php',
+    'App\\Http\\Controllers\\HinhAnhController' => $baseDir . '/app/Http/Controllers/HinhAnhController.php',
     'App\\Http\\Controllers\\HinhThucThanhToanController' => $baseDir . '/app/Http/Controllers/HinhThucThanhToanController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\HuyenController' => $baseDir . '/app/Http/Controllers/HuyenController.php',

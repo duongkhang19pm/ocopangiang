@@ -43,7 +43,7 @@
 		                 <tbody>
 		                     @foreach($doanhnghiep as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $loop->iteration }}</td>
+		                             <td class="align-middle">{{ $doanhnghiep->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">
 		                             	
 		                             	 @if(empty($value->hinhanh))

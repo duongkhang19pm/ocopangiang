@@ -16,12 +16,12 @@ WithMapping
     public function headings(): array
          {
          return [
-        'nhomsanpham_id',
+     
         'loaisanpham_id',
-        'donvitinh_id',
+    
         'quycach_id',
         'doanhnghiep_id',
-        'phanhang_id',
+      
         'tensanpham',
         'tensanpham_slug',
         'nguyenlieu',
@@ -33,17 +33,15 @@ WithMapping
         'dongia',
         'hansudung',
         'hansudungsaumohop',
-        'hinhanh',
+      
          ];
          }
          
          public function map($row): array
          {
          return [
-            $row->nhomsanpham_id,
+
          $row->loaisanpham_id,
-         $row->loaisanpham_id,
-         $row->donvitinh_id,
          $row->quycach_id,
          $row->doanhnghiep_id,
          $row->tensanpham,
@@ -57,7 +55,7 @@ WithMapping
          $row->dongia,
          $row->hansudung,
          $row->hansudungsaumohop,
-         $row->hinhanh,
+        
          ];
          }
          

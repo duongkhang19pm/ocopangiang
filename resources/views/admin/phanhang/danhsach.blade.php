@@ -46,7 +46,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $loop->iteration }}</td>
+	                            <td class="align-middle">{{ $phanhang->firstItem() + $loop->index }}</td>
 	                            <td class="align-middle"> 
                                 @if( $value->tenphanhang  == 1)
                                 <span class="rating has-readonly">
