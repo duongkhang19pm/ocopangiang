@@ -15,13 +15,13 @@ class CreateDoanhNghiepsTable extends Migration
     {
         Schema::create('doanhnghiep', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tinh_id')->constrained('tinh');
-            $table->foreignId('huyen_id')->constrained('huyen');
-            $table->foreignId('xa_id')->constrained('xa');
+            //$table->foreignId('tinh_id')->constrained('tinh')->onDelete('cascade');
+            //$table->foreignId('huyen_id')->constrained('huyen')->onDelete('cascade');
+            $table->foreignId('xa_id')->constrained('xa')->onDelete('cascade');
             $table->string('tenduong');
-            $table->foreignId('mohinhkinhdoanh_id')->constrained('mohinhkinhdoanh');
-            $table->foreignId('loaihinhkinhdoanh_id')->constrained('loaihinhkinhdoanh');
-            $table->foreignId('donviquanly_id')->constrained('donviquanly');
+            $table->foreignId('mohinhkinhdoanh_id')->constrained('mohinhkinhdoanh')->onDelete('cascade');
+            $table->foreignId('loaihinhkinhdoanh_id')->constrained('loaihinhkinhdoanh')->onDelete('cascade');
+            $table->foreignId('donviquanly_id')->constrained('donviquanly')->onDelete('cascade');
             $table->string('masothue');
             $table->string('tendoanhnghiep');
             $table->string('tendoanhnghiep_slug');

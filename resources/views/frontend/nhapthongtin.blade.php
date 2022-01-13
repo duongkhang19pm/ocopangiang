@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Nhập Thông Tin
+@endsection
 @section('content')
 @include('frontend.nav')
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' ) }}">
@@ -197,8 +199,9 @@
                                     </div>
                                 @endguest
                             </form>
-                           
+                                    <a href="{{ route('frontend.giohang') }}" class="primary-btn ">QUAY VỀ TRƯỚC</a>
                                     <a href="{{ route('frontend.nhapthongtin') }}"onclick="event.preventDefault();document.getElementById('checkoutform').submit();" class="primary-btn ">TIẾP THEO</a>
+
                         
                            
                         

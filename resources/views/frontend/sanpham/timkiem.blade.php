@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Sản Phẩm Tìm Kiếm
+@endsection
 @section('content')
 @include('frontend.nav')
 
@@ -107,8 +109,16 @@
                        
                     </div>
                 </div>
+               
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
+                        <div class="section-title product__discount__title">
+                           @if($sanpham->isEmpty())
+                            <h2 ><i class="far fa-lightbulb mr-2"></i>Xin lỗi , không tìm thấy kết quả nào cho từ khóa: <strong>'{{$key}}'</strong></h2>
+                            @else
+                             <h2 ><i class="far fa-lightbulb mr-2"></i>Kết quả tìm được cho từ khóa: <strong>'{{$key}}'</strong></h2>
+                        </div>
+                         
                         <div class="section-title product__discount__title">
                             <h2>Sản Phẩm Mới</h2>
                         </div>
@@ -269,6 +279,7 @@
                         
                     </div>
                 </div>
+                  @endif
             </div>
         </div>
     </section>

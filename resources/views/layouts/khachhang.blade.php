@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.short_name', 'Laravel') }}</title>
+    <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/style.css' ) }}" type="text/css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
 </head>
 
 <body>
@@ -240,6 +241,7 @@
                 </div>
             </div>
         </div>
+         <button onclick="topFunction()" id="myBtn" title="Về đầu trang"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>   
     </footer>
     <!-- Footer Section End -->
 
@@ -253,8 +255,26 @@
     <script src="{{ asset('public/frontend/assets/js/owl.carousel.min.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/main.js' ) }}"></script>
 
+  <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
       @yield('javascript')
+      
 </body>
 
 </html>

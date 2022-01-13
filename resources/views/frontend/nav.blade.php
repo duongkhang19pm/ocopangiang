@@ -8,12 +8,12 @@
                         <span>Doanh Mục</span>
                     </div>
                     <ul>
-                        <li><a href="#">Thực Phẩm</a></li>
-                        <li><a href="#">Đồ Uống</a></li>
-                        <li><a href="#">Nông Sản</a></li>
-                        <li><a href="#">Thảo Dược</a></li>
-                        <li><a href="#">Tiêu Dùng</a></li>
-                        <li><a href="#">Dịch Vụ</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thuc-pham'])}}">Thực Phẩm</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'do-uong'])}}">Đồ Uống</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'nong-san'])}}">Nông Sản</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thao-duoc'])}}">Thảo Dược</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'tieu-dung'])}}">Tiêu Dùng</a></li>
+                        <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'dich-vu'])}}">Dịch Vụ</a></li>
                        
                     </ul>
                 </div>
@@ -21,9 +21,9 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
-                            
-                            <input type="text" placeholder="Bạn cần tìm gì ?">
+                        <form action="{{route('frontend.timkiem')}}">
+                             @csrf
+                            <input type="text" name="key" placeholder="Bạn cần tìm gì ?">
                             <button type="submit" class="site-btn">Tìm Kiếm</button>
                         </form>
                     </div>

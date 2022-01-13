@@ -15,7 +15,7 @@ class CreateHuyensTable extends Migration
     {
         Schema::create('huyen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tinh_id')->constrained('tinh');
+            $table->foreignId('tinh_id')->constrained('tinh')->onDelete('cascade');
             $table->string('tenhuyen');
             $table->double('phivanchuyen');
             $table->timestamp('created_at')->useCurrent();

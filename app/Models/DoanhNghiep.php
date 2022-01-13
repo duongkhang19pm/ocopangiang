@@ -13,6 +13,27 @@ class DoanhNghiep extends Model
     // public $incrementing = false;
     // protected $keyType = 'string';
 
+     protected $fillable = [
+        'tinh_id',
+     'huyen_id',
+     'xa_id',
+     'tenduong',
+     'mohinhkinhdoanh_id',
+     'loaihinhkinhdoanh_id',
+     'donviquanly_id',
+     'masothue',
+     'tendoanhnghiep',
+     'tendoanhnghiep_slug',
+     'email',
+     'SDT',
+     'website',
+     'ngaythanhlap',
+     'hinhanh',
+     'kinhdo',
+     'vido',
+
+     ];
+
     public function Tinh()
     {
     return $this->belongsTo(Tinh::class, 'tinh_id', 'id');

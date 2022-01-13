@@ -188,8 +188,15 @@
                           <select class="custom-select d-block w-100 @error('phanhang_id') is-invalid @enderror" id="phanhang_id" name="phanhang_id" required>
                             <option value="" selected disabled>-- Chọn Phân Hạng --</option>
                             @foreach ($phanhang as $value)
-                            <option value="{{ $value->id }}"{{ ($ct->phanhang_id == $value->id) ? 'selected' : '' }}>{{ $value->tenphanhang }}</option>
-                        @endforeach
+                                @if(!empty($value->id))
+
+                                    <option value="{{ $value->id }}">{{ $value->tenphanhang }}</option>
+                                @else
+
+                                     <option value="{{ $value->id }}"{{ ($ct->phanhang_id == $value->id) ? 'selected' : '' }}>{{ $value->tenphanhang }}</option>
+                                @endif
+                           
+                            @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn phân hạng  . </div>
                            @error('phanhang_id')
@@ -198,16 +205,27 @@
                         </div>
                         <div class="col-md-4">
                           <label for="ngaybatdau"> Ngày bắt đầu<span class="text-danger font-weight-bold">*</span></label>
+                           @if(!empty($value->id))
+
+                          <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ old('ngaybatdau')}}" placeholder="mm/dd/yyyy"required />
+                            @else
+
                           <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ $ct->ngaybatdau}}" placeholder="mm/dd/yyyy"required />
-                          
+                           
+                           @endif
                             @error('ngaybatdau')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
                         </div>
                           <div class="col-md-4">
                           <label for="ngayketthuc"> Ngày kết thúc</label>
+
+                           @if(!empty($value->id))
+
+                          <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"type="date" value="{{ old('ngayketthuc')}}" placeholder="mm/dd/yyyy" />
+                           @else
                           <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"  type="date" value="{{ $ct->ngayketthuc}}" placeholder="mm/dd/yyyy" />
-                          
+                           @endif
                             @error('ngayketthuc')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror

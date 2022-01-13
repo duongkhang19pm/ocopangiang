@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Sản Phẩm Theo Loại
+@endsection
 @section('content')
 @include('frontend.nav')
 
@@ -8,11 +10,12 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>{{$nhomsanpham->tennhom}}</h2>
+                        <h2>{{$loaisanpham->tenloai}}</h2>
                         <div class="breadcrumb__option">
                             <a href="{{route('frontend')}}">Trang Chủ</a>
                             <a href="{{route('frontend.sanpham')}}">Sản Phẩm OCOP</a>
-                            <span>{{$nhomsanpham->tennhom}}</span>
+                            <a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>$nhomsanpham->tennhom_slug])}}">{{$nhomsanpham->tennhom}}</a>
+                            <span>{{$loaisanpham->tenloai}}</span>
                         </div>
                     </div>
                 </div>
@@ -31,76 +34,68 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
-                        <div class="sidebar__item">
-                            <h4>Loại Sản Phẩm</h4>
-                            <ul>
-                                @foreach($loaisanpham as $value)
-                                    <li><a href="{{route('frontend.sanpham.loaisanpham',['tennhom_slug'=>$nhomsanpham->tennhom_slug, 'tenloai_slug'=>$value->tenloai_slug])}}">{{$value->tenloai}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
                          <div class="sidebar__item">
                             <h4>Phân Hạng OCOP</h4>
                                 <ul>
                                     @foreach($phanhang as $value)
 
-                                        @if( $value->id  == 1)
-                                        <li>
-                                            <a href="#">
-                                                <span class="fa fa-star " style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        @if( $value->id  == 2)
-                                        <li>
-                                            <a href="#">
-                                                <span class="fa fa-star " style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                            </a>
-                                        </li>
-                                        @endif
-                                         @if( $value->id  == 3)
-                                       <li>
-                                            <a href="#">
-                                                <span class="fa fa-star " style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        @if( $value->id  == 4)
-                                        <li>
-                                            <a href="#">
-                                                <span class="fa fa-star " style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:SlateGray"></span>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        @if( $value->id  == 5)
-                                        <li>
-                                            <a href="#">
-                                                <span class="fa fa-star " style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                                <span class="fa fa-star"style="color:Gold"></span>
-                                            </a>
-                                        </li>
-                                        @endif
-                                       
-                                   @endforeach
+                                    @if( $value->id  == 1)
+                                    <li>
+                                        <a href="{{route('frontend.phanhang',['tenphanhang_slug'=>$value->tenphanhang_slug])}}">
+                                            <span class="fa fa-star " style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if( $value->id  == 2)
+                                    <li>
+                                        <a href="{{route('frontend.phanhang',['tenphanhang_slug'=>$value->tenphanhang_slug])}}">
+                                            <span class="fa fa-star " style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                     @if( $value->id  == 3)
+                                   <li>
+                                        <a href="{{route('frontend.phanhang',['tenphanhang_slug'=>$value->tenphanhang_slug])}}">
+                                            <span class="fa fa-star " style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if( $value->id  == 4)
+                                    <li>
+                                        <a href="{{route('frontend.phanhang',['tenphanhang_slug'=>$value->tenphanhang_slug])}}">
+                                            <span class="fa fa-star " style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:SlateGray"></span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if( $value->id  == 5)
+                                    <li>
+                                        <a href="{{route('frontend.phanhang',['tenphanhang_slug'=>$value->tenphanhang_slug])}}">
+                                            <span class="fa fa-star " style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                            <span class="fa fa-star"style="color:Gold"></span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                   
+                               @endforeach
                                 </ul>
                         </div>
                         
@@ -109,12 +104,12 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                           <h2>Sản Phẩm Mới</h2>
+                            <h2>Sản Phẩm Mới</h2>
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                @foreach($loaisanpham as $loai)
-                                    @foreach($loai->sanpham as $value)
+                             
+                                    @foreach($sanpham as $value)
                                         <div class="col-lg-4">
                                             <div class="product__discount__item">
                                                 @foreach($value->hinhanh as $image)
@@ -173,7 +168,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                @endforeach
+                              
                             </div>
                         </div>
                     </div>
@@ -190,11 +185,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    
-                                        
-                                     
-                                        
-                                    
+                                    <h6><span>{{$sanpham->count()}}</span>sản phẩm</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -207,8 +198,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        @foreach($loaisanpham as $loai)
-                            @foreach($loai->sanpham as $value)
+                  
+                            @foreach($sanpham as $value)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
                                         
@@ -268,7 +259,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endforeach
+                       
                     </div>
                     <div class="product__discount">
                         

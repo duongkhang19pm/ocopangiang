@@ -26,9 +26,9 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                
-                                <input type="text" placeholder="Bạn cần tìm gì ?">
+                            <form action="{{route('frontend.timkiem')}}">
+                             @csrf
+                                <input type="text" name="key" placeholder="Bạn cần tìm gì ?">
                                 <button type="submit" class="site-btn">Tìm Kiếm</button>
                             </form>
                         </div>
@@ -110,17 +110,16 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mix ">
                         <div class="featured__item">
                            
-                                    @foreach($value->hinhanh as $image)
-                     
-                                    <div class="featured__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                   
+                                    <div class="featured__item__pic set-bg" data-setbg="{{ env('APP_URL') . '/storage/app/' . $value->hinhanh }}">
                                         <ul class="featured__item__pic__hover">
                                             
                                             <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
                                             <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                     @break
-                               @endforeach
+                                    
+                            
                          
                             
                             <div class="featured__item__text">

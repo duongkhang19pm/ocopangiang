@@ -15,7 +15,7 @@ class CreateXasTable extends Migration
     {
         Schema::create('xa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('huyen_id')->constrained('huyen');
+            $table->foreignId('huyen_id')->constrained('huyen')->onDelete('cascade');
             $table->string('tenxa');
             $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();

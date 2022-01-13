@@ -22,7 +22,8 @@ class DonHangController extends Controller
     public function getDanhSach()
     {
 
-        $donhang = DonHang::orderBy('created_at', 'desc')->get();
+        $donhang = DonHang::orderBy('created_at', 'desc')->paginate(5);
+       
         
         $tinhtrang = TinhTrang::all();
         return view('doanhnghiep.donhang.danhsach', compact('donhang','tinhtrang'));
@@ -49,7 +50,7 @@ class DonHangController extends Controller
       public function getSua($id)
     {
         $donhang = DonHang::find($id);
-        if($donhang->tinhtrang_id <= 4)
+        if($donhang->tinhtrang_id <= 3)
         {
             $tinhtrang = TinhTrang::all();
             $tinh = Tinh::all();

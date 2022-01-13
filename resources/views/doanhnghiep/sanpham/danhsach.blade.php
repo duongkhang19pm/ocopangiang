@@ -50,15 +50,7 @@
 		                         <tr>
 		                             <td class="align-middle">{{ $sanpham->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">
-		                             @if(($value->hinhanh)->isEmpty())
-
-		                             <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" height="350" width="250">
-		                             @else
-		                             	@foreach($value->hinhanh as $image)
-                                        <img src="{{ $hinhanh_first[$image->id] }}"  height="350" width="250"/>
-                                         @break
-                                   @endforeach
-                                 @endif
+		                             <a href="{{ route('doanhnghiep.hinhanh',['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fas fa-images fa-2x"></i></a>
 
 
 		                             </td>
@@ -204,7 +196,14 @@
 		                             
 		                             </td>
 		                            <td>{{ $value->tensanpham_slug }}</td>
-		                             <td>{{ $value->hienthi }}</td>
+		                             <td>
+		                             	@if($value->hienthi == 0)
+																			<a  href="{{ route('doanhnghiep.sanpham.hienthi', ['id' => $value->id])  }}"><i class="fas fa-ban text-danger"></i></a>
+																		@endif
+																		@if($value->hienthi == 1)
+																			<a href="{{ route('doanhnghiep.sanpham.hienthi', ['id' => $value->id])  }}"><i class="fas fa-check-circle text-info"></i></a>
+																		@endif
+																	</td>
 		                            
 		                             <td class="align-middle text-right">
 			                              <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">

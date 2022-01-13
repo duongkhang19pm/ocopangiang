@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+	Đặt Hàng Thành Công
+@endsection
 @section('content')
 @include('frontend.nav')
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' ) }}">

@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta name="author" content="AGChain Lab." />
   <meta name="theme-color" content="#3063A0" />
-  <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.short_name', 'Laravel') }}</title>
+  <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.name', 'Laravel') }}</title>
   <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('public/Image/logo.png') }}" />
   <link rel="shortcut icon" href="{{ asset('public/Image/logo.ico') }}" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" />

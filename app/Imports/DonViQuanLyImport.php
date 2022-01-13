@@ -5,27 +5,32 @@ namespace App\Imports;
 use App\Models\DonViQuanLy;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-
+use Illuminate\Support\Str;
 class DonViQuanLyImport implements ToModel, WithHeadingRow
 {
    
     public function model(array $row)
     {
-        return new DonViQuanLy([
-            'tinh_id' => $row['ma_tinh'],
-            'huyen_id' => $row['ma_huyen'],
-            'xa_id' => $row['ma_xa'],
+     
+        $donviquanly = DonViQuanLy::create([
+
+            
+            'xa_id' => $row['xa'],
             'tenduong' => $row['ten_duong'],
-            'tendonviquanly' => $row['ten_don_vi_quan_ly'],
-            'tendonviquanly_slug' => $row['ten_don_vi_quan_ly_khong_dau'],
-            'tenthutruong' => $row['ten_thu_truong'],
+            'tendonviquanly' => $row['ten_don_vi'],
+            'tendonviquanly_slug' => Str::slug($row['ten_don_vi']),
+            'tenthutruong' => $row['ho_ten_thu_truong'],
             'email' => $row['email'],
             'SDT' => $row['dien_thoai'],
-        ]);
-    }
-    public function headingRow(): int
-     {
-     return 6;
-     }
+            'website' => $row['website'],
+            'hinhanh' => $row['hinh_anh'],
 
+
+
+
+
+        ]);
+        return $donviquanly;
+    }
+   
 }

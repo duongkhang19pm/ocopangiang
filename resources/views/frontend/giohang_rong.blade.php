@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 
-@section('title', 'Giỏ hàng')
+@section('pagetitle')
+	Giỏ Hàng Rỗng
+@endsection
 
 @section('content')
 @include('frontend.nav')
@@ -32,7 +34,7 @@
 							</div>
 							<p>Giỏ hàng của bạn đang rỗng, xin hãy lấp đầy nó bằng việc duyệt qua các nông sản của cửa hàng
 								và bỏ vào giỏ các nông sản mà bạn yêu thích và có ý định sẽ sở hữu nó.</p>
-							<a href="{{ route('frontend') }}" class="btn btn-success btn-block">TIẾP TỤC MUA SẮM</a>
+							<a href="{{ route('frontend') }}" class="btn btn-success btn-block">MUA NGAY</a>
 						</div>
 					</div>
 				</div>

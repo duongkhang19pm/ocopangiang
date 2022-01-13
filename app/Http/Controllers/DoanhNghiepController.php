@@ -14,6 +14,9 @@ use Storage;
 use Carbon;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use App\Imports\DoanhNghiepImport;
+use App\Exports\DoanhNghiepExport;
+use Excel;
 class DoanhNghiepController extends Controller
 {   
 
@@ -28,6 +31,19 @@ class DoanhNghiepController extends Controller
         $doanhnghiep = DoanhNghiep::where('donviquanly_id', $iddonviquanly)->paginate(10);
         return view('donviquanly.doanhnghiep.danhsach',compact('doanhnghiep'));
     }
+    // Nhập từ Excel
+     public function postNhap(Request $request)
+     {
+     Excel::import(new DoanhNghiepImport, $request->file('file_excel'));
+     
+     return redirect()->route('donviquanly.doanhnghiep');
+     }
+     
+     // Xuất ra Excel
+     public function getXuat()
+     {
+     return Excel::download(new DoanhNghiepExport, 'danh-sach-doanh-nghiep.xlsx');
+     }
     public function getThem()
     {
         $tinh = Tinh::all();
@@ -61,7 +77,7 @@ class DoanhNghiepController extends Controller
             'tendoanhnghiep'=>['required','string','max:191','unique:doanhnghiep'],
             'email'=>['required','email:rfc,dns'],
             'SDT'=>['required','string','min:10','max:12'],
-            'website'=>['required','url'],
+            'website'=>['nullable','url'],
             'ngaythanhlap'=>['nullable','date','before:now'],
             'hinhanh' => ['nullable','image','max:1024'],
            
@@ -80,8 +96,7 @@ class DoanhNghiepController extends Controller
 
         $orm = new DoanhNghiep();
         $orm->donviquanly_id = Auth::user()->donviquanly->id;
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+       
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->mohinhkinhdoanh_id = $request->mohinhkinhdoanh_id;
@@ -124,7 +139,7 @@ class DoanhNghiepController extends Controller
             'tendoanhnghiep'=>['required','string','max:191','unique:doanhnghiep,tendoanhnghiep,'.$id],
             'email'=>['required','email'],
             'SDT'=>['required','string','min:10','max:12'],
-            'website'=>['required','url'],
+            'website'=>['nullable','url'],
             'ngaythanhlap'=>['nullable','date'],
             'hinhanh' => ['nullable','image','max:1024']
 
@@ -143,8 +158,7 @@ class DoanhNghiepController extends Controller
        }
        $orm=DoanhNghiep::find($id);
         $orm->donviquanly_id = Auth::user()->donviquanly->id;
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+    
         $orm->xa_id = $request->xa_id;
         $orm->mohinhkinhdoanh_id = $request->mohinhkinhdoanh_id;
         $orm->loaihinhkinhdoanh_id = $request->loaihinhkinhdoanh_id;

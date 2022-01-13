@@ -36,31 +36,16 @@ class SanPhamController extends Controller
      // Xuất ra Excel
      public function getXuat()
      {
-     return Excel::download(new SanPhamExport, 'danh-sach-san-pham.xlsx');
+
+        return Excel::download(new SanPhamExport, 'danh-sach-san-pham.xlsx');
      }
     public function getDanhSach()
     {
         
         $iddoanhnghiep = Auth::user()->doanhnghiep->id;
         $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->paginate(10);
-        $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
-        return view('doanhnghiep.sanpham.danhsach',compact('sanpham','hinhanh_first','hinhanh'));
+        
+        return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
     }
     public function getThem()
     {
@@ -151,19 +136,25 @@ class SanPhamController extends Controller
         $ct->ngayketthuc = $request->ngayketthuc;
         $ct->save();
 
-         if ($request->hasfile('hinhanh')) {
-            $hinhanh = $request->file('hinhanh');
+      
+        if ($request->hasfile('hinhanh')) {
+            $images = $request->file('hinhanh');
+    
+            foreach($images as $image) 
+            {
+                $extension = $image->getClientOriginalName();                
+                $fileName = Str::slug($request->tensanpham, '-'). '-' . $extension;
+                $path = Storage::putFileAs('sanpham', $image, $fileName);
 
-            foreach($hinhanh as $image) {
-                $name = $image->getClientOriginalName();
-                $path = $image->storeAs($orm->tensanpham_slug, $name, 'public');
-                $anh = new HinhAnh();
-                $anh->sanpham_id = $orm->id;
-                $anh->hinhanh = $name;
-                $anh->thumuc = 'public/'.$orm->tensanpham_slug;
-                $anh->save();
+                $img = new HinhAnh();
+                $img->hinhanh = $path;
+                $img->sanpham_id = $orm->id;
+                $img->save();
+                
             }
-         }
+            
+        }
+
 
         return redirect()->route('doanhnghiep.sanpham');
 
@@ -244,31 +235,42 @@ class SanPhamController extends Controller
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
 
-
-        $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->first();
-        $ct->sanpham_id = $orm->id;
-        $ct->phanhang_id = $request->phanhang_id;
+            $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->delete();
+            $ct = new ChiTiet_PhanHang_SanPham();
+            $ct->phanhang_id = $request->phanhang_id;
+            $ct->sanpham_id = $orm->id;
+            $ct->ngaybatdau = $request->ngaybatdau;
+            $ct->ngayketthuc = $request->ngayketthuc;
+            $ct->save();
         
-        $ct->ngaybatdau = $request->ngaybatdau;
-        $ct->ngayketthuc = $request->ngayketthuc;
-        $ct->save();
-
 
         
-        if ($request->hasfile('hinhanh')) {
-            $hinhanh = $request->file('hinhanh');
-            Storage::deleteDirectory('public/'.$orm->tensanpham_slug);
-             $anh = HinhAnh::where('sanpham_id',$orm->id)->delete();
-            foreach($hinhanh as $image) {
-                $name = $image->getClientOriginalName();
-                $path = $image->storeAs($orm->tensanpham_slug, $name, 'public');
-                $anh = new HinhAnh();
-                $anh->sanpham_id = $orm->id;
-                $anh->hinhanh = $name;
-                $anh->thumuc =  'public/'.$orm->tensanpham_slug;
-                $anh->save();
-            }
-         }
+       if(!empty($request->hasfile('hinhanh')))
+        {
+            if ($request->hasfile('hinhanh')) 
+            {
+                $img = HinhAnh::where('sanpham_id',$id)->get();
+                foreach($img as $value)
+                {
+                    Storage::delete($value->hinhanh);
+                    $value->delete();
+                }
+                
+                $images = $request->file('hinhanh');           
+                foreach($images as $image) 
+                {               
+                    $extension = $image->getClientOriginalName();                
+                    $fileName = Str::slug($request->tensanpham, '-'). '-' . $extension;
+                    $path = Storage::putFileAs('sanpham', $image, $fileName);
+                    
+                    $img = new HinhAnh();
+                    $img->hinhanh = $path;
+                    $img->sanpham_id = $orm->id;
+                    $img->save();
+                    
+                }
+            }      
+        }
 
 
         return redirect()->route('doanhnghiep.sanpham');
@@ -280,10 +282,28 @@ class SanPhamController extends Controller
        
         
         $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$orm->id)->first();
-        $ct->delete();
-        $hinhanh = HinhAnh::where('sanpham_id',$orm->id)->delete();
-        Storage::deleteDirectory('public/'.$orm->tensanpham_slug);
+        if(!empty($ct))
+        {
+            $ct->delete();
+        }
+        
+        $hinhanh = HinhAnh::where('sanpham_id',$orm->id)->get();
+         foreach($hinhanh as $anh)
+        {
+            Storage::delete($anh->hinhanh);
+             $anh->delete();
+        }
+       
         $orm->delete();
         return redirect()->route('doanhnghiep.sanpham');
+    }
+    public function getHienThi($id)
+    {
+        $orm = SanPham::find($id);
+        $orm->hienthi = 1 - $orm->hienthi;
+        
+        $orm->save();
+        return redirect()->route('doanhnghiep.sanpham');
+
     }
 }

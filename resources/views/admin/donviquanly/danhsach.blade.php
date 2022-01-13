@@ -50,7 +50,7 @@
 		                         <tr>
 		                             <td class="align-middle">{{ $donviquanly->firstItem() + $loop->index }}</td>
 		                             <td class="align-middle">
-		                             	 @if(empty($value->hinhanh))
+		                             	 @if(empty($value->hinhanh)||$value->hinhanh == 'N/A' )
                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
                                   @else
                                   <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"height="90" width="100" />
@@ -60,7 +60,7 @@
 		                           
 		                             	Tên Đơn Vị: {{ $value->tendonviquanly }} <br/>
 		                             	Tên Thử Trưởng: {{ $value->tenthutruong }} <br/>
-		                             	Địa Chỉ: {{ $value->Tinh->tentinh }} - {{ $value->Huyen->tenhuyen }} - {{ $value->Xa->tenxa }}  -  Đường:{{ $value->tenduong }}<br/>
+		                             	Địa Chỉ: {{ $value->Xa->Huyen->Tinh->tentinh }} - {{ $value->Xa->Huyen->tenhuyen }} - {{ $value->Xa->tenxa }}  -  Đường:{{ $value->tenduong }}<br/>
 		                             	Email: {{ $value->email }}<br/>
 		                             	Điện Thoại: {{ $value->SDT }}<br/>
 		                             	Website:{{ $value->website }}<br/>

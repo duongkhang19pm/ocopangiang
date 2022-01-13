@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Giỏ Hàng
+@endsection
 @section('content')
 @include('frontend.nav')
 
@@ -45,12 +47,14 @@
                             <tbody>
                                 @php $stt = 1; @endphp
                                 @foreach(Cart::content() as $value)
-                                    
+
+                                  
                                   
                                     <tr>
+                                        
                                         <td>{{ $stt++ }}</td>
                                         <td class="shoping__cart__item">
-                                            <img src="{{ env('APP_URL') . '/storage/app/' . $value->options->image }}" width="150" alt="">
+                                            <img src="{{ env('APP_URL') . '/storage/app/' . $value->options->image }}" width="200" height="150" alt="">
                                             <h5>{{ $value->name }}</h5>
                                              
                                         </td>

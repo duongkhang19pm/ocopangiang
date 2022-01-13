@@ -15,9 +15,9 @@ class CreateDonViQuanLysTable extends Migration
     {
         Schema::create('donviquanly', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tinh_id')->constrained('tinh');
-            $table->foreignId('huyen_id')->constrained('huyen');
-            $table->foreignId('xa_id')->constrained('xa');
+            #$table->foreignId('tinh_id')->constrained('tinh')->onDelete('cascade');
+            #$table->foreignId('huyen_id')->constrained('huyen')->onDelete('cascade');
+            $table->foreignId('xa_id')->constrained('xa')->onDelete('cascade');
             $table->string('tenduong');
             $table->string('tendonviquanly');
             $table->string('tendonviquanly_slug');

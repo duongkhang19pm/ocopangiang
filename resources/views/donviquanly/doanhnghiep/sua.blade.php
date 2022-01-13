@@ -63,7 +63,7 @@
                           <select class="custom-select d-block w-100 @error('tinh_id') is-invalid @enderror" id="tinh_id" name="tinh_id" required>
                             <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
                              @foreach($tinh as $value)
-                                <option value="{{ $value->id }}" {{ ($doanhnghiep->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
+                                <option value="{{ $value->id }}" {{ ($doanhnghiep->xa->huyen->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
                              @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn tỉnh/thành phố . </div>
@@ -78,7 +78,7 @@
                               <select class="custom-select d-block w-100 @error('huyen_id') is-invalid @enderror" id="huyen_id" name="huyen_id" required>
                                 
                                  @foreach($huyen as $value)
-                                    <option value="{{ $value->id }}" {{ ($doanhnghiep->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
+                                    <option value="{{ $value->id }}" {{ ($doanhnghiep->xa->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
                                  @endforeach
                               </select>
                               <div class="invalid-feedback">Vui lòng chọn quận/huyện . </div>
@@ -145,8 +145,8 @@
                             @enderror
                       </div>
                       <div class="col-md-4">
-                          <label for="website">Website Doanh Nghiệp<span class="text-danger font-weight-bold">*</span></label>
-                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ $doanhnghiep->website }}" placeholder="Website Doanh Nghiệp" required />
+                          <label for="website">Website Doanh Nghiệp</label>
+                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ $doanhnghiep->website }}" placeholder="Website Doanh Nghiệp"  />
                           
                             @error('website')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>

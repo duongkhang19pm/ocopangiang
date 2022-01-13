@@ -69,7 +69,7 @@
                               </td>
                               <td class="align-middle"> 
                                 Họ Và Tên: {{ $value->name }} <br/>
-                               Địa Chỉ: {{ $value->tinh->tentinh ?? 'N/A'}} - {{ $value->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
+                               Địa Chỉ: {{ $value->xa->huyen->tinh->tentinh ?? 'N/A'}} - {{ $value->xa->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  {{ $value->tenduong ?? 'N/A'}}<br/>
                                Email: {{ $value->email }} <br/>
                                Điện Thoại: {{ $value->phone }}<br/>
                                Tên Đăng Nhập: {{ $value->username }} 

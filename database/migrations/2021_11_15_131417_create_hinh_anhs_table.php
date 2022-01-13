@@ -15,8 +15,8 @@ class CreateHinhAnhsTable extends Migration
     {
         Schema::create('hinhanh', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('sanpham_id')->constrained('sanpham');
-             $table->string('thumuc')->nullable();
+             $table->foreignId('sanpham_id')->constrained('sanpham')->onDelete('cascade');
+            // $table->string('thumuc')->nullable();
              $table->string('hinhanh')->nullable();
              $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();

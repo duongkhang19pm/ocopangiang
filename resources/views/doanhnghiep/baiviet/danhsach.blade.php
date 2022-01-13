@@ -58,7 +58,7 @@
 		                             <td>
 				                             @if($value->kiemduyet == 0)
 			                                <a href="{{ route('doanhnghiep.baiviet.kiemduyet',  ['id' => $value->id] ) }}" >
-			                                  <span class="badge badge-pill badge-info">Đang sử dụng</span>
+			                                  <span class="badge badge-pill badge-info">Đã Duyệt</span>
 			                                </a> 
 		                                
 		                                @else

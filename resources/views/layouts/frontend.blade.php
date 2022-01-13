@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.short_name', 'Laravel') }}</title>
+    <title>@yield('pagetitle', 'Trang chủ') - {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@
                         <div>{{ Auth::user()->name }}</div>
                         <span class="arrow_carrot-down"></span>
                         <ul>
-                            <li><a href="#">Thông Tin</a></li>
+                            <li><a href="{{route('khachhang.home')}}">Thông Tin</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                   <span class="dropdown-icon oi oi-account-logout"></span>Đăng Xuất</a>
                                    <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
@@ -143,7 +143,7 @@
                                             <div>{{ Auth::user()->name }}</div>
                                             <span class="arrow_carrot-down"></span>
                                             <ul>
-                                                <li><a href="#">Thông Tin</a></li>
+                                                <li><a href="{{route('khachhang.home')}}">Thông Tin</a></li>
                                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                                       <span class="dropdown-icon oi oi-account-logout"></span>Đăng Xuất</a>
                                                        <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
@@ -251,22 +251,41 @@
                     </div>
                 </div>
             </div>
+
         </div>
+        <button onclick="topFunction()" id="myBtn" title="Về đầu trang"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>   
     </footer>
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
     <script src="{{ asset('public/frontend/assets/js/jquery-3.3.1.min.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/bootstrap.min.js' ) }}"></script>
-    
+     @yield('javascript')
     <script src="{{ asset('public/frontend/assets/js/jquery-ui.min.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/jquery.slicknav.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/mixitup.min.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/owl.carousel.min.js' ) }}"></script>
     <script src="{{ asset('public/frontend/assets/js/main.js' ) }}"></script>
+    
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
 
-      @yield('javascript')
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    
 </body>
 
 </html>

@@ -27,7 +27,7 @@ class SanPham extends Model
         'dongia',
         'hansudung',
         'hansudungsaumohop',
-       
+       'hinhanh',
         'motasanpham',
 
     ];

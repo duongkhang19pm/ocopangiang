@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Liên Hệ
+@endsection
 @section('content')
 @include('frontend.nav')
 

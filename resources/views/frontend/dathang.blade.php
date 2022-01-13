@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Đặt Hàng
+@endsection
 @section('content')
 @include('frontend.nav')
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' ) }}">
@@ -100,7 +102,7 @@
                   @csrf
                  
                     <div class="row">
-                      <div class="col-lg-8 col-md-6">
+                      <div class="col-lg-7 col-md-6">
                             <div class="checkout__order">
                                 <div class="checkout__order__products">Họ và Tên : {{$hoten}}</div>
                                 <div class="checkout__order__products">Điện thoại: {{$dienthoaigiaohang}} </div>
@@ -160,7 +162,7 @@
                         </div>
 
 
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-5 col-md-6">
                             <div class="checkout__order">
                                 <h4>ĐƠN HÀNG CỦA BẠN</h4>
                                 <div class="checkout__order__products">Sản Phẩm (Số Lượng) <span>Tổng Tiền</span></div>
@@ -171,6 +173,8 @@
                                     </li>
                                      @php $tongtien += $value->price * $value->qty; @endphp
                                     @endforeach   
+
+                                    
                                 </ul>
                                 <div class="checkout__order__subtotal">Tổng tiền sản phẩm <span>{{ Cart::subtotal() }}<sup>VND</sup></span></div>
                                 <div class="checkout__order__subtotal">Thuế VAT (10%)<span>{{ Cart::tax() }}<sup>VND</sup></span></div>

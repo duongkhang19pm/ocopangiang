@@ -59,7 +59,7 @@ class TaiKhoanController extends Controller
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
-        'password' => ['required', 'min:4', 'confirmed'],
+        'password' => ['required', 'min:8', 'confirmed'],
         'hinhanh' => ['nullable','image','max:1024'],
         ]);
         // up anh
@@ -73,8 +73,7 @@ class TaiKhoanController extends Controller
             $path = Storage::putFileAs('taikhoan/taikhoan_admin', $request->file('hinhanh'), $fileName);
         }
         $orm = new TaiKhoan();
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+        
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
@@ -124,8 +123,7 @@ class TaiKhoanController extends Controller
 
        }
         $orm = TaiKhoan::find($id);
-         $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+      
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
@@ -177,7 +175,7 @@ class TaiKhoanController extends Controller
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
-        'password' => ['required', 'min:4', 'confirmed'],
+        'password' => ['required', 'min:8', 'confirmed'],
         'hinhanh' => ['nullable','image','max:1024'],
         ]);
         // up anh
@@ -191,8 +189,7 @@ class TaiKhoanController extends Controller
             $path = Storage::putFileAs('taikhoan/taikhoan_khachhang', $request->file('hinhanh'), $fileName);
         }
         $orm = new TaiKhoan();
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+       
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
@@ -242,8 +239,7 @@ class TaiKhoanController extends Controller
 
        }
         $orm = TaiKhoan::find($id);
-         $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+       
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->name = $request->name;
@@ -296,7 +292,7 @@ class TaiKhoanController extends Controller
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
-        'password' => ['required', 'min:4', 'confirmed'],
+        'password' => ['required', 'min:8', 'confirmed'],
         'hinhanh' => ['nullable','image','max:1024'],
         ]);
 
@@ -311,8 +307,7 @@ class TaiKhoanController extends Controller
             $path = Storage::putFileAs('taikhoan/taikhoan_donviquanly', $request->file('hinhanh'), $fileName);
         }
         $orm = new TaiKhoan();
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+       
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->donviquanly_id = $request->donviquanly_id;
@@ -363,8 +358,7 @@ class TaiKhoanController extends Controller
 
        }
         $orm = TaiKhoan::find($id);
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+     
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->donviquanly_id = $request->donviquanly_id;
@@ -430,7 +424,7 @@ class TaiKhoanController extends Controller
         'username' => ['required', 'max:255', 'unique:taikhoan'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan'],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan'],
-        'password' => ['required', 'min:4', 'confirmed'],
+        'password' => ['required', 'min:8', 'confirmed'],
         'hinhanh' => ['nullable','image','max:1024'],
         ]);
          // up anh
@@ -445,8 +439,7 @@ class TaiKhoanController extends Controller
         }
         
         $orm = new TaiKhoan();
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+      
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->doanhnghiep_id = $request->doanhnghiep_id;
@@ -485,7 +478,7 @@ class TaiKhoanController extends Controller
         'username' => ['required', 'max:255', 'unique:taikhoan,username,'.$id],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan,email,'.$id],
         'phone'=>['required','string','min:10','max:12','unique:taikhoan,phone,'.$id],
-        'password' => [ 'confirmed'],
+        'password' => ['confirmed'],
         'hinhanh' => ['nullable','image','max:1024'],
         ]);
          if($request->hasFile('hinhanh'))
@@ -499,8 +492,7 @@ class TaiKhoanController extends Controller
 
        }
         $orm = TaiKhoan::find($id);
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+      
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->doanhnghiep_id =  Auth::user()->doanhnghiep->id;

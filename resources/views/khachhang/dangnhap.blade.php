@@ -1,6 +1,8 @@
-@extends('layouts.frontend')
+@extends('layouts.khachhang')
 
-@section('title', 'Đăng nhập')
+@section('pagetitle')
+	Đăng Nhập
+@endsection
 
 @section('content')
 @include('frontend.nav')

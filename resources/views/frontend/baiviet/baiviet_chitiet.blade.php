@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Tin Tức Chi Tiết
+@endsection
 @section('content')
 @include('frontend.nav')
      <section class="blog-details-hero set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' ) }}">
@@ -27,9 +29,10 @@
                 <div class="col-lg-4 col-md-5 order-md-1 order-2">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit"><span class="icon_search"></span></button>
+                             <form action="{{route('frontend.baiviet.timkiem')}}">
+                                 @csrf
+                                <input type="text" name="key" placeholder="Bạn cần tìm tin tức gì ?">
+                               <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>
                         <div class="blog__sidebar__item">

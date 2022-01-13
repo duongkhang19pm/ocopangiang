@@ -15,8 +15,8 @@ class CreateChiTietPhanHangSanPhamsTable extends Migration
     {
         Schema::create('chitiet_phanhang_sanpham', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sanpham_id')->constrained('sanpham');
-             $table->foreignId('phanhang_id')->constrained('phanhang');
+            $table->foreignId('sanpham_id')->constrained('sanpham')->onDelete('cascade');
+             $table->foreignId('phanhang_id')->constrained('phanhang')->onDelete('cascade');
              $table->date('ngaybatdau');
              $table->date('ngayketthuc')->nullable();
             $table->timestamp('created_at')->useCurrent();

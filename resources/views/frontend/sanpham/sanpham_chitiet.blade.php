@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Sản Phẩm Chi Tiết
+@endsection
 @section('content')
 @include('frontend.nav')
 
@@ -30,16 +32,16 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            @foreach($sanpham->hinhanh as $image)
+                            @foreach($hinhanh as $image)
                             <img class="product__details__pic__item--large"
-                                src="{{ $hinhanh_first[$image->id] }}" height="500" alt="">
-                                @break
+                                src="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}" height="500" alt="">
+                            @break
                             @endforeach
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            @foreach($sanpham->hinhanh as $image)
-                            <img data-imgbigurl="{{env('APP_URL').'/storage/app/'.$image->thumuc.'/'.$image->hinhanh  }}"
-                                src="{{env('APP_URL').'/storage/app/'.$image->thumuc.'/'.$image->hinhanh  }}"width="100" height="150" alt="">
+                            @foreach($hinhanh as $image)
+                            <img data-imgbigurl="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}"
+                                src="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}"width="100" height="150" alt="">
                             
                             @endforeach
                         </div>
@@ -97,23 +99,26 @@
                             <li><b>Khối Lượng Riêng</b> <span>{{$sanpham->khoiluongrieng}}</span></li>
                             <li><b>Share on</b>
                                 <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest"></i></a>
                                 </div>
                             </li>
                         </ul>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                        <form method="get" action="{{ route('frontend.giohang.them.chitiet',['tensanpham_slug' => $sanpham->tensanpham_slug]) }}">
+                            @csrf
+                                <div class="product__details__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input name="qty" type="text" value="1" min="0" max="10">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$sanpham->tensanpham}} vào giỏ hàng của mình')" class="primary-btn">THÊM VÀO GIỎ HÀNG</a>
-                       
-                       
+
+                            <button type="submit" class="btn primary-btn">THÊM VÀO GIỎ HÀNG</button>
+                        </form>
+                        
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -294,14 +299,14 @@
                                     <div class="row mt-3">
                                         <div class="col-lg-6">
                                             <p> <strong>Mã Số Thuế:</strong> {{$sanpham->doanhnghiep->masothue}}</p>
-                                            <p> <strong>Địa Chỉ:</strong> {{ $sanpham->doanhnghiep->Tinh->tentinh }} - {{ $sanpham->doanhnghiep->Huyen->tenhuyen }} - {{ $sanpham->doanhnghiep->Xa->tenxa }}  -  Đường:{{ $sanpham->doanhnghiep->tenduong }}</p>
+                                            <p> <strong>Địa Chỉ:</strong> {{ $sanpham->doanhnghiep->Xa->Huyen->Tinh->tentinh }} - {{ $sanpham->doanhnghiep->Xa->Huyen->tenhuyen }} - {{ $sanpham->doanhnghiep->Xa->tenxa }}  -  Đường:{{ $sanpham->doanhnghiep->tenduong }}</p>
                                              <p> <strong>Mô Hinh Kinh Doanh:</strong> {{$sanpham->doanhnghiep->mohinhkinhdoanh->tenmohinhkinhdoanh}}</p>
                                              <p> <strong>Loại Hinh Kinh Doanh:</strong> {{$sanpham->doanhnghiep->loaihinhkinhdoanh->tenloaihinhkinhdoanh}}</p>
                                         </div>
                                         <div class="col-lg-6">
                                             <p> <strong>Email:</strong> {{$sanpham->doanhnghiep->email}}</p>
                                             <p> <strong>Điện Thoại:</strong> {{$sanpham->doanhnghiep->SDT}}</p>
-                                            <p> <strong>Website:</strong> {{$sanpham->doanhnghiep->website}}</p>
+                                            <p> <strong>Website:</strong><a href="{{$sanpham->doanhnghiep->website}}" target="_blank">{{$sanpham->doanhnghiep->website}}</a> </p>
                                             <p> <strong>Ngày Thành Lập:</strong> {{ Carbon\Carbon::parse( $sanpham->doanhnghiep->ngaythanhlap)->format('d/m/Y') }}</p>
                                         </div>
                                     </div>
@@ -333,7 +338,7 @@
                             <div class="product__item">
                                 @foreach($value->hinhanh as $image)
                      
-                                    <div class="product__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                    <div class="product__item__pic set-bg" data-setbg="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}">
                                         <ul class="product__item__pic__hover">
                                             
                                             <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
@@ -354,4 +359,8 @@
             </div>
         </div>
     </section>
+
+@endsection
+@section('javascript')
+  <script src="{{ asset('public/frontend/assets/js/jquery.nice-select.min.js' ) }}"></script>
 @endsection

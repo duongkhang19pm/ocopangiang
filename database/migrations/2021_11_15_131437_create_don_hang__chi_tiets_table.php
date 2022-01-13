@@ -15,8 +15,8 @@ class CreateDonHangChiTietsTable extends Migration
     {
         Schema::create('donhang_chitiet', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('donhang_id')->constrained('donhang');
-        $table->foreignId('sanpham_id')->constrained('sanpham');
+        $table->foreignId('donhang_id')->constrained('donhang')->onDelete('cascade');
+        $table->foreignId('sanpham_id')->constrained('sanpham')->onDelete('cascade');
         $table->integer('soluongban');
         $table->double('dongiaban');
         $table->timestamp('created_at')->useCurrent();

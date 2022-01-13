@@ -35,7 +35,7 @@
                           <tr>
                            
                             <th >#</th>
-                            
+                            <th >Tỉnh/Thành Phố</th>
                             <th>Quận/Huyện</th>
                              <th >Tên Xã/Phường</th> 
                         
@@ -49,6 +49,7 @@
 	                          <tr>
 	                            
 	                            <td class="align-middle">{{ $xa->firstItem() + $loop->index }}</td>
+                              <td class="align-middle"> {{ $value->Huyen->Tinh->tentinh }} </td>
                               <td class="align-middle"> {{ $value->Huyen->tenhuyen }} </td>
 	                            <td class="align-middle"> {{ $value->tenxa }} </td>
 	    

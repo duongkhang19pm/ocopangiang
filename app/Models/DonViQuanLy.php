@@ -19,6 +19,8 @@ class DonViQuanLy extends Model
      'tenthutruong',
      'email',
      'SDT',
+     'website',
+     'hinhanh',
      ];
 
     public function Tinh()

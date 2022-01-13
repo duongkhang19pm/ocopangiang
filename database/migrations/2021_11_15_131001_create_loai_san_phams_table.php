@@ -15,7 +15,7 @@ class CreateLoaiSanPhamsTable extends Migration
     {
         Schema::create('loaisanpham', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nhomsanpham_id')->constrained('nhomsanpham');
+            $table->foreignId('nhomsanpham_id')->constrained('nhomsanpham')->onDelete('cascade');
             $table->string('tenloai');
             $table->string('tenloai_slug');
             $table->timestamp('created_at')->useCurrent();

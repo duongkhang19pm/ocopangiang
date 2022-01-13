@@ -65,7 +65,7 @@ class DonViQuanLyController extends Controller
             'tenthutruong'=>['required','string','max:191'],
             'email'=>['required','email:rfc,dns'],
             'SDT'=>['required','string','min:10','max:12'],
-            'website'=>['required','url'],
+            'website'=>['nullable','url'],
             'hinhanh' => ['nullable','image','max:1024'],
            
 
@@ -82,8 +82,7 @@ class DonViQuanLyController extends Controller
         }
 
         $orm = new DonViQuanLy();
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+        
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->tendonviquanly = $request->tendonviquanly;
@@ -121,7 +120,7 @@ class DonViQuanLyController extends Controller
             'tenthutruong'=>['required','string','max:191'],
             'email'=>['required','email:rfc,dns'],
             'SDT'=>['required','string','min:10','max:12'],
-            'website'=>['required','url'],
+            'website'=>['nullable','url'],
             'hinhanh' => ['nullable','image','max:1024'],
 
         ]);
@@ -138,8 +137,7 @@ class DonViQuanLyController extends Controller
 
        }
        $orm=DonViQuanLy::find($id);
-        $orm->tinh_id = $request->tinh_id;
-        $orm->huyen_id = $request->huyen_id;
+       
         $orm->xa_id = $request->xa_id;
         $orm->tenduong = $request->tenduong;
         $orm->tendonviquanly = $request->tendonviquanly;

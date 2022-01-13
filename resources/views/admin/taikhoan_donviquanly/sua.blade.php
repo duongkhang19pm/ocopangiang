@@ -30,7 +30,7 @@
                           <select class="custom-select d-block w-100 @error('tinh_id') is-invalid @enderror" id="tinh_id" name="tinh_id" required>
                             <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
                              @foreach($tinh as $value)
-                                <option value="{{ $value->id }}" {{ ($taikhoan->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
+                                <option value="{{ $value->id }}" {{ ($taikhoan->xa->huyen->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
                              @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn tỉnh/thành phố . </div>
@@ -45,7 +45,7 @@
                               <select class="custom-select d-block w-100 @error('huyen_id') is-invalid @enderror" id="huyen_id" name="huyen_id" required>
                                 
                                  @foreach($huyen as $value)
-                                    <option value="{{ $value->id }}" {{ ($taikhoan->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
+                                    <option value="{{ $value->id }}" {{ ($taikhoan->xa->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
                                  @endforeach
                               </select>
                               <div class="invalid-feedback">Vui lòng chọn quận/huyện . </div>

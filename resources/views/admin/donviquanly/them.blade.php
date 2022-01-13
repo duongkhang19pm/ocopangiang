@@ -118,8 +118,8 @@
                             @enderror
                       </div>
                        <div class="col-md-4">
-                          <label for="website">Website Đơn Vị<span class="text-danger font-weight-bold">*</span></label>
-                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ old('website') }}" placeholder="Website Đơn Vị" required />
+                          <label for="website">Website Đơn Vị</label>
+                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ old('website') }}" placeholder="Website Đơn Vị"  />
                           
                             @error('website')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>

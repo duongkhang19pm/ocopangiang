@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
-
+@section('pagetitle')
+    Tin Tức
+@endsection
 @section('content')
 @include('frontend.nav')
      <section class="breadcrumb-section set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' )}}">
@@ -10,8 +12,7 @@
                         <h2>Tin Tức</h2>
                         <div class="breadcrumb__option">
                             <a href="{{route('frontend')}}">Trang Chủ</a>
-                            <a href="{{route('frontend.baiviet')}}">Tin Tức</a>
-                            <span> {{$chude->tenchude}}</span>
+                            <span>Tin Tức</span>
                         </div>
                     </div>
                 </div>
@@ -27,16 +28,18 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit"><span class="icon_search"></span></button>
+                         
+                            <form action="{{route('frontend.baiviet.timkiem')}}">
+                                 @csrf
+                                <input type="text" name="key" placeholder="Bạn cần tìm tin tức gì ?">
+                               <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>
                         <div class="blog__sidebar__item">
                             <h4>Chủ Đề</h4>
                             <ul>
                                 <li><a href="{{route('frontend.baiviet')}}">Tất Cả</a></li>
-                                @foreach($chude_all as  $value)
+                                @foreach($chude as  $value)
                                      <li><a href="{{route('frontend.baiviet.chude',['tenchude_slug'=>$value->tenchude_slug])}}">{{$value->tenchude}}</a></li>
                                 @endforeach
                             </ul>
@@ -59,12 +62,12 @@
                                 @endforeach
                             </div>
                         </div>
-                       
+                        
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-7">
                     <div class="row">
-                         @foreach($baiviet as $value)
+                        @foreach($baiviet as $value)
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
@@ -82,6 +85,8 @@
                                 </div>
                             </div>
                         @endforeach
+                       
+                        
                         <div class="col-lg-12 text-center">
                             
                                 {{$baiviet->links()}}

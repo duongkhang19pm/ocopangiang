@@ -2,10 +2,120 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\HinhAnh;
+use App\Models\SanPham;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use File;
 class HinhAnhController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function getDanhSach($tensanpham_slug)
+    {
+        $sanpham = SanPham::where('tensanpham_slug',$tensanpham_slug)->first();
+        $hinhanh = HinhAnh::where('sanpham_id', $sanpham->id)->get();
+
+        return view('doanhnghiep.hinhanh.danhsach', compact('hinhanh','sanpham'));
+    }
+    public function getThem($tensanpham_slug)
+    {
+        $sanpham = SanPham::where('tensanpham_slug',$tensanpham_slug)->first();
+        return view('doanhnghiep.hinhanh.them', compact('sanpham'));
+    }
+
+     public function postThem(Request $request, $tensanpham_slug)
+    {
+        $this->validate($request, [
+            'hinhanh' => ['required'],
+            'hinhanh.*' => ['mimes:jpeg,png,jpg,gif,svg', 'image', 'max:1024'],
+        ],
+        $messages = [
+            'required' => 'Hình ảnh không được bỏ trống.',
+            'image' => 'Phải là hình ảnh.',
+            'mimes' => 'Hình ảnh chỉ hỗ trợ các định dạng jpeg,png,jpg,gif,svg.',
+        ]);
+
+        $sanpham = SanPham::where('tensanpham_slug',$tensanpham_slug)->first();
+
+        if ($request->hasfile('hinhanh')) {
+            $images = $request->file('hinhanh');
+    
+            foreach($images as $image) 
+            {
+
+                $extension = $image->getClientOriginalName();                
+                $fileName = $tensanpham_slug. '-' . $extension;
+                $path = Storage::putFileAs('sanpham', $image, $fileName);
+
+                $img = new HinhAnh();
+                $img->hinhanh = $path;
+                $img->sanpham_id = $sanpham->id;
+                $img->save();
+                
+            }
+            
+        }
+
+        return redirect()->route('doanhnghiep.hinhanh',$tensanpham_slug);
+    }
+
+    public function getSua($id)
+    {
+        $hinhanh = HinhAnh::find($id);
+        return view('doanhnghiep.hinhanh.sua', compact('hinhanh'));      
+    }
+    
+    public function postSua(Request $request, $id)
+    {   
+        $this->validate($request, [
+            'hinhanh' => ['required','mimes:jpeg,png,jpg,gif,svg', 'image', 'max:1024'],
+        ],
+        $messages = [
+            'required' => 'Hình ảnh không được bỏ trống.',
+            'image' => 'Phải là hình ảnh.',
+            'mimes' => 'Hình ảnh chỉ hỗ trợ các định dạng jpeg,png,jpg,gif,svg.',
+        ]);
+
+        $hinhanh = HinhAnh::find($id);
+        $sanpham = SanPham::Where('id',$hinhanh->sanpham_id)->first();
+
+        $hinhanh->delete();
+        Storage::delete($hinhanh->hinhanh);
+
+        $images = $request->file('hinhanh');        
+        $extension = $images->getClientOriginalName();                
+        $fileName = $sanpham->tensanpham_slug. '-' . $extension;
+        $path = Storage::putFileAs('sanpham', $images, $fileName);
+
+        $img = new HinhAnh();
+        $img->hinhanh = $path;
+        $img->sanpham_id = $sanpham->id;
+        $img->save();
+
+        return redirect()->route('doanhnghiep.hinhanh',$sanpham->tensanpham_slug);
+
+    }
+    
+    public function getXoa($id)
+    {       
+        $orm = HinhAnh::find($id);
+        
+        $orm->delete();
+        Storage::delete($orm->hinhanh);
+
+        if($orm->sanpham_id != null)
+        {
+            $sanpham = SanPham::where('id',$orm->sanpham_id)->first();
+            return redirect()->route('doanhnghiep.hinhanh',$sanpham->tensanpham_slug);
+        }
+        else
+        {
+            return redirect()->route('doanhnghiep.sanpham');
+        }
+              
+    }
 }

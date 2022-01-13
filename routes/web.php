@@ -28,10 +28,13 @@ use App\Http\Controllers\DonViTinhController;
 use App\Http\Controllers\QuyCachController;
 use App\Http\Controllers\HinhThucThanhToanController;
 use App\Http\Controllers\ChiTietPhanHangSanPhamController;
+use App\Http\Controllers\HinhAnhController;
 // Trang chủ
 Route::get('/', [HomeController::class, 'getHome'])->name('frontend');
 
 Route::get('/403', [HomeController::class, 'getForbidden'])->name('403');
+
+Route::get('/timkiem', [HomeController::class, 'getTimKiem'])->name('frontend.timkiem');
 //Đăng Ký, đăng nhập, quên mật khẩu,...
 Auth::routes();
 // Trang Liên hệ
@@ -40,10 +43,11 @@ Route::get('/lien-he', [HomeController::class, 'getLienHe'])->name('frontend.lie
 Route::get('/doanh-nghiep/{tendoanhnghiep_slug}', [HomeController::class, 'getDoanhNghiep'])->name('frontend.doanhnghiep');
 // Trang sản phẩm
 Route::get('/san-pham', [HomeController::class, 'getSanPham'])->name('frontend.sanpham');
+Route::get('/san-pham/phan-hang/{tenphanhang_slug}', [HomeController::class, 'getSanPham_PhanHang'])->name('frontend.phanhang');
+
 Route::get('/san-pham/{tennhom_slug}', [HomeController::class, 'getSanPham_Nhom'])->name('frontend.sanpham.nhomsanpham');
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}', [HomeController::class, 'getSanPham_Loai'])->name('frontend.sanpham.loaisanpham');
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeController::class, 'getSanPham_ChiTiet'])->name('frontend.sanpham.chitiet');
-
 
 // Trang Khách Hàng
 
@@ -53,15 +57,19 @@ Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeCon
 Route::get('/bai-viet', [HomeController::class, 'getBaiViet'])->name('frontend.baiviet');
 Route::get('/bai-viet/{tenchude_slug}/{tieude_slug}', [HomeController::class, 'getBaiViet_ChiTiet'])->name('frontend.baiviet.chitiet');
 Route::get('/bai-viet/{tenchude_slug}', [HomeController::class, 'getBaiViet_ChuDe'])->name('frontend.baiviet.chude');
-
+Route::get('/baiviet/tim-kiem', [HomeController::class, 'getTimKiem_BaiViet'])->name('frontend.baiviet.timkiem');
 
 // Trang giỏ hàng
 Route::get('/gio-hang', [HomeController::class, 'getGioHang'])->name('frontend.giohang');
 Route::get('/gio-hang/them/{tensanpham_slug}', [HomeController::class, 'getGioHang_Them'])->name('frontend.giohang.them');
+
+Route::get('/gio-hang/them/chi-tiet/{tensanpham_slug}', [HomeController::class, 'getGioHang_ThemChiTiet'])->name('frontend.giohang.them.chitiet');
 Route::get('/gio-hang/xoa', [HomeController::class, 'getGioHang_XoaTatCa'])->name('frontend.giohang.xoatatca');
 Route::get('/gio-hang/xoa/{row_id}', [HomeController::class, 'getGioHang_Xoa'])->name('frontend.giohang.xoa');
 Route::get('/gio-hang/giam/{row_id}', [HomeController::class, 'getGioHang_Giam'])->name('frontend.giohang.giam');
 Route::get('/gio-hang/tang/{row_id}', [HomeController::class, 'getGioHang_Tang'])->name('frontend.giohang.tang');
+
+
 
 /// Trang đặt hàng
 Route::get('/nhap-thong-tin', [HomeController::class, 'getNhapThongTin'])->name('frontend.nhapthongtin');
@@ -86,15 +94,17 @@ Route::prefix('khach-hang')->name('khachhang.')->group(function()
 {
 
     // Trang chủ User
-    Route::get('/', [TKKhachHangController::class, 'getHome'])->name('khachhang');
-    Route::get('/home', [TKKhachHangController::class, 'getHome'])->name('khachhang');
+    Route::get('/', [TKKhachHangController::class, 'getHome'])->name('home');
+    Route::get('/home', [TKKhachHangController::class, 'getHome'])->name('home');
 
     // Xem và cập nhật trạng thái đơn hàng
-    Route::get('/don-hang/{id}', [TKKhachHangController::class, 'getDonHang'])->name('khachhang.donhang');
-    Route::post('/don-hang/{id}', [TKKhachHangController::class, 'postDonHang'])->name('khachhang.donhang');
+    Route::get('/don-hang/{id}', [TKKhachHangController::class, 'getDonHang'])->name('donhang');
+    Route::get('/don-hang/huy/{taikhoan}/{id}', [TKKhachHangController::class, 'getDonHang_Huy'])->name('donhang.huy');
+    Route::get('/don-hang/hienthi/{taikhoan}/{id}', [TKKhachHangController::class, 'getDonHang_HienThi'])->name('donhang.hienthi');
  
     // Cập nhật thông tin tài khoản
-    Route::post('/cap-nhat-ho-so', [TKKhachHangController::class, 'postCapNhatHoSo'])->name('khachhang.capnhathoso');
+    Route::get('/cap-nhat-ho-so/{id}', [TKKhachHangController::class, 'getCapNhatHoSo'])->name('capnhathoso');
+    Route::post('/cap-nhat-ho-so/{id}', [TKKhachHangController::class, 'postCapNhatHoSo'])->name('capnhathoso');
 
 
 
@@ -306,7 +316,8 @@ Route::prefix('donviquanly')->name('donviquanly.')->middleware('donviquanly')->g
     Route::get('/doanhnghiep/sua/{id}', [DoanhNghiepController::class, 'getSua'])->name('doanhnghiep.sua');
     Route::post('/doanhnghiep/sua/{id}', [DoanhNghiepController::class, 'postSua'])->name('doanhnghiep.sua');
     Route::get('/doanhnghiep/xoa/{id}', [DoanhNghiepController::class, 'getXoa'])->name('doanhnghiep.xoa');
-
+     Route::post('/doanhnghiep/nhap', [DoanhNghiepController::class, 'postNhap'])->name('doanhnghiep.nhap');
+    Route::get('/doanhnghiep/xuat', [DoanhNghiepController::class, 'getXuat'])->name('doanhnghiep.xuat');
 
 
     // Quản lý Tài khoản DoanhNghiep
@@ -318,8 +329,8 @@ Route::prefix('donviquanly')->name('donviquanly.')->middleware('donviquanly')->g
     Route::get('/taikhoan/doanhnghiep/sua/{id}', [TaiKhoanController::class, 'getSua_DoanhNghiep'])->name('taikhoan_doanhnghiep.sua');
     Route::post('/taikhoan/doanhnghiep/sua/{id}', [TaiKhoanController::class, 'postSua_DoanhNghiep'])->name('taikhoan_doanhnghiep.sua');
     Route::get('/taikhoan/doanhnghiep/xoa/{id}', [TaiKhoanController::class, 'getXoa_DoanhNghiep'])->name('taikhoan_doanhnghiep.xoa');
-     Route::get('/taikhoan/doanhnghiep/kichhoat/{id}', [TaiKhoanController::class, 'getKichHoat_DoanhNghiep'])->name('taikhoan_doanhnghiep.kichhoat');
-
+    Route::get('/taikhoan/doanhnghiep/kichhoat/{id}', [TaiKhoanController::class, 'getKichHoat_DoanhNghiep'])->name('taikhoan_doanhnghiep.kichhoat');
+    
 
 
       // Quản lý Bai Viet
@@ -353,6 +364,7 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
 
      // Quản lý Sản phẩm
     Route::get('/sanpham', [SanPhamController::class, 'getDanhSach'])->name('sanpham');
+    Route::get('/sanpham/hienthi/{id}', [SanPhamController::class, 'getHienThi'])->name('sanpham.hienthi');
     Route::get('/sanpham/them', [SanPhamController::class, 'getThem'])->name('sanpham.them');
     Route::get('/sanpham/getLoai',[SanPhamController::class, 'getLoai'])->name('sanpham.getLoai');
     Route::get('/sanpham/getQuyCach',[SanPhamController::class, 'getQuyCach'])->name('sanpham.getQuyCach');
@@ -362,6 +374,15 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::get('/sanpham/xoa/{id}', [SanPhamController::class, 'getXoa'])->name('sanpham.xoa');
     Route::post('/sanpham/nhap', [SanPhamController::class, 'postNhap'])->name('sanpham.nhap');
     Route::get('/sanpham/xuat', [SanPhamController::class, 'getXuat'])->name('sanpham.xuat');
+
+    // Quản lý hình ảnh sản phẩm
+    Route::get('/hinhanh/{tensanpham_slug}', [HinhAnhController::class, 'getDanhSach'])->name('hinhanh');
+    Route::get('/hinhanh/them/{tensanpham_slug}', [HinhAnhController::class, 'getThem'])->name('hinhanh.them');
+    Route::post('/hinhanh/them/{tensanpham_slug}', [HinhAnhController::class, 'postThem'])->name('hinhanh.them');
+    Route::get('/hinhanh/sua/{id}', [HinhAnhController::class, 'getSua'])->name('hinhanh.sua');
+    Route::post('/hinhanh/sua/{id}', [HinhAnhController::class, 'postSua'])->name('hinhanh.sua');
+    Route::get('/hinhanh/xoa/{id}', [HinhAnhController::class, 'getXoa'])->name('hinhanh.xoa');
+
 
     // Quản lý Chi Tiet Phan Hang San Pham
     Route::get('/chitiet_phanhang_sanpham', [ChiTietPhanHangSanPhamController::class, 'getDanhSach'])->name('chitiet_phanhang_sanpham');

@@ -15,12 +15,12 @@ class CreateTaiKhoansTable extends Migration
     {
         Schema::create('taikhoan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tinh_id')->nullable()->constrained('tinh');
-            $table->foreignId('huyen_id')->nullable()->constrained('huyen');
-            $table->foreignId('xa_id')->nullable()->constrained('xa');
-            $table->foreignId('donviquanly_id')->nullable()->constrained('donviquanly');
-            $table->foreignId('doanhnghiep_id')->nullable()->constrained('doanhnghiep');
-            $table->foreignId('chucvu_id')->nullable()->constrained('chucvu');
+            //$table->foreignId('tinh_id')->nullable()->constrained('tinh')->onDelete('cascade');
+            //$table->foreignId('huyen_id')->nullable()->constrained('huyen')->onDelete('cascade');
+            $table->foreignId('xa_id')->nullable()->constrained('xa')->onDelete('cascade');
+            $table->foreignId('donviquanly_id')->nullable()->constrained('donviquanly')->onDelete('cascade');
+            $table->foreignId('doanhnghiep_id')->nullable()->constrained('doanhnghiep')->onDelete('cascade');
+            $table->foreignId('chucvu_id')->nullable()->constrained('chucvu')->onDelete('cascade');
             $table->string('tenduong')->nullable();
             $table->string('name');
             $table->string('username')->unique();
@@ -38,7 +38,9 @@ class CreateTaiKhoansTable extends Migration
              $table->engine = 'InnoDB';
 
         });
+      
         TaiKhoan::create([
+          
             'name' => 'Administrator',
             'username' => 'admin',
             'email' => 'dvkhang_19pm@student.agu.edu.vn',

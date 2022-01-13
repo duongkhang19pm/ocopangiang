@@ -15,7 +15,7 @@ class CreateQuyCachesTable extends Migration
     {
         Schema::create('quycach', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donvitinh_id')->constrained('donvitinh');
+            $table->foreignId('donvitinh_id')->constrained('donvitinh')->onDelete('cascade');
             $table->string('tenquycach');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();
