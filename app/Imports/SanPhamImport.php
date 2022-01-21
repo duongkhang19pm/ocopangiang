@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Models\SanPham;
-use App\Models\HinhAnh;
+use App\Models\ChiTiet_PhanHang_SanPham;
 use Illuminate\Support\Facades\Auth;
 class SanPhamImport implements ToModel, WithHeadingRow
 {
@@ -52,23 +52,18 @@ class SanPhamImport implements ToModel, WithHeadingRow
             'dongia' => $row['don_gia'],
             'hansudung' => $row['han_su_dung'],
             'hansudungsaumohop' => $row['han_su_dung_sau_mo_hop'],
+            'hinhanh' => $row['hinh_anh_san_pham_dai_dien'],
+            'thumuc' => $row['hinh_anh_san_pham_dinh_kem'],
 
         ]);
-        $spreadsheet = IOFactory::load(request()->file('file_excel'));
-        $i = 0;
-        $image = $row['hinh_anh'];      
-        $path =  explode("?",$image);
-        foreach($path as $hinhanh)
-        {
+        $chitiet_phanhang_sanpham = ChiTiet_PhanHang_SanPham::create([
+            'phanhang_id' => $row['phan_hang'],
+            'sanpham_id' =>$sanpham->id,
+            'ngaybatdau' => $row['ngay_bat_dau'],
+            'ngayketthuc' => $row['ngay_ket_thuc'],
 
-            HinhAnh::create([
-                'sanpham_id' => $sanpham->id,
-                'hinhanh' => $hinhanh,
-                'thumuc'=>'public/',
-                
-            ]);
-        }
-
+        ]);
+       
         return $sanpham;
      }
 }

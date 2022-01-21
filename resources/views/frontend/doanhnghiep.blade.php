@@ -34,7 +34,7 @@
                     <div class="sidebar">
                         
                         <div class="sidebar__item">
-                            @if(empty($doanhnghiep->hinhanh))
+                            @if(empty($doanhnghiep->hinhanh)||$doanhnghiep->hinhanh == 'N/A')
                                <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="300" width="500" >
                             @else
                               <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="250" width="500" />
@@ -75,26 +75,25 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                @foreach($doanhnghiep->SanPham as $value)
+                               @foreach($sanpham as $value)
                                     <div class="col-lg-4">
                                         <div class="product__discount__item">
-                                            @foreach($value->hinhanh as $image)
-                                                <div class="product__discount__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                           
+                                                <div class="product__discount__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                                     <ul class="product__item__pic__hover">
                                                         
-                                                        <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                                        <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                                     </ul>
                                                 </div>
-                                                 @break
-                                            @endforeach
+                                                
                                             
                                             <div class="product__discount__item__text">
                                              
                                                 <h5><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h5>
                                                 <div class="product__item__price">{{ number_format($value->dongia ) }} <sup>VNĐ</sup></div>
                                                 <div class="product__item__price">
-                                                @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+                                                  @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
                                                     @if( $ct->phanhang_id  == 1)
                                                         <h5 class="fa fa-star " style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:SlateGray"></h5>
@@ -162,37 +161,9 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                            <div class="product__details__tab__desc">
-                                                <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
-                                               
-                                                <div class="row mt-3">
-                                                    <div class="col-lg-6">
-                                                        <p> <strong>Mã Số Thuế:</strong> {{$doanhnghiep->masothue}}</p>
-                                                        <p> <strong>Địa Chỉ:</strong> {{ $doanhnghiep->Tinh->tentinh }} - {{ $doanhnghiep->Huyen->tenhuyen }} - {{ $doanhnghiep->Xa->tenxa }}  -  Đường:{{ $doanhnghiep->tenduong }}</p>
-                                                         <p> <strong>Mô Hinh Kinh Doanh:</strong> {{$doanhnghiep->mohinhkinhdoanh->tenmohinhkinhdoanh}}</p>
-                                                         <p> <strong>Loại Hinh Kinh Doanh:</strong> {{$doanhnghiep->loaihinhkinhdoanh->tenloaihinhkinhdoanh}}</p>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <p> <strong>Email:</strong> {{$doanhnghiep->email}}</p>
-                                                        <p> <strong>Điện Thoại:</strong> {{$doanhnghiep->SDT}}</p>
-                                                        <p> <strong >Website:</strong> <a href="{{$doanhnghiep->website}}" target="_blank">{{$doanhnghiep->website}}</a></p>
-                                                        <p> <strong>Ngày Thành Lập:</strong> {{ Carbon\Carbon::parse( $doanhnghiep->ngaythanhlap)->format('d/m/Y') }}</p>
-                                                    </div>
-                                                </div>
-                                                
-
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                            <div class="product__details__tab__desc">
-                                              <h6>Giới Thiệu</h6>
-                                                 <p> <?php echo ($doanhnghiep->gioithieu); ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                            <div class="product__details__tab__desc">
+                                             <div class="product__details__tab__desc">
                                                  <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
-                                                @if(empty($doanhnghiep->hinhanh))
+                                                @if(empty($doanhnghiep->hinhanh)||$doanhnghiep->hinhanh == 'N/A')
                                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="100" width="150" >
                                                 @else
                                                   <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="90" width="100" />
@@ -200,7 +171,7 @@
                                                 <div class="row mt-3">
                                                     <div class="col-lg-6">
                                                         <p> <strong>Mã Số Thuế:</strong> {{$doanhnghiep->masothue}}</p>
-                                                        <p> <strong>Địa Chỉ:</strong> {{ $doanhnghiep->Tinh->tentinh }} - {{ $doanhnghiep->Huyen->tenhuyen }} - {{ $doanhnghiep->Xa->tenxa }}  -  Đường:{{ $doanhnghiep->tenduong }}</p>
+                                                        <p> <strong>Địa Chỉ:</strong> {{ $doanhnghiep->Xa->Huyen->Tinh->tentinh }} - {{ $doanhnghiep->Xa->Huyen->tenhuyen }} - {{ $doanhnghiep->Xa->tenxa }}  -  Đường:{{ $doanhnghiep->tenduong }}</p>
                                                          <p> <strong>Mô Hinh Kinh Doanh:</strong> {{$doanhnghiep->mohinhkinhdoanh->tenmohinhkinhdoanh}}</p>
                                                          <p> <strong>Loại Hinh Kinh Doanh:</strong> {{$doanhnghiep->loaihinhkinhdoanh->tenloaihinhkinhdoanh}}</p>
                                                     </div>
@@ -211,6 +182,17 @@
                                                         <p> <strong>Ngày Thành Lập:</strong> {{ Carbon\Carbon::parse( $doanhnghiep->ngaythanhlap)->format('d/m/Y') }}</p>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                            <div class="product__details__tab__desc">
+                                              <h6>Giới Thiệu</h6>
+                                                 <p> <?php echo ($doanhnghiep->gioithieu); ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                            <div class="product__details__tab__desc">
+                                                <div class="card-body" id="mapid"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -224,5 +206,28 @@
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
 
+
+<style>
+    #mapid { height: 400px; }
+</style>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+    integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+    crossorigin=""></script>
+
+<script>
+    var map = L.map('mapid').setView([{{ $doanhnghiep->vido }}, {{ $doanhnghiep->kinhdo }}],  {{ config('leaflet.detail_zoom_level') }});
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([{{ $doanhnghiep->vido }}, {{ $doanhnghiep->kinhdo }}]).addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
+
+
+</script>
 @endsection

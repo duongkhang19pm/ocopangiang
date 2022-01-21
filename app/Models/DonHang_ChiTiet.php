@@ -17,4 +17,8 @@ class DonHang_ChiTiet extends Model
     {
     return $this->belongsTo(SanPham::class, 'sanpham_id', 'id');
     }
+    public function TinhTrang()
+    {
+    return $this->belongsTo(TinhTrang::class, 'tinhtrang_id', 'id');
+    }
 }

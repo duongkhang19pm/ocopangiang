@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Storage;
 use Illuminate\Http\Request;
 use App\Models\SanPham;
 use App\Models\PhanHang;
@@ -13,7 +13,8 @@ use App\Models\DonHang;
 use App\Models\TaiKhoan;
 use App\Models\DonHang_ChiTiet;
 use App\Models\BaiViet;
-use App\Models\HinhAnh;
+
+use App\Models\DanhGia;
 use App\Models\ChuDe;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Tinh;
@@ -35,17 +36,12 @@ class HomeController extends Controller
     
     public function getHome()
     {
-        
-        $sanpham = SanPham::select( 'sanpham.*',
-        DB::raw('(select hinhanh from hinhanh where sanpham_id = sanpham.id  limit 1) as hinhanh'))
-        ->where('sanpham.hienthi',1)
-        ->where('sanpham.soluong','>',0)
-        ->paginate(8);
        
-         $doanhnghiep = DoanhNghiep::all();
-         $baiviet = BaiViet::where('kiemduyet',0)->get();
-         $nhomsanpham = NhomSanPham::all();
-         $donviquanly = DonViQuanLy::all();
+        $sanpham = SanPham::where('sanpham.hienthi',1)->where('sanpham.soluong','>',0)->orderBy('created_at', 'desc')->paginate(12);
+        $doanhnghiep = DoanhNghiep::all();
+        $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->get();
+        $nhomsanpham = NhomSanPham::all();
+        $donviquanly = DonViQuanLy::all();
         return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly'));
     }
 
@@ -53,28 +49,12 @@ class HomeController extends Controller
     {
        
         $key = $request->get('key');
-        $sanpham = SanPham::where('tensanpham','like','%'.$key.'%')->where('hienthi',1)->where('soluong','>','1')->paginate(12);
-         $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
+        $sanpham = SanPham::where('tensanpham','like','%'.$key.'%')->where('hienthi',1)->where('soluong','>',0)->orderBy('created_at', 'desc')->paginate(12);
+        
         $nhomsanpham = NhomSanPham::all();
         $phanhang= PhanHang::all();
-        return view('frontend.sanpham.timkiem', compact('key','sanpham','hinhanh_first','hinhanh','nhomsanpham','phanhang'));
-        //return view('frontend.timkiem', array('key' => $key ,'ketqua' => $ketqua ,'baiviet'=>$baiviet));
+        return view('frontend.sanpham.timkiem', compact('key','sanpham','nhomsanpham','phanhang'));
+
       
     }
 
@@ -82,135 +62,112 @@ class HomeController extends Controller
     public function getDoanhNghiep($tendoanhnghiep_slug)
     {
         $doanhnghiep = DoanhNghiep::where('tendoanhnghiep_slug',$tendoanhnghiep_slug)->first();
-         $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
+        
         $taikhoan=TaiKhoan::where('doanhnghiep_id', $doanhnghiep->id)->first();
-        $baiviet = BaiViet::where('taikhoan_id',$taikhoan->id)->get();
-        return view('frontend.doanhnghiep',compact('doanhnghiep','hinhanh_first','hinhanh','baiviet'));
+        $baiviet = BaiViet::where('taikhoan_id',$taikhoan->id)->where('kiemduyet',1)->orderBy('created_at', 'desc')->get();
+        $sanpham =SanPham::where('doanhnghiep_id',$doanhnghiep->id)->orderBy('created_at', 'desc')->get();
+        return view('frontend.doanhnghiep',compact('doanhnghiep','baiviet','sanpham'));
     }
     public function getSanPham()
     {
-        $sanpham = SanPham::where('hienthi',1)->where('soluong','>','1')->orderBy('created_at', 'desc')->paginate(12);
-        $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->orderBy('created_at', 'desc')->paginate(10);
         $nhomsanpham = NhomSanPham::all();
         $phanhang= PhanHang::all();
-        return view('frontend.sanpham.sanpham',compact('sanpham','hinhanh_first','hinhanh','nhomsanpham','phanhang'));
+        return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
     }
     public function getSanPham_Nhom($tennhom_slug)
     {
-        $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
         $nhomsanpham = NhomSanPham::where('tennhom_slug',$tennhom_slug)->first();
         $loaisanpham = LoaiSanPham::where('nhomsanpham_id',$nhomsanpham->id)->get();
-       // $sanpham = SanPham::where('loaisanpham_id',$loaisanpham->nhomsanpham->id)->get();
         $phanhang= PhanHang::all();
        
-        return view('frontend.sanpham.sanpham_nhom',compact('hinhanh_first','hinhanh','loaisanpham','nhomsanpham','phanhang'));
+        return view('frontend.sanpham.sanpham_nhom',compact('loaisanpham','nhomsanpham','phanhang'));
     }
     public function getSanPham_PhanHang($tenphanhang_slug)
     {
-        $no_image = config('app.url') . '/public/Image/noimage.png';
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
+       
+        
         $phanhang = PhanHang::where('tenphanhang_slug',$tenphanhang_slug)->first();
         $chitiet_phanhang_sanpham = ChiTiet_PhanHang_SanPham::where('phanhang_id',$phanhang->id)->get();
         $nhomsanpham = NhomSanPham::all();
-        return view('frontend.sanpham.sanpham_phanhang',compact('hinhanh_first','hinhanh','nhomsanpham','phanhang','chitiet_phanhang_sanpham'));
+       
+
+
+        return view('frontend.sanpham.sanpham_phanhang',compact('nhomsanpham','phanhang','chitiet_phanhang_sanpham'));
     }
     public function getSanPham_Loai($tennhom_slug,$tenloai_slug)
     {
-         $no_image = config('app.url') . '/public/Image/noimage.png';
+        
         $nhomsanpham = NhomSanPham::where('tennhom_slug',$tennhom_slug)->first();
         $loaisanpham = LoaiSanPham::where('tenloai_slug',$tenloai_slug)->first();
-        $sanpham = SanPham::where('loaisanpham_id',$loaisanpham->id)->where('hienthi',1)->where('soluong','>','1')->get();
+        $sanpham = SanPham::where('loaisanpham_id',$loaisanpham->id)->where('hienthi',1)->where('soluong','>',0)->paginate(10);
         $phanhang= PhanHang::all();
-        $hinhanh = HinhAnh::all();
-        $hinhanh_first = array();
-        foreach($hinhanh as $value)
-        {
-            $dir = 'storage/app/' . $value->thumuc . '/';
-            if(file_exists($dir))
-            {
-                $files = scandir($dir);
-                if(isset($files[2]))
-                    $hinhanh_first[$value->id] = config('app.url') . '/'. $dir . $files[2];
-                else
-                    $hinhanh_first[$value->id] = $no_image;
-            }
-            else
-                $hinhanh_first[$value->id] = $no_image;
-        }
         
-        return view('frontend.sanpham.sanpham_loai',compact('nhomsanpham','loaisanpham','sanpham','phanhang','hinhanh_first','hinhanh'));
+        
+        return view('frontend.sanpham.sanpham_loai',compact('nhomsanpham','loaisanpham','sanpham','phanhang'));
     }
     public function getSanPham_ChiTiet ($tennhom_slug,$tenloai_slug, $tensanpham_slug)
     {
         $nhomsanpham = NhomSanPham::where('tennhom_slug',$tennhom_slug)->first();
         $loaisanpham = LoaiSanPham::where('tenloai_slug',$tenloai_slug)->first();
-        $sanpham= SanPham::where('tensanpham_slug',$tensanpham_slug)->where('hienthi',1)->where('soluong','>','1')->first();
-        $hinhanh = HinhAnh::where('sanpham_id',$sanpham->id)->get();
-        $loai = LoaiSanPham::where('nhomsanpham_id',$nhomsanpham->id)->get();
-        return view('frontend.sanpham.sanpham_chitiet',compact('sanpham','nhomsanpham','loaisanpham','hinhanh','loai'));
+        $sanpham= SanPham::where('tensanpham_slug',$tensanpham_slug)->where('hienthi',1)->where('soluong','>',0)->orderBy('created_at', 'desc')->first();
+        $no_image = config('app.url') . '/public/Image/noimage.png';
+        $extensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
+        $all_files = array();
+        $dir = '';
+        if(is_null($sanpham->thumuc) || trim($sanpham->thumuc) == '')
+            $all_files = null;
+        else
+        {
+            $dir = '/storage/app/' . $sanpham->thumuc . '/';
+            $files = Storage::files($sanpham->thumuc . '/');
+            foreach($files as $file)
+                $all_files[] = pathinfo($file);
+        }
+        $danhgia = DanhGia::where('sanpham_id',$sanpham->id)->where('hienthi',1)->get();
+        
+
+
+
+
+        
+        $sanpham_lienquan = SanPham::where('loaisanpham_id',$loaisanpham->id)->orderBy('created_at', 'desc')->get();
+        
+        return view('frontend.sanpham.sanpham_chitiet',compact('sanpham','nhomsanpham','loaisanpham','all_files','dir','sanpham_lienquan','danhgia'));
+    }
+     public function postDanhGia(Request $request,$tennhom_slug,$tenloai_slug, $tensanpham_slug)
+    {
+        $this->validate($request, [
+            'noidung' => ['required','string'],
+        ],
+        $messages = [
+            'noidung.required' => 'Nội dung bình luận không được bỏ trống.',
+        ]);
+        $nhomsanpham = NhomSanPham::where('tennhom_slug',$tennhom_slug)->first();
+        $loaisanpham = LoaiSanPham::where('tenloai_slug',$tenloai_slug)->first();
+        $sanpham = SanPham::where('tensanpham_slug', $tensanpham_slug)->first();
+        $danhgia = DanhGia::where('sanpham_id', $sanpham->id)->where('hienthi', 1)->get();
+
+        $orm = new DanhGia();
+        $orm->taikhoan_id = Auth::user()->id;
+        $orm->sanpham_id = $sanpham->id;
+        $orm->noidung = $request->noidung;
+        $orm->save();
+        $no_image = config('app.url') . '/public/Image/noimage.png';
+        $extensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
+        $all_files = array();
+        $dir = '';
+        if(is_null($sanpham->thumuc) || trim($sanpham->thumuc) == '')
+            $all_files = null;
+        else
+        {
+            $dir = '/storage/app/' . $sanpham->thumuc . '/';
+            $files = Storage::files($sanpham->thumuc . '/');
+            foreach($files as $file)
+                $all_files[] = pathinfo($file);
+        }
+         $sanpham_lienquan = SanPham::where('loaisanpham_id',$loaisanpham->id)->orderBy('created_at', 'desc')->get();
+        return view('frontend.sanpham.sanpham_chitiet', compact('sanpham','all_files','dir','sanpham_lienquan','danhgia','nhomsanpham','loaisanpham'));
     }
     public function getDangKy()
     {
@@ -236,7 +193,7 @@ class HomeController extends Controller
     public function getGioHang_Them($tensanpham_slug)
     {
         $sanpham = SanPham::where('tensanpham_slug', $tensanpham_slug)->first();
-        $hinhanh = HinhAnh::where('sanpham_id',$sanpham->id)->first();
+        
 
 
         Cart::add([
@@ -246,17 +203,17 @@ class HomeController extends Controller
             'qty' => 1,
             'weight' => 0,
             'options' => [
-                'image' => $hinhanh->thumuc.'/'.$hinhanh->hinhanh,
                 
+                'image'=>$sanpham->hinhanh,
             ]
         ]);
 
-        return redirect()->route('frontend.giohang');
+        return redirect()->route('frontend');
     }
     public function getGioHang_ThemChiTiet(Request $request, $tensanpham_slug)
     {
         $sanpham = SanPham::where('tensanpham_slug', $tensanpham_slug)->first();
-        $hinhanh = HinhAnh::where('sanpham_id',$sanpham->id)->first();
+       
         Cart::add([
             'id' => $sanpham->id,
             'name' => $sanpham->tensanpham,
@@ -264,11 +221,11 @@ class HomeController extends Controller
             'qty' => $request->qty,
             'weight' => 0,
             'options' => [
-                'image' => $hinhanh->thumuc.'/'.$hinhanh->hinhanh,
+               
             ]
         ]);
 
-        return redirect()->route('frontend');
+        return redirect()->route('frontend')->with('status', 'Đã thêm sản phẩm vào giỏ hàng');
     }
     public function getGioHang_Xoa($row_id)
     {
@@ -426,7 +383,7 @@ class HomeController extends Controller
         $dh->xa_id = $xa->id;
         $dh->hinhthucthanhtoan_id = $request->hinhthucthanhtoan_id;
         
-         $dh->tinhtrang_id = 1; // Đơn hàng mới
+        
         $dh->hoten = $hoten;
         $dh->email = $email;
         
@@ -447,8 +404,10 @@ class HomeController extends Controller
          $ct = new DonHang_ChiTiet();
          $ct->donhang_id = $dh->id;
          $ct->sanpham_id = $value->id;
+            $ct->tinhtrang_id = 1; // Đơn hàng mới
          $ct->soluongban = $value->qty;
-         $ct->dongiaban = $value->total;
+         $ct->dongiaban = $value->priceTotal;
+
          $ct->save();
          $sp = SanPham::find($value->id);
          $sp->soluong -=  $value->qty;
@@ -469,9 +428,9 @@ class HomeController extends Controller
     {
        
         $key = $request->get('key');
-        $baiviet = BaiViet::where('tieude','like','%'.$key.'%')->paginate(8);
+        $baiviet = BaiViet::where('tieude','like','%'.$key.'%')->where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(8);
         $chude = ChuDe::all();
-        $baivietnew = BaiViet::orderBy('created_at', 'desc')->paginate(3);
+        $baivietnew = BaiViet::orderBy('created_at', 'desc')->where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
         return view('frontend.baiviet.baiviet_timkiem', compact('key','baiviet','chude','baivietnew'));
         //return view('frontend.timkiem', array('key' => $key ,'ketqua' => $ketqua ,'baiviet'=>$baiviet));
       
@@ -479,18 +438,19 @@ class HomeController extends Controller
     public function getBaiViet()
     {
         $chude = ChuDe::all();
-        $baiviet = BaiViet::where('kiemduyet',0)->orderBy('created_at', 'desc')->paginate(8);
-         $baivietnew = BaiViet::where('kiemduyet',0)->orderBy('created_at', 'desc')->paginate(3);
+        $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(8);
+         $baivietnew = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
         return view('frontend.baiviet.baiviet',compact('baiviet','chude','baivietnew'));
     }
     public function LayHinhDauTien($strNoiDung)
     {
+        $no_image = config('app.url') . '/public/Image/noimage.png';
         $first_img = "";
         ob_start();
         ob_end_clean();
         $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $strNoiDung, $matches);
         if(empty($output))
-            return "./public/Image/noimage.png";
+            return  $no_image;
         else
             return $matches[1][0];
     }
@@ -498,12 +458,12 @@ class HomeController extends Controller
     {
         $chude= ChuDe::all();
         $chude_rieng = ChuDe::where('tenchude_slug',$tenchude_slug)->first();
-        $baiviettheochude = BaiViet::where('kiemduyet',0)->where('chude_id',$chude_rieng->id)->paginate(3);
-        $baivietnew = BaiViet::where('kiemduyet',0)->orderBy('created_at', 'desc')->paginate(3);
-        $bv = BaiViet::where('kiemduyet',0)->where('tieude_slug',$tieude_slug)->first();
+        $baiviettheochude = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->where('chude_id',$chude_rieng->id)->paginate(3);
+        $baivietnew = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->orderBy('created_at', 'desc')->paginate(3);
+        $bv = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->where('tieude_slug',$tieude_slug)->first();
         $baiviet = 'baiviet' . $tieude_slug;
         if (!Session::has($baiviet)) {
-            baiviet::where('tieude_slug', $tieude_slug)->increment('luotxem');
+            baiviet::where('tieude_slug', $tieude_slug)->where('kiemduyet',1)->increment('luotxem');
             Session::put($baiviet, 1);
         }
             return view('frontend.baiviet.baiviet_chitiet',compact('baiviet','bv','baivietnew','chude','baiviettheochude'));
@@ -511,9 +471,9 @@ class HomeController extends Controller
     public function getBaiViet_ChuDe($tenchude_slug)
     {
         $chude= ChuDe::where('tenchude_slug',$tenchude_slug)->first();
-        $baiviet = BaiViet::where('kiemduyet',0)->where('chude_id',$chude->id)->paginate(8);
+        $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->where('chude_id',$chude->id)->paginate(8);
         $chude_all = ChuDe::all();
-        $baivietnew = BaiViet::where('kiemduyet',0)->orderBy('created_at', 'desc')->paginate(3);
+        $baivietnew = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
         return view('frontend.baiviet.baiviet_chude',compact('baiviet','chude','chude_all','baivietnew'));
     }
 

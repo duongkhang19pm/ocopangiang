@@ -176,27 +176,45 @@
                         </div>
                         
                     </div>
+                     <hr class="mb-4">
+                    <div class="row">
+                         <div class="col-md-6">
+                             <label class="form-label" for="hinhanh">Hình Ảnh Sản Phẩm Đại Diện</label>
+                             @if(!empty($sanpham->hinhanh))
+                                 <img class="d-block rounded" src="{{env('APP_URL').'/storage/app/'.$sanpham->hinhanh}}" width="100" />
+                                 <span class="d-block small text-danger">Bỏ trống nếu muốn giữ nguyên ảnh cũ.</span>
+                             @endif
+                            <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ $sanpham->hinhanh }}" />
+                             @error('hinhanh')
+                                <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                             @enderror
+                         </div>
+                   
+                        <div class="col-md-6">
+                                <label for="thumuc">Hình Ảnh Sản Phẩm Đính Kèm<abbr title="Required">*</abbr></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" id="ChonHinh"><a href="#hinhanh">Tải ảnh lên <i class="fas fa-upload"></i></a></div>
+                                    </div>
+                                    <input type="text" class="form-control" id="thumuc" name="thumuc" value="{{ $folder }}" readonly required />
+                                </div>
+                        </div>
+                     </div>
+                     <hr class="mb-4">
                          <hr class="mb-4">
 
                     <div class="row">
                        
                 
                         <div class="col-md-4">
-                          <label for="phanhang_id">Phân Hạng
+                          <label for="phanhang_id">Phân Hạng 
                             <abbr title="Required">*</abbr>
                           </label>
                           <select class="custom-select d-block w-100 @error('phanhang_id') is-invalid @enderror" id="phanhang_id" name="phanhang_id" required>
                             <option value="" selected disabled>-- Chọn Phân Hạng --</option>
-                            @foreach ($phanhang as $value)
-                                @if(!empty($value->id))
-
-                                    <option value="{{ $value->id }}">{{ $value->tenphanhang }}</option>
-                                @else
-
+                                @foreach($phanhang as $value)
                                      <option value="{{ $value->id }}"{{ ($ct->phanhang_id == $value->id) ? 'selected' : '' }}>{{ $value->tenphanhang }}</option>
-                                @endif
-                           
-                            @endforeach
+                               @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn phân hạng  . </div>
                            @error('phanhang_id')
@@ -204,15 +222,12 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                          <label for="ngaybatdau"> Ngày bắt đầu<span class="text-danger font-weight-bold">*</span></label>
-                           @if(!empty($value->id))
-
-                          <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ old('ngaybatdau')}}" placeholder="mm/dd/yyyy"required />
-                            @else
-
-                          <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ $ct->ngaybatdau}}" placeholder="mm/dd/yyyy"required />
+                          <label for="ngaybatdau"> Ngày bắt đầu <span class="text-danger font-weight-bold">*</span></label>
                            
-                           @endif
+
+                          <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{  $ct->ngaybatdau}}" placeholder="mm/dd/yyyy"required />
+                           
+                           
                             @error('ngaybatdau')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
@@ -220,12 +235,9 @@
                           <div class="col-md-4">
                           <label for="ngayketthuc"> Ngày kết thúc</label>
 
-                           @if(!empty($value->id))
-
-                          <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"type="date" value="{{ old('ngayketthuc')}}" placeholder="mm/dd/yyyy" />
-                           @else
+                          
                           <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"  type="date" value="{{ $ct->ngayketthuc}}" placeholder="mm/dd/yyyy" />
-                           @endif
+                         
                             @error('ngayketthuc')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                             @enderror
@@ -233,27 +245,7 @@
                          
                          
                     </div>
-                    <hr class="mb-4">
-                    <div class="form-group">
-                            @foreach($sanpham->HinhAnh as $value)
-                                @if(!empty($value->thumuc))
-                                     <img src="{{env('APP_URL').'/storage/app/'.$value->thumuc.'/'.$value->hinhanh}}" height="70" width="100" >
-                                @endif
-                                 
-                            @endforeach
-                             
-                            <span class="d-block small text-danger">Bỏ trống nếu muốn giữ nguyên ảnh cũ.</span>
-                        
-                          <input type="file" name="hinhanh[]" multiple class="form-control" accept="hinhanh/*">
-                          @if ($errors->has('files'))
-                            @foreach ($errors->get('files') as $error)
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $error }}</strong>
-                            </span>
-                            @endforeach
-                          @endif
-                      </div>
-                     <hr class="mb-4">
+                   
                     <div class="form-group">
                         <label for="motasanpham" class="form-label">Mô Tả Sản Phẩm</label>
                         <textarea class="form-control" id="motasanpham" name="motasanpham">{{$sanpham->motasanpham}}</textarea>
@@ -407,6 +399,39 @@
                 console.error(error);
             });
     </script>
+
+<script src="{{ asset('public/js/ckfinder/ckfinder.js') }}"></script>
+<script>
+    var chonHinh = document.getElementById('ChonHinh');
+    chonHinh.onclick = function() { uploadFileWithCKFinder(); };
+    function uploadFileWithCKFinder()
+    {
+        CKFinder.modal(
+        {
+            displayFoldersPanel: false,
+            width: 800,
+            height: 500
+        });
+    }
+</script>
+
+<script>
+    (function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })()
+</script>
 @endsection
 
 

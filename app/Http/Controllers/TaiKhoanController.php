@@ -260,7 +260,13 @@ class TaiKhoanController extends Controller
         Storage::delete($orm->hinhanh);
         return redirect()->route('admin.taikhoan_khachhang');
     }
-
+    public function getKichHoat_KhachHang($id)
+    {
+            $taikhoan = TaiKhoan::find($id);
+           $taikhoan->kichhoat = 1 - ($taikhoan->kichhoat);
+           $taikhoan->save();
+        return redirect()->route('admin.taikhoan_khachhang');
+    }
 
     //Tài Khoản Đơn Vị Quản Lý
     public function getDanhSach_DonViQuanLy()
@@ -380,7 +386,13 @@ class TaiKhoanController extends Controller
         Storage::delete($orm->hinhanh);
         return redirect()->route('admin.taikhoan_donviquanly');
     }
-
+    public function getKichHoat_DonViQuanLy($id)
+    {
+            $taikhoan = TaiKhoan::find($id);
+           $taikhoan->kichhoat = 1 - ($taikhoan->kichhoat);
+           $taikhoan->save();
+        return redirect()->route('admin.taikhoan_donviquanly');
+    }
 
     //Tài Khoản Doanh Nghiệp
     public function getDanhSach_DoanhNghiep()

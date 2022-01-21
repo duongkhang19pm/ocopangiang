@@ -31,7 +31,7 @@ class CreateTaiKhoansTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('hinhanh')->nullable();
-            $table->tinyInteger('kichhoat')->default(0);
+            $table->tinyInteger('kichhoat')->default(0);// đang hoạt động
             $table->timestamp('created_at')->useCurrent();
              $table->timestamp('updated_at')->useCurrentOnUpdate();
             

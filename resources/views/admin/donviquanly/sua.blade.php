@@ -124,7 +124,7 @@
                   </div>
                   <div class="row">
                      
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                        <label class="form-label" for="hinhanh">Hình ảnh đơn vị</label>
                        @if(!empty($donviquanly->hinhanh))
                            <img class="d-block rounded" src="{{env('APP_URL').'/storage/app/'.$donviquanly->hinhanh}}" width="100" />

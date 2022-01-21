@@ -63,6 +63,10 @@ class TaiKhoan extends Authenticatable
     {
     return $this->hasMany(DonHang::class, 'taikhoan_id', 'id');
     }
+     public function DanhGia()
+    {
+    return $this->hasMany(DanhGia::class, 'taikhoan_id', 'id');
+    }
     /**
      * The attributes that should be cast.
      *

@@ -31,6 +31,14 @@
 								<div class="heading_s1">
 								<h3 align="center">Đăng nhập</h3>
 								<hr>
+								 @if(session('warning'))
+
+            
+						            <span class="font-weight-bold text-danger">
+						                <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
+						            </span>
+						        
+						        @endif
 								</div>								
 								<form action="{{ route('login') }}" method="post">
 								

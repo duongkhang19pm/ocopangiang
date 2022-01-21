@@ -20,13 +20,13 @@ class CreateDonHangsTable extends Migration
             $table->foreignId('xa_id')->constrained('xa')->onDelete('cascade');
             $table->foreignId('hinhthucthanhtoan_id')->constrained('hinhthucthanhtoan')->onDelete('cascade');
             $table->foreignId('taikhoan_id')->nullable()->constrained('taikhoan')->onDelete('cascade');
-            $table->foreignId('tinhtrang_id')->constrained('tinhtrang')->onDelete('cascade');
+            
             $table->string('tenduong');
             $table->string('dienthoaigiaohang', 20);
             $table->string('hoten');
             $table->string('email');
             $table->text('ghichu')->nullable();
-            $table->unsignedTinyInteger('hienthi')->default(1);
+            $table->unsignedTinyInteger('hienthi')->default(1);//
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();
             $table->engine = 'InnoDB';

@@ -106,7 +106,7 @@ class BaiVietController extends Controller
            $baiviet->save();
         return redirect()->route('doanhnghiep.baiviet');
     }
-
+    
 
     // Bài viết của đơn vị quản lý 
     public function getDanhSach_DonViQuanLy()

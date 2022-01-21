@@ -53,25 +53,25 @@
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
                         
-                                    @foreach($chitiet_phanhang_sanpham as $value)
+                                     @foreach($chitiet_phanhang_sanpham as $value)
                                         <div class="col-lg-4">
                                             <div class="product__discount__item">
-                                                @foreach($value->sanpham->hinhanh as $image)
-                                                    <div class="product__discount__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                                
+                                                    <div class="product__discount__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->sanpham->hinhanh  }}">
                                                         <ul class="product__item__pic__hover">
                                                             
-                                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                                            <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->sanpham->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                                           <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                                         </ul>
                                                     </div>
-                                                     @break
-                                                @endforeach
+                                                     
                                                 
                                                 <div class="product__discount__item__text">
                                                  
-                                                    <h5><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}">{{$value->sanpham->tensanpham}}</a></h5>
+                                                     <h5><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}">{{$value->sanpham->tensanpham}}</a></h5>
                                                     <div class="product__item__price">{{ number_format($value->sanpham->dongia ) }} <sup>VNĐ</sup></div>
                                                
+                                                   
                                                     @if( $phanhang->id  == 1)
                                                         <h5 class="fa fa-star " style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:SlateGray"></h5>
@@ -86,7 +86,7 @@
                                                         <h5 class="fa fa-star"style="color:SlateGray"></h5>
                                                         <h5 class="fa fa-star"style="color:SlateGray"></h5>
                                                     @endif
-                                                    @if( $phanhang->id  == 3)
+                                                    @if( $phanhang->id == 3)
                                                         <h5 class="fa fa-star " style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:Gold"></h5>
@@ -107,6 +107,7 @@
                                                         <h5 class="fa fa-star"style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:Gold"></h5>
                                                     @endif
+                                            
                                            
                                                 </div>
                                             </div>
@@ -151,57 +152,58 @@
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
                                         
-                                        @foreach($value->sanpham->hinhanh as $image)
-                                            <div class="product__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                       
+                                            <div class="product__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->sanpham->hinhanh  }}">
                                                 <ul class="product__item__pic__hover">
                                                     
-                                                    <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->sanpham->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                                     <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
-                                             @break
-                                        @endforeach
+                                          
                                       
                                        
                                         <div class="product__item__text">
                                             <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->sanpham->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->sanpham->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->sanpham->tensanpham_slug]) }}">{{$value->sanpham->tensanpham}}</a></h6>
                                             <h5>{{ number_format($value->sanpham->dongia ) }} <sup>VNĐ</sup></h5>
                                         
-                                                @if( $phanhang->id  == 1)
-                                                    <span class="fa fa-star " style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                @endif
-                                                @if( $phanhang->id  == 2)
-                                                    <span class="fa fa-star " style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                @endif
-                                                @if( $phanhang->id  == 3)
-                                                    <span class="fa fa-star " style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                @endif
-                                                @if( $phanhang->id  == 4)
-                                                    <span class="fa fa-star " style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:SlateGray"></span>
-                                                @endif
-                                                @if( $phanhang->id  == 5)
-                                                    <span class="fa fa-star " style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                    <span class="fa fa-star"style="color:Gold"></span>
-                                                @endif
+                                            
+                                            @if( $phanhang->id  == 1)
+                                                <span class="fa fa-star " style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                            @endif
+                                            @if( $phanhang->id  == 2)
+                                                <span class="fa fa-star " style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                            @endif
+                                            @if( $phanhang->id  == 3)
+                                                <span class="fa fa-star " style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                            @endif
+                                            @if( $phanhang->id  == 4)
+                                                <span class="fa fa-star " style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:SlateGray"></span>
+                                            @endif
+                                            @if( $phanhang->id  == 5)
+                                                <span class="fa fa-star " style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                                <span class="fa fa-star"style="color:Gold"></span>
+                                            @endif
+                                      
                                            
                                         </div>
                                     </div>

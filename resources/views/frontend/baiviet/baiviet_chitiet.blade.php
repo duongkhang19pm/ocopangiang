@@ -49,9 +49,12 @@
                             <h4>Bài Viết Mới Nhất</h4>
                             <div class="blog__sidebar__recent">
                                 @foreach($baivietnew as $value)
+                                  @php
+                                  $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                @endphp
                                 <a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}" class="blog__sidebar__recent__item">
                                     <div class="blog__sidebar__recent__item__pic">
-                                        <img src="{{ asset('public/Image/logo.jpg') }}" width="80" alt="">
+                                       <img src="{{ $img }}" width="80" alt="">
                                     </div>
                                     <div class="blog__sidebar__recent__item__text">
                                         <h6>{{$value->tieude}}</h6>
@@ -104,12 +107,51 @@
                             </div>
                         </div>
                     </div>
+                   
+                   
+
                 </div>
+
+
             </div>
         </div>
     </section>
     <!-- Blog Details Section End -->
-
+ <section class="related-blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related-blog-title">
+                        <h2>Tin Tức Liên Quan</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($baiviettheochude as $value)
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                @php
+                                  $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                @endphp
+                                <img src="{{ $img }}" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <span><i class="far fa-calendar-alt mr-2"></i>{{ Carbon\Carbon::parse($value->ngaydang)->format('d/m/Y') }}</span>
+                                    <span><i class="far fa-eye mr-2"></i>{{$value->luotxem}}</span>
+                                </ul>
+                                <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
+                                <p><?php echo Str::limit($value->tomtat, 120); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                
+                
+            </div>
+        </div>
+    </section>
     <!-- Related Blog Section Begin -->
     <section class="related-blog spad">
         <div class="container">
@@ -125,7 +167,10 @@
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__pic">
-                                <img src="{{ asset('public/Image/logo.jpg') }}"  alt="">
+                                @php
+                                  $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                @endphp
+                                <img src="{{ $img }}" alt="">
                             </div>
                             <div class="blog__item__text">
                                 <ul>

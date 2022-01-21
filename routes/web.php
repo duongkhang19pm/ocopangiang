@@ -28,7 +28,8 @@ use App\Http\Controllers\DonViTinhController;
 use App\Http\Controllers\QuyCachController;
 use App\Http\Controllers\HinhThucThanhToanController;
 use App\Http\Controllers\ChiTietPhanHangSanPhamController;
-use App\Http\Controllers\HinhAnhController;
+use App\Http\Controllers\DanhGiaController;
+
 // Trang chủ
 Route::get('/', [HomeController::class, 'getHome'])->name('frontend');
 
@@ -48,7 +49,7 @@ Route::get('/san-pham/phan-hang/{tenphanhang_slug}', [HomeController::class, 'ge
 Route::get('/san-pham/{tennhom_slug}', [HomeController::class, 'getSanPham_Nhom'])->name('frontend.sanpham.nhomsanpham');
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}', [HomeController::class, 'getSanPham_Loai'])->name('frontend.sanpham.loaisanpham');
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeController::class, 'getSanPham_ChiTiet'])->name('frontend.sanpham.chitiet');
-
+Route::post('/san-pham/danh-gia/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeController::class, 'postDanhGia'])->name('frontend.sanpham.danhgia');
 // Trang Khách Hàng
 
 //Trang bai viet
@@ -264,7 +265,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function() {
     Route::get('/taikhoan/khachhang/sua/{id}', [TaiKhoanController::class, 'getSua_KhachHang'])->name('taikhoan_khachhang.sua');
     Route::post('/taikhoan/khachhang/sua/{id}', [TaiKhoanController::class, 'postSua_KhachHang'])->name('taikhoan_khachhang.sua');
     Route::get('/taikhoan/khachhang/xoa/{id}', [TaiKhoanController::class, 'getXoa_KhachHang'])->name('taikhoan_khachhang.xoa');
-
+     Route::get('/taikhoan/khachhang/kichhoat/{id}', [TaiKhoanController::class, 'getKichHoat_KhachHang'])->name('taikhoan_khachhang.kichhoat');
 
     // Quản lý Tài khoản Đơn Vị Quản Lý
     Route::get('/taikhoan/donviquanly/getHuyen',[TaiKhoanController::class, 'getHuyen'])->name('taikhoan_donviquanly.getHuyen');
@@ -275,7 +276,8 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function() {
     Route::get('/taikhoan/donviquanly/sua/{id}', [TaiKhoanController::class, 'getSua_DonViQuanLy'])->name('taikhoan_donviquanly.sua');
     Route::post('/taikhoan/donviquanly/sua/{id}', [TaiKhoanController::class, 'postSua_DonViQuanLy'])->name('taikhoan_donviquanly.sua');
     Route::get('/taikhoan/donviquanly/xoa/{id}', [TaiKhoanController::class, 'getXoa_DonViQuanLy'])->name('taikhoan_donviquanly.xoa');
-
+    Route::get('/taikhoan/donviquanly/kichhoat/{id}', [TaiKhoanController::class, 'getKichHoat_DonViQuanLy'])->name('taikhoan_donviquanly.kichhoat');
+    
     
 
 
@@ -361,7 +363,7 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::post('/baiviet/sua/{id}', [BaiVietController::class, 'postSua'])->name('baiviet.sua');
     Route::get('/baiviet/xoa/{id}', [BaiVietController::class, 'getXoa'])->name('baiviet.xoa');
     Route::get('/baiviet/kiemduyet/{id}', [BaiVietController::class, 'getKiemDuyet'])->name('baiviet.kiemduyet');
-
+    Route::get('/baiviet/binhluan/{id}', [BaiVietController::class, 'getBinhLuan'])->name('baiviet.binhluan');
      // Quản lý Sản phẩm
     Route::get('/sanpham', [SanPhamController::class, 'getDanhSach'])->name('sanpham');
     Route::get('/sanpham/hienthi/{id}', [SanPhamController::class, 'getHienThi'])->name('sanpham.hienthi');
@@ -374,14 +376,15 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::get('/sanpham/xoa/{id}', [SanPhamController::class, 'getXoa'])->name('sanpham.xoa');
     Route::post('/sanpham/nhap', [SanPhamController::class, 'postNhap'])->name('sanpham.nhap');
     Route::get('/sanpham/xuat', [SanPhamController::class, 'getXuat'])->name('sanpham.xuat');
+    Route::post('/sanpham/xemhinh', [SanPhamController::class, 'postHinhAnh'])->name('sanpham.xemhinh');
+    Route::get('/sanpham/danhgia/{id}', [SanPhamController::class, 'getDanhGia'])->name('sanpham.danhgia');
 
-    // Quản lý hình ảnh sản phẩm
-    Route::get('/hinhanh/{tensanpham_slug}', [HinhAnhController::class, 'getDanhSach'])->name('hinhanh');
-    Route::get('/hinhanh/them/{tensanpham_slug}', [HinhAnhController::class, 'getThem'])->name('hinhanh.them');
-    Route::post('/hinhanh/them/{tensanpham_slug}', [HinhAnhController::class, 'postThem'])->name('hinhanh.them');
-    Route::get('/hinhanh/sua/{id}', [HinhAnhController::class, 'getSua'])->name('hinhanh.sua');
-    Route::post('/hinhanh/sua/{id}', [HinhAnhController::class, 'postSua'])->name('hinhanh.sua');
-    Route::get('/hinhanh/xoa/{id}', [HinhAnhController::class, 'getXoa'])->name('hinhanh.xoa');
+
+  // Quản lý Đánh Giá Sản Phẩm
+     Route::get('/danhgia/{tensanpham_slug}', [DanhGiaController::class, 'getDanhSach'])->name('danhgia');
+     Route::get('/danhgia/hienthi/{id}', [DanhGiaController::class, 'getHienThi'])->name('danhgia.hienthi');
+     Route::get('/danhgia/xoa/{id}', [DanhGiaController::class, 'getXoa'])->name('danhgia.xoa');
+   
 
 
     // Quản lý Chi Tiet Phan Hang San Pham
@@ -400,9 +403,14 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::get('/donhang/sua/{id}', [DonHangController::class, 'getSua'])->name('donhang.sua');
     Route::post('/donhang/sua/{id}', [DonHangController::class, 'postSua'])->name('donhang.sua');
     Route::get('/donhang/xoa/{id}', [DonHangController::class, 'getXoa'])->name('donhang.xoa');
-    Route::get('/donhang/tinhtrang/{id}/{tinhtrang_id}', [DonHangController::class, 'getTinhTrang'])->name('donhang.tinhtrang');
+    
     Route::get('/donhang/getHuyen',[DonHangController::class, 'getHuyen'])->name('donhang.getHuyen');
     Route::get('/donhang/getXa',[DonHangController::class, 'getXa'])->name('donhang.getXa');
+    Route::post('/donhang/trangthai/{id}', [DonHangController::class, 'postTrangThai'])->name('donhang.trangthai');
+    Route::get('/donhang/doanhthu',[DonHangController::class, 'getDoanhThu'])->name('donhang.doanhthu');
+
+
+
     // Quản lý Đơn hàng chi tiết
     Route::get('/donhang/chitiet', [DonHangChiTietController::class, 'getDanhSach'])->name('donhang.chitiet');
     Route::get('/donhang/chitiet/sua/{id}', [DonHangChiTietController::class, 'getSua'])->name('donhang.chitiet.sua');

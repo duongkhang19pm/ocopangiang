@@ -23,7 +23,8 @@ class CreateBaiVietsTable extends Migration
             $table->text('noidung');
             $table->date('ngaydang');
             $table->Integer('luotxem');
-            $table->tinyInteger('kiemduyet')->default(0);
+            $table->tinyInteger('kiemduyet')->default(0);//chưa duyệt 
+           
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();
             $table->engine = 'InnoDB';

@@ -19,6 +19,7 @@ use App\Imports\SanPhamImport;
 use App\Exports\SanPhamExport;
 use Excel;
 use App\Models\ChiTiet_PhanHang_SanPham;
+use Illuminate\Support\Facades\DB;
 class SanPhamController extends Controller
 {
     public function __construct()
@@ -49,11 +50,27 @@ class SanPhamController extends Controller
     }
     public function getThem()
     {
+        if(session_status() == PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+        $hinhanh_identity = DB::select("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" . config('database.connections.mysql.database') . "' AND TABLE_NAME = 'sanpham'");
+        $next_id = $hinhanh_identity[0]->AUTO_INCREMENT;
+        Storage::makeDirectory('sanpham/' . str_pad($next_id, 7, '0', STR_PAD_LEFT), 0775);
+        $path = config('app.url') . '/storage/app/sanpham/' . str_pad($next_id, 7, '0', STR_PAD_LEFT) . '/';
+        if(isset($_SESSION['baseUrl'])) unset($_SESSION['baseUrl']);
+        $_SESSION['baseUrl'] = $path;
+        if(isset($_SESSION['resourceType'])) unset($_SESSION['resourceType']);
+        $_SESSION['resourceType'] = 'Images';
+        
+        $folder = 'sanpham/' . str_pad($next_id, 7, '0', STR_PAD_LEFT);
+
+
         $nhomsanpham =NhomSanPham::all();
         $donvitinh =DonViTinh::all();
        $phanhang =PhanHang::all();
         $doanhnghiep =DoanhNghiep::all();
-        return view('doanhnghiep.sanpham.them',compact('nhomsanpham','donvitinh','doanhnghiep','phanhang'));
+        return view('doanhnghiep.sanpham.them',compact('nhomsanpham','donvitinh','doanhnghiep','phanhang','folder'));
     }
      public function getLoai(Request $request)
     {
@@ -88,10 +105,11 @@ class SanPhamController extends Controller
             'phanhang_id'=>['required'],
             'ngaybatdau'=>['required','date'],
             'ngayketthuc'=>['nullable','date','after:ngaybatdau'],
-            'hinhanh' => ['nullable'],
+            'hinhanh' => ['nullable','image','max:1024'],
+            'thumuc' => ['nullable'],
 
         ]);
-        /*
+        
         // up anh
         if($request->hasFile('hinhanh'))
         {
@@ -105,7 +123,7 @@ class SanPhamController extends Controller
             // Upload vào thư mục và trả về đường dẫn
             $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
-        */
+        
         $orm = new SanPham();
        // $orm->nhomsanpham_id = $request->nhomsanpham_id;
         $orm->loaisanpham_id = $request->loaisanpham_id;
@@ -124,7 +142,8 @@ class SanPhamController extends Controller
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;
         $orm->hansudungsaumohop = $request->hansudungsaumohop;
-       // if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+        $orm->thumuc = $request->thumuc;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
 
@@ -137,23 +156,7 @@ class SanPhamController extends Controller
         $ct->save();
 
       
-        if ($request->hasfile('hinhanh')) {
-            $images = $request->file('hinhanh');
-    
-            foreach($images as $image) 
-            {
-                $extension = $image->getClientOriginalName();                
-                $fileName = Str::slug($request->tensanpham, '-'). '-' . $extension;
-                $path = Storage::putFileAs('sanpham', $image, $fileName);
-
-                $img = new HinhAnh();
-                $img->hinhanh = $path;
-                $img->sanpham_id = $orm->id;
-                $img->save();
-                
-            }
-            
-        }
+     
 
 
         return redirect()->route('doanhnghiep.sanpham');
@@ -161,6 +164,20 @@ class SanPhamController extends Controller
     }
     public function getSua($id)
     {
+
+        if(session_status() == PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+        
+        $path = config('app.url') . '/storage/app/sanpham/' . str_pad($id, 7, '0', STR_PAD_LEFT) . '/';
+        if(isset($_SESSION['baseUrl'])) unset($_SESSION['baseUrl']);
+        $_SESSION['baseUrl'] = $path;
+        if(isset($_SESSION['resourceType'])) unset($_SESSION['resourceType']);
+        $_SESSION['resourceType'] = 'Images';
+        
+        $folder = 'sanpham/' . str_pad($id, 7, '0', STR_PAD_LEFT);
+
         $sanpham = SanPham::find($id);
         $nhomsanpham=NhomSanPham::all();
         $loai= LoaiSanPham::where('id',$sanpham->loaisanpham_id);
@@ -170,7 +187,7 @@ class SanPhamController extends Controller
         $doanhnghiep =DoanhNghiep::all();
         $ct = ChiTiet_PhanHang_SanPham::where('sanpham_id',$sanpham->id)->first();
       $phanhang =PhanHang::all();
-        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','donvitinh','quycach','ct','phanhang','doanhnghiep'));
+        return view('doanhnghiep.sanpham.sua',compact('sanpham','nhomsanpham','loaisanpham','donvitinh','quycach','ct','phanhang','doanhnghiep','folder'));
     }
     public function postSua(Request $request , $id)
     {
@@ -191,13 +208,13 @@ class SanPhamController extends Controller
             'dongia'=>['required','numeric'],
             'hansudung'=>['nullable','string','max:191'],
             'hansudungsaumohop'=>['nullable','string','max:191'],
-            
+            'hinhanh' => ['nullable','image','max:1024'],
             'phanhang_id'=>['required'],
             'ngaybatdau'=>['required','date'],
             'ngayketthuc'=>['nullable','date'],
 
         ]);
-        /*
+        
          if($request->hasFile('hinhanh'))
         {
            $orm = SanPham::find($id);
@@ -212,7 +229,7 @@ class SanPhamController extends Controller
             // Upload vào thư mục và trả về đường dẫn
          $path = Storage::putFileAs($doanhnghiep->tendoanhnghiep_slug, $request->file('hinhanh'), $fileName);
         }
-        */
+        
         $orm = SanPham::find($id);
         
         $orm->loaisanpham_id = $request->loaisanpham_id;
@@ -231,7 +248,8 @@ class SanPhamController extends Controller
         $orm->dongia = $request->dongia;
         $orm->hansudung = $request->hansudung;
         $orm->hansudungsaumohop = $request->hansudungsaumohop;
-       // if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+        $orm->thumuc = $request->thumuc;
         $orm->motasanpham = $request->motasanpham;
         $orm->save();
 
@@ -242,35 +260,7 @@ class SanPhamController extends Controller
             $ct->ngaybatdau = $request->ngaybatdau;
             $ct->ngayketthuc = $request->ngayketthuc;
             $ct->save();
-        
-
-        
-       if(!empty($request->hasfile('hinhanh')))
-        {
-            if ($request->hasfile('hinhanh')) 
-            {
-                $img = HinhAnh::where('sanpham_id',$id)->get();
-                foreach($img as $value)
-                {
-                    Storage::delete($value->hinhanh);
-                    $value->delete();
-                }
-                
-                $images = $request->file('hinhanh');           
-                foreach($images as $image) 
-                {               
-                    $extension = $image->getClientOriginalName();                
-                    $fileName = Str::slug($request->tensanpham, '-'). '-' . $extension;
-                    $path = Storage::putFileAs('sanpham', $image, $fileName);
-                    
-                    $img = new HinhAnh();
-                    $img->hinhanh = $path;
-                    $img->sanpham_id = $orm->id;
-                    $img->save();
-                    
-                }
-            }      
-        }
+      
 
 
         return redirect()->route('doanhnghiep.sanpham');
@@ -286,15 +276,10 @@ class SanPhamController extends Controller
         {
             $ct->delete();
         }
-        
-        $hinhanh = HinhAnh::where('sanpham_id',$orm->id)->get();
-         foreach($hinhanh as $anh)
-        {
-            Storage::delete($anh->hinhanh);
-             $anh->delete();
-        }
+        Storage::deleteDirectory('sanpham/' . str_pad($orm->id, 7, '0', STR_PAD_LEFT));
        
         $orm->delete();
+        Storage::delete($orm->hinhanh);
         return redirect()->route('doanhnghiep.sanpham');
     }
     public function getHienThi($id)
@@ -305,5 +290,28 @@ class SanPhamController extends Controller
         $orm->save();
         return redirect()->route('doanhnghiep.sanpham');
 
+    }
+    public function getDanhGia($id)
+    {
+        $orm = SanPham::find($id);
+        $orm->danhgia = 1 - $orm->danhgia;
+        
+        $orm->save();
+        return redirect()->route('doanhnghiep.sanpham');
+
+    }
+    public function postHinhAnh(Request $request)
+    {
+        if(session_status() == PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+        $path = config('app.url') . '/storage/app/sanpham/' . str_pad($request->id, 7, '0', STR_PAD_LEFT) . '/';
+        if(isset($_SESSION['baseUrl'])) unset($_SESSION['baseUrl']);
+        $_SESSION['baseUrl'] = $path;
+        if(isset($_SESSION['resourceType'])) unset($_SESSION['resourceType']);
+        $_SESSION['resourceType'] = 'Images';
+        
+        return 1;
     }
 }

@@ -22,7 +22,7 @@
     </section>
     <!-- Breadcrumb Section End -->
     @if (session('status'))
-        <div class="alert alert-danger" role="alert">
+        <div id="AlertBox" class="alert alert-success hide" role="alert">
             {!! session('status') !!}
         </div>
     @endif

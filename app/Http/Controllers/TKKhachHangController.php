@@ -23,10 +23,17 @@ class TKKhachHangController extends Controller
     
     public function getHome ()
     {  
-
-        $taikhoan = TaiKhoan::where('id',Auth::user()->id)->first();
+        if(Auth::user()->kichhoat === 0  )
+        {
+            $taikhoan = TaiKhoan::where('id',Auth::user()->id)->first();
     
-       return view('khachhang.index',compact('taikhoan'));
+            return view('khachhang.index',compact('taikhoan'));
+        }
+         elseif(Auth::user()->kichhoat === 1)
+        {
+            Auth::logout();
+            return redirect()->route('khachhang.dangnhap')->with('warning', 'Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ quản trị viên');
+        }
     }
     public function getDonHang($id)
     {

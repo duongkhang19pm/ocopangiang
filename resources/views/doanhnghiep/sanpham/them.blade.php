@@ -166,15 +166,31 @@
                         </div>
                        
                        <hr class="mb-4">
+
+                           
                         <div class="row">
-                             <div class="col-md-6">
-                                <label for="phanhang_id">Hình Ảnh Sản Phẩm<abbr title="Required">*</abbr></label>
-                                <input type="file" name="hinhanh[]" multiple class="form-control @error('hinhanh') is-invalid @enderror" accept="hinhanh/*">
-                                @error('hinhanh')
-                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                                @enderror
-                            </div>
                             <div class="col-md-6">
+                                 <label class="form-label" for="hinhanh">Hình Ảnh Sản Phẩm Đại Diện </label>
+                                 <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ old('hinhanh') }}" />
+                                 @error('hinhanh')
+                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                 @enderror
+                            </div>
+                             <div class="col-md-6">
+                                <label for="thumuc">Hình Ảnh Sản Phẩm Đính Kèm <abbr title="Required">*</abbr></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" id="ChonHinh"><a href="#hinhanh">Tải ảnh lên <i class="fas fa-upload"></i></a></div>
+                                    </div>
+                                    <input type="text" class="form-control" id="thumuc" name="thumuc" value="{{ $folder }}" readonly required />
+                                </div>
+                            </div>
+                           
+
+                        </div>
+                        <hr class="mb-4">
+                        <div class="row">
+                            <div class="col-md-4">
                               <label for="phanhang_id">Phân Hạng
                                 <abbr title="Required">*</abbr>
                               </label>
@@ -189,11 +205,7 @@
                                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                                 @enderror
                             </div>
-
-                        </div>
-                        <hr class="mb-4">
-                        <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-4">
                               <label for="ngaybatdau"> Ngày bắt đầu<span class="text-danger font-weight-bold">*</span></label>
                               <input type="text" class="form-control @error('ngaybatdau') is-invalid @enderror" id="ngaybatdau" name="ngaybatdau" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'" required="required" type="date" value="{{ old('ngaybatdau')}}" placeholder="mm/dd/yyyy"required />
                               
@@ -201,7 +213,7 @@
                                   <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                                 @enderror
                             </div>
-                              <div class="col-md-6">
+                            <div class="col-md-4">
                               <label for="ngayketthuc"> Ngày kết thúc</label>
                               <input type="text" class="form-control @error('ngayketthuc') is-invalid @enderror" id="ngayketthuc" name="ngayketthuc" onblur="this.type='text'" onclick="this.type='date'" onfocus="this.type='date'" onmouseout="timeFunctionLong(this)" onmouseover="this.type='date'"type="date" value="{{ old('ngayketthuc')}}" placeholder="mm/dd/yyyy" />
                               
@@ -369,4 +381,20 @@
             console.error(error);
         });
 </script>
+
+<script src="{{ asset('public/js/ckfinder/ckfinder.js') }}"></script>
+<script>
+    var chonHinh = document.getElementById('ChonHinh');
+    chonHinh.onclick = function() { uploadFileWithCKFinder(); };
+    function uploadFileWithCKFinder()
+    {
+        CKFinder.modal(
+        {
+            displayFoldersPanel: false,
+            width: 800,
+            height: 500
+        });
+    }
+</script>
+
 @endsection

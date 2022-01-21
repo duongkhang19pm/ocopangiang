@@ -12,6 +12,8 @@ use App\Models\SanPham;
 use App\Models\Xa;
 use App\Models\HinhThucThanhToan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class DonHangController extends Controller
 {
     public function __construct()
@@ -21,30 +23,90 @@ class DonHangController extends Controller
     
     public function getDanhSach()
     {
-
-        $donhang = DonHang::orderBy('created_at', 'desc')->paginate(5);
-       
         
-        $tinhtrang = TinhTrang::all();
+                $donhang = DonHang::orderBy('created_at', 'desc')->paginate(5);
+         
+        
+        
+      
+       
+      
+        $tinhtrang = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->leftJoin('tinhtrang', 'tinhtrang.id', '=', 'donhang_chitiet.tinhtrang_id')
+            ->select('DonHang_ChiTiet.*'
+                    )
+            ->where([
+                //['donhang.created_at', '>=', $request->dateStart],
+                //['donhang.created_at', '<=', $request->dateEnd],
+                
+                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id],
+
+            ])
+           
+            ->groupBy('DonHang_ChiTiet.id')
+            ->get();
+        
+      
         return view('doanhnghiep.donhang.danhsach', compact('donhang','tinhtrang'));
     }
-     public function getTinhTrang($id,$tinhtrang_id)
+     public function postTrangThai(Request $request, $id)
     {
         
-        $orm = DonHang::find($id);
-        $tinhtrang = TinhTrang::find($tinhtrang_id);
-        if($tinhtrang_id == 110)
-        {
-            $orm->tinhtrang_id =  $tinhtrang_id / 10 - 1;
-            $orm->save();
-            return redirect()->route('doanhnghiep.donhang');
-        }
-        else
-        {
-            $orm->tinhtrang_id =  $tinhtrang_id - 10;
-            $orm->save();
-            return redirect()->route('doanhnghiep.donhang');
-        }
+        $orm = DonHang_ChiTiet::find($id);
+        if($request->select == 10 || $request->select1 == 10 )
+            {
+                $orm->tinhtrang_id = 10;
+                $orm->save();
+
+            }
+            elseif($request->select == 9 || $request->select1 == 9) 
+            {
+                $orm->tinhtrang_id = 9;
+                $orm->save();
+            }
+            elseif($request->select == 8 || $request->select1 == 8) 
+            {
+                $orm->tinhtrang_id = 8;
+                $orm->save();
+            }
+            elseif($request->select == 7 || $request->select1 == 7) 
+            {
+                $orm->tinhtrang_id = 7;
+                $orm->save();       
+            }
+            elseif($request->select == 6 || $request->select1 == 6) 
+            {
+                $orm->tinhtrang_id = 6;
+                $orm->save();     
+            }
+            elseif($request->select == 5 || $request->select1 == 5)  
+            {
+                $orm->tinhtrang_id = 5;
+                $orm->save();  
+            }
+            elseif($request->select == 4 || $request->select1 == 4) 
+            {
+                $orm->tinhtrang_id = 4;
+                $orm->save();      
+            }
+            elseif($request->select == 3 || $request->select1 == 3) 
+            {
+                $orm->tinhtrang_id = 3;
+                $orm->save();       
+            }
+            elseif($request->select == 2 || $request->select1 == 2) 
+            {
+                $orm->tinhtrang_id = 2;
+                $orm->save();
+            }
+            else
+            {
+                $orm->tinhtrang_id = 1;
+                $orm->save();
+            }
+             return redirect()->route('doanhnghiep.donhang');
+       
        
     }
       public function getSua($id)
@@ -126,5 +188,50 @@ class DonHangController extends Controller
         }
         
       
+    }
+    public function getDoanhThu (Request $request)
+    {
+         if($request->dateStart != '' && $request->dateEnd != '')
+        {
+            $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select('sanpham.*',
+                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
+                    )
+            ->where([
+                //['donhang.created_at', '>=', $request->dateStart],
+                //['donhang.created_at', '<=', $request->dateEnd],
+                ['donhang_chitiet.tinhtrang_id',10],
+                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
+            ])
+            ->whereBetween('donhang.created_at', [ Carbon::parse($request->dateStart)->format('Y-m-d')." 00:00:00", Carbon::parse($request->dateEnd)->format('Y-m-d')." 23:59:59"])
+            ->groupBy('sanpham.id')
+            ->get();
+     
+            $session_title_dateStart = $request->dateStart;
+            $session_title_dateEnd = $request->dateEnd;
+            
+            return view('doanhnghiep.donhang.doanhthu',compact('doanhthu','session_title_dateStart','session_title_dateEnd'));  
+        }
+        else
+        {
+            $tongdoanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select('sanpham.*',
+                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
+                    )
+            ->where([
+                //['donhang.created_at', '>=', $request->dateStart],
+                //['donhang.created_at', '<=', $request->dateEnd],
+                ['donhang_chitiet.tinhtrang_id',10],
+                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
+            ])
+          
+            ->groupBy('sanpham.id')
+        
+            ->get();
+            return view('doanhnghiep.donhang.doanhthu',compact('tongdoanhthu'));
+        }
+        
     }
 }

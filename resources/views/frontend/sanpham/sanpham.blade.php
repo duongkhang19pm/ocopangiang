@@ -116,26 +116,25 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                @foreach($sanpham as $value)
+                               @foreach($sanpham as $value)
                                     <div class="col-lg-4">
                                         <div class="product__discount__item">
-                                            @foreach($value->hinhanh as $image)
-                                                <div class="product__discount__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                           
+                                                <div class="product__discount__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                                     <ul class="product__item__pic__hover">
                                                         
-                                                        <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                                        <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                                     </ul>
                                                 </div>
-                                                 @break
-                                            @endforeach
+                                                
                                             
                                             <div class="product__discount__item__text">
                                              
                                                 <h5><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h5>
                                                 <div class="product__item__price">{{ number_format($value->dongia ) }} <sup>VNĐ</sup></div>
                                                 <div class="product__item__price">
-                                                @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+                                                  @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
                                                     @if( $ct->phanhang_id  == 1)
                                                         <h5 class="fa fa-star " style="color:Gold"></h5>
                                                         <h5 class="fa fa-star"style="color:SlateGray"></h5>
@@ -205,26 +204,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        @foreach($sanpham as $value)
+                           @foreach($sanpham as $value)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     
-                                    @foreach($value->hinhanh as $image)
-                                        <div class="product__item__pic set-bg" data-setbg="{{ $hinhanh_first[$image->id] }}">
+                                   
+                                        <div class="product__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                             <ul class="product__item__pic__hover">
                                                 
                                                 <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
-                                         @break
-                                    @endforeach
+                                         
                                   
                                    
                                     <div class="product__item__text">
                                         <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h6>
-                                        <h5>{{ number_format($value->dongia ) }} <sup>VNĐ</sup></h5>
-                                        @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+                                         <h5>{{ number_format($value->dongia ) }} <sup>VNĐ</sup></h5>
+                                         @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
                                             @if( $ct->phanhang_id  == 1)
                                                 <span class="fa fa-star " style="color:Gold"></span>
                                                 <span class="fa fa-star"style="color:SlateGray"></span>

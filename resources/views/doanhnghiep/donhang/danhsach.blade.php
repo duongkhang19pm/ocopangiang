@@ -39,14 +39,15 @@
 		                         <th >#</th>
 		                         <th >Khách hàng</th>
 		                         <th>Thông tin giao hàng </th>
-		                         <th>Tình trạng</th>
+		                   
 															<th style="width:100px; min-width:100px;"> &nbsp; </th>
 		                     </tr>
 		                 </thead>
 		                 <tbody>
-		         						
+		                 	@php $stt = 1; @endphp
 		                    @foreach($donhang as $value)
-		                    		@php $ct = ''; @endphp
+		                    		
+	                     		@php $ct = ''; @endphp
 		                     	@foreach($value->donhang_chitiet as $chitiet)
 		                     			@if( $chitiet->sanpham->doanhnghiep->id == Auth::user()->doanhnghiep->id)
 	                     					@php $ct = $chitiet->sanpham_id; @endphp
@@ -54,10 +55,8 @@
 	                     		@endforeach	
 	                     		
 		                     		@if( $ct != null )
-	                     			
-
 			                        <tr>
-			                            <td class="align-middle">{{ $donhang->firstItem() + $loop->index }}</td>
+			                            <td class="align-middle">{{ $stt++ }}</td>
 			                            <td class="align-middle">{{ $value->hoten }} </td>
 			                            <td class="align-middle">
 																		<span class="d-block">Điện thoại: <strong>{{ $value->dienthoaigiaohang }}</strong></span>
@@ -71,8 +70,9 @@
 																					<th >Sản phẩm</th>
 																					<th >Số lượng</th>
 																					<th >Đơn giá</th>
-																					<th >VAT</th>
+																					
 																					<th >Thành tiền</th>
+																					<th>Tình trạng</th>
 																				</thead>
 	                                    	<tbody>
 	                                    		@php $tongtien = 0; @endphp
@@ -84,20 +84,200 @@
 	                                                <td class="align-middle">{{ $chitiet->sanpham->tensanpham }}</td>
 	                                                <td class="align-middle">{{ $chitiet->soluongban }}</td>
 	                                                <td class="text-end">{{ number_format($chitiet->sanpham->dongia) }}<sup><u>đ</u></sup></td>
-	                                                <td class="text-end">{{ number_format($chitiet->sanpham->dongia *0.1) }}<sup><u>đ</u></sup></td>
+	                                               
 	                                                <td class="text-end">{{ number_format($chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
+	                                                <td class="text-end"> 
+	                                                 	@if($chitiet->tinhtrang_id == 10)
+			                                
+			                                    						{{$chitiet->TinhTrang->tinhtrang}}
+			                                
+			                                							@else
+			                                
+									                                   <form action="{{ route('doanhnghiep.donhang.trangthai', ['id' =>$chitiet->id]) }}" method="post">
+						                            									@csrf
+						                            									<select name="select" id="select1" onchange="if(this.chitiet != 0) { this.form.submit(); }">
+												                                    @if ($chitiet->tinhtrang_id == 1)
+												                                    
+												                                        <option value="1" selected>Đơn hàng mới</option>
+												                                        <option value="2">Đang xác nhân </option>
+												                                        <option value="3" >Đã hủy</option>
+												                                        <option value="4" >Đã đóng gói</option>
+												                                        <option value="5" >Đang đi nhận</option>
+												                                        <option value="6" >Đang chuyển</option>
+												                                        <option value="7" >Thất bại</option>
+												                                        <option value="8" >Đang chuyển hoàn</option>
+												                                        <option value="9" >Đã chuyển hoàn</option>
+												                                        <option value="10" >Thành công</option>
+
+												                                    
+
+												                                        @else @if ($chitiet->tinhtrang_id == 2)
+												                                        
+
+
+												                                            <option value="1" >Đơn hàng mới</option>
+														                                        <option value="2" selected>Đang xác nhân </option>
+														                                        <option value="3" >Đã hủy</option>
+														                                        <option value="4" >Đã đóng gói</option>
+														                                        <option value="5" >Đang đi nhận</option>
+														                                        <option value="6" >Đang chuyển</option>
+														                                        <option value="7" >Thất bại</option>
+														                                        <option value="8" >Đang chuyển hoàn</option>
+														                                        <option value="9" >Đã chuyển hoàn</option>
+														                                        <option value="10" >Thành công</option>
+												                                        
+												                                            @else @if ($chitiet->tinhtrang_id == 3)
+												                                            
+
+
+												                                                <option value="1" >Đơn hàng mới</option>
+																                                        <option value="2">Đang xác nhân </option>
+																                                        <option value="3" selected>Đã hủy</option>
+																                                        <option value="4" >Đã đóng gói</option>
+																                                        <option value="5" >Đang đi nhận</option>
+																                                        <option value="6" >Đang chuyển</option>
+																                                        <option value="7" >Thất bại</option>
+																                                        <option value="8" >Đang chuyển hoàn</option>
+																                                        <option value="9" >Đã chuyển hoàn</option>
+																                                        <option value="10" >Thành công</option>
+
+												                                            
+												                                                @else @if ($chitiet->tinhtrang_id == 4)
+												                                                
+
+
+												                                                    <option value="1" >Đơn hàng mới</option>
+																		                                        <option value="2">Đang xác nhân </option>
+																		                                        <option value="3" >Đã hủy</option>
+																		                                        <option value="4"selected >Đã đóng gói</option>
+																		                                        <option value="5" >Đang đi nhận</option>
+																		                                        <option value="6" >Đang chuyển</option>
+																		                                        <option value="7" >Thất bại</option>
+																		                                        <option value="8" >Đang chuyển hoàn</option>
+																		                                        <option value="9" >Đã chuyển hoàn</option>
+																		                                        <option value="10" >Thành công</option>
+												                                                
+												                                                    @else @if ($chitiet->tinhtrang_id == 5)
+												                                                    
+
+
+												                                                        <option value="1" >Đơn hàng mới</option>
+																				                                        <option value="2">Đang xác nhân </option>
+																				                                        <option value="3" >Đã hủy</option>
+																				                                        <option value="4" >Đã đóng gói</option>
+																				                                        <option value="5" selected>Đang đi nhận</option>
+																				                                        <option value="6" >Đang chuyển</option>
+																				                                        <option value="7" >Thất bại</option>
+																				                                        <option value="8" >Đang chuyển hoàn</option>
+																				                                        <option value="9" >Đã chuyển hoàn</option>
+																				                                        <option value="10" >Thành công</option>
+												                                                    
+												                                                        @else @if ($chitiet->tinhtrang_id == 6)
+												                                                        
+
+
+												                                                            <option value="1" >Đơn hàng mới</option>
+																						                                        <option value="2">Đang xác nhân </option>
+																						                                        <option value="3" >Đã hủy</option>
+																						                                        <option value="4" >Đã đóng gói</option>
+																						                                        <option value="5" >Đang đi nhận</option>
+																						                                        <option value="6" selected>Đang chuyển</option>
+																						                                        <option value="7" >Thất bại</option>
+																						                                        <option value="8" >Đang chuyển hoàn</option>
+																						                                        <option value="9" >Đã chuyển hoàn</option>
+																						                                        <option value="10" >Thành công</option>
+
+												                                                        
+												                                                            @else @if ($chitiet->tinhtrang_id == 7)
+												                                                            
+
+
+												                                                                <option value="1" >Đơn hàng mới</option>
+																								                                        <option value="2">Đang xác nhân </option>
+																								                                        <option value="3" >Đã hủy</option>
+																								                                        <option value="4" >Đã đóng gói</option>
+																								                                        <option value="5" >Đang đi nhận</option>
+																								                                        <option value="6" >Đang chuyển</option>
+																								                                        <option value="7" selected>Thất bại</option>
+																								                                        <option value="8" >Đang chuyển hoàn</option>
+																								                                        <option value="9" >Đã chuyển hoàn</option>
+																								                                        <option value="10" >Thành công</option>
+
+												                                                            
+												                                                                @else @if ($chitiet->tinhtrang_id == 8)
+												                                                                
+
+
+												                                                                   <option value="1" >Đơn hàng mới</option>
+																										                                        <option value="2">Đang xác nhân </option>
+																										                                        <option value="3" >Đã hủy</option>
+																										                                        <option value="4" >Đã đóng gói</option>
+																										                                        <option value="5" >Đang đi nhận</option>
+																										                                        <option value="6" >Đang chuyển</option>
+																										                                        <option value="7" >Thất bại</option>
+																										                                        <option value="8" selected>Đang chuyển hoàn</option>
+																										                                        <option value="9" >Đã chuyển hoàn</option>
+																										                                        <option value="10" >Thành công</option>
+
+												                                                                
+												                                                                    @else @if ($chitiet->tinhtrang_id == 9)
+												                                                                    
+
+
+												                                                                        <option value="1" >Đơn hàng mới</option>
+																												                                        <option value="2">Đang xác nhân </option>
+																												                                        <option value="3" >Đã hủy</option>
+																												                                        <option value="4" >Đã đóng gói</option>
+																												                                        <option value="5" >Đang đi nhận</option>
+																												                                        <option value="6" >Đang chuyển</option>
+																												                                        <option value="7" >Thất bại</option>
+																												                                        <option value="8" >Đang chuyển hoàn</option>
+																												                                        <option value="9" selected>Đã chuyển hoàn</option>
+																												                                        <option value="10" >Thành công</option>
+
+												                                                                    
+												                                                                        @else @if ($chitiet->tinhtrang_id == 10)
+												                                                                        
+
+
+												                                                                           <option value="1" >Đơn hàng mới</option>
+																														                                        <option value="2">Đang xác nhân </option>
+																														                                        <option value="3" >Đã hủy</option>
+																														                                        <option value="4" >Đã đóng gói</option>
+																														                                        <option value="5" >Đang đi nhận</option>
+																														                                        <option value="6" >Đang chuyển</option>
+																														                                        <option value="7" >Thất bại</option>
+																														                                        <option value="8" >Đang chuyển hoàn</option>
+																														                                        <option value="9" >Đã chuyển hoàn</option>
+																														                                        <option value="10" selected>Thành công</option>
+
+												                                                                        
+												                                                                        @endif
+												                                                                    @endif
+												                                                                @endif
+												                                                            @endif
+												                                                        @endif
+												                                                    @endif
+												                                                @endif
+												                                            @endif
+												                                        @endif
+												                                    @endif
+												                                    </select>
+									                           							 </form>    
+									                                 @endif
+									                               </td>
 	                                            </tr>
-	                                            @php $tongtien += $chitiet->soluongban * $chitiet->dongiaban; @endphp
+	                                            @php $tongtien += $chitiet->dongiaban; @endphp
 	                                           @endif
 	                                        @endforeach
 	                                         <tr>
-	                                         		<td colspan="5">Phí vận chuyển:</td>
+	                                         		<td colspan="4">Phí vận chuyển:</td>
 	                                            
 	                                            <td class="text-end"><strong>{{ number_format($value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
 	                                        </tr>
 	                                         <tr>
 	                                         		
-	                                            <td colspan="5">Tổng tiền sản phẩm:</td>
+	                                            <td colspan="4">Tổng tiền sản phẩm:</td>
 	                                            <td class="text-end"><strong>{{ number_format($tongtien + $value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
 	                                        </tr>
 	                                        
@@ -106,186 +286,7 @@
 
 			                            	
 			                            </td>
-			                            <td class="align-middle">
-		                                @if($value->tinhtrang_id == 10)
-		                                
-		                                    {{$value->TinhTrang->tinhtrang}}
-		                                
-		                                @else
-		                                
-		                                    <select id="tinhtrang_id"  onchange="document.location.href = '{{route('doanhnghiep.donhang.tinhtrang',['id' => $value->id, 'tinhtrang_id' => '1' ])}}'+ this.options[this.selectedIndex].value;">
-
-		                                    @if ($value->tinhtrang_id == 1)
-		                                    
-		                                        <option value="1" selected>Đơn hàng mới</option>
-		                                        <option value="2">Đang xác nhân </option>
-		                                        <option value="3" >Đã hủy</option>
-		                                        <option value="4" >Đã đóng gói</option>
-		                                        <option value="5" >Đang đi nhận</option>
-		                                        <option value="6" >Đang chuyển</option>
-		                                        <option value="7" >Thất bại</option>
-		                                        <option value="8" >Đang chuyển hoàn</option>
-		                                        <option value="9" >Đã chuyển hoàn</option>
-		                                        <option value="10" >Thành công</option>
-
-		                                    
-
-		                                        @else @if ($value->tinhtrang_id == 2)
-		                                        
-
-
-		                                            <option value="1" >Đơn hàng mới</option>
-				                                        <option value="2" selected>Đang xác nhân </option>
-				                                        <option value="3" >Đã hủy</option>
-				                                        <option value="4" >Đã đóng gói</option>
-				                                        <option value="5" >Đang đi nhận</option>
-				                                        <option value="6" >Đang chuyển</option>
-				                                        <option value="7" >Thất bại</option>
-				                                        <option value="8" >Đang chuyển hoàn</option>
-				                                        <option value="9" >Đã chuyển hoàn</option>
-				                                        <option value="10" >Thành công</option>
-		                                        
-		                                            @else @if ($value->tinhtrang_id == 3)
-		                                            
-
-
-		                                                <option value="1" >Đơn hàng mới</option>
-						                                        <option value="2">Đang xác nhân </option>
-						                                        <option value="3" selected>Đã hủy</option>
-						                                        <option value="4" >Đã đóng gói</option>
-						                                        <option value="5" >Đang đi nhận</option>
-						                                        <option value="6" >Đang chuyển</option>
-						                                        <option value="7" >Thất bại</option>
-						                                        <option value="8" >Đang chuyển hoàn</option>
-						                                        <option value="9" >Đã chuyển hoàn</option>
-						                                        <option value="10" >Thành công</option>
-
-		                                            
-		                                                @else @if ($value->tinhtrang_id == 4)
-		                                                
-
-
-		                                                    <option value="1" >Đơn hàng mới</option>
-								                                        <option value="2">Đang xác nhân </option>
-								                                        <option value="3" >Đã hủy</option>
-								                                        <option value="4"selected >Đã đóng gói</option>
-								                                        <option value="5" >Đang đi nhận</option>
-								                                        <option value="6" >Đang chuyển</option>
-								                                        <option value="7" >Thất bại</option>
-								                                        <option value="8" >Đang chuyển hoàn</option>
-								                                        <option value="9" >Đã chuyển hoàn</option>
-								                                        <option value="10" >Thành công</option>
-		                                                
-		                                                    @else @if ($value->tinhtrang_id == 5)
-		                                                    
-
-
-		                                                        <option value="1" >Đơn hàng mới</option>
-										                                        <option value="2">Đang xác nhân </option>
-										                                        <option value="3" >Đã hủy</option>
-										                                        <option value="4" >Đã đóng gói</option>
-										                                        <option value="5" selected>Đang đi nhận</option>
-										                                        <option value="6" >Đang chuyển</option>
-										                                        <option value="7" >Thất bại</option>
-										                                        <option value="8" >Đang chuyển hoàn</option>
-										                                        <option value="9" >Đã chuyển hoàn</option>
-										                                        <option value="10" >Thành công</option>
-		                                                    
-		                                                        @else @if ($value->tinhtrang_id == 6)
-		                                                        
-
-
-		                                                            <option value="1" >Đơn hàng mới</option>
-												                                        <option value="2">Đang xác nhân </option>
-												                                        <option value="3" >Đã hủy</option>
-												                                        <option value="4" >Đã đóng gói</option>
-												                                        <option value="5" >Đang đi nhận</option>
-												                                        <option value="6" selected>Đang chuyển</option>
-												                                        <option value="7" >Thất bại</option>
-												                                        <option value="8" >Đang chuyển hoàn</option>
-												                                        <option value="9" >Đã chuyển hoàn</option>
-												                                        <option value="10" >Thành công</option>
-
-		                                                        
-		                                                            @else @if ($value->tinhtrang_id == 7)
-		                                                            
-
-
-		                                                                <option value="1" >Đơn hàng mới</option>
-														                                        <option value="2">Đang xác nhân </option>
-														                                        <option value="3" >Đã hủy</option>
-														                                        <option value="4" >Đã đóng gói</option>
-														                                        <option value="5" >Đang đi nhận</option>
-														                                        <option value="6" >Đang chuyển</option>
-														                                        <option value="7" selected>Thất bại</option>
-														                                        <option value="8" >Đang chuyển hoàn</option>
-														                                        <option value="9" >Đã chuyển hoàn</option>
-														                                        <option value="10" >Thành công</option>
-
-		                                                            
-		                                                                @else @if ($value->tinhtrang_id == 8)
-		                                                                
-
-
-		                                                                   <option value="1" >Đơn hàng mới</option>
-																                                        <option value="2">Đang xác nhân </option>
-																                                        <option value="3" >Đã hủy</option>
-																                                        <option value="4" >Đã đóng gói</option>
-																                                        <option value="5" >Đang đi nhận</option>
-																                                        <option value="6" >Đang chuyển</option>
-																                                        <option value="7" >Thất bại</option>
-																                                        <option value="8" selected>Đang chuyển hoàn</option>
-																                                        <option value="9" >Đã chuyển hoàn</option>
-																                                        <option value="10" >Thành công</option>
-
-		                                                                
-		                                                                    @else @if ($value->tinhtrang_id == 9)
-		                                                                    
-
-
-		                                                                        <option value="1" >Đơn hàng mới</option>
-																		                                        <option value="2">Đang xác nhân </option>
-																		                                        <option value="3" >Đã hủy</option>
-																		                                        <option value="4" >Đã đóng gói</option>
-																		                                        <option value="5" >Đang đi nhận</option>
-																		                                        <option value="6" >Đang chuyển</option>
-																		                                        <option value="7" >Thất bại</option>
-																		                                        <option value="8" >Đang chuyển hoàn</option>
-																		                                        <option value="9" selected>Đã chuyển hoàn</option>
-																		                                        <option value="10" >Thành công</option>
-
-		                                                                    
-		                                                                        @else @if ($value->tinhtrang_id == 10)
-		                                                                        
-
-
-		                                                                           <option value="1" >Đơn hàng mới</option>
-																				                                        <option value="2">Đang xác nhân </option>
-																				                                        <option value="3" >Đã hủy</option>
-																				                                        <option value="4" >Đã đóng gói</option>
-																				                                        <option value="5" >Đang đi nhận</option>
-																				                                        <option value="6" >Đang chuyển</option>
-																				                                        <option value="7" >Thất bại</option>
-																				                                        <option value="8" >Đang chuyển hoàn</option>
-																				                                        <option value="9" >Đã chuyển hoàn</option>
-																				                                        <option value="10" selected>Thành công</option>
-
-		                                                                        
-		                                                                        @endif
-		                                                                    @endif
-		                                                                @endif
-		                                                            @endif
-		                                                        @endif
-		                                                    @endif
-		                                                @endif
-		                                            @endif
-		                                        @endif
-		                                    @endif
-		                                </select>   
-		                                
-		                                 @endif
-		   
-		                            </td>
+			                           
 			                            
 			                            
 			                            <td class="align-middle text-right">
@@ -300,9 +301,9 @@
 		                            	</td>
 			                         </tr>
 	                      
-			                       @endif
+			              
 	                     		
-		                    
+		                    	   @endif
 		                    @endforeach
 
 		                 </tbody>

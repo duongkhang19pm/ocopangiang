@@ -181,10 +181,12 @@
                                 <div class="checkout__order__subtotal">Phí Vận Chuyển<span >
                                     {{$huyen->phivanchuyen}}
                                     <sup>VND</sup></span>
+
+                                   
                                 </div>
 
 
-                                <div class="checkout__order__total">Tổng Thanh Toán <span>{{ number_format($tongtien + $tongtien *0.1 +$huyen->phivanchuyen)}}  <sup>VND</sup></span></div>
+                                <div class="checkout__order__total">Tổng Thanh Toán <span>{{ number_format($tongtien + $huyen->phivanchuyen)}}  <sup>VND</sup></span></div>
                                
                                 <button type="submit" class="site-btn" href="{{ route('frontend.dathang') }}"onclick="event.preventDefault();document.getElementById('checkoutform').submit();">TIẾN HÀNH ĐẶT HÀNG</button>
                             </div>

@@ -285,7 +285,15 @@
             document.documentElement.scrollTop = 0;
         }
     </script>
-    
+    <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+           $('.thongbao').addClass("showAlert");
+           $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(2000).slideUp(500);
+        });
+    </script>
 </body>
 
 </html>

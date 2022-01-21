@@ -36,7 +36,7 @@
 		                         <th>Tiêu Đề Không Dấu</th>
 		                          <th >Lượt Xem</th>
 		                          <th >Kiểm Duyệt</th>
-		                         
+		                        
 															<th style="width:100px; min-width:100px;"> &nbsp; </th>
 		                     </tr>
 		                 </thead>
@@ -58,15 +58,14 @@
 		                             <td>
 				                             @if($value->kiemduyet == 0)
 			                                <a href="{{ route('doanhnghiep.baiviet.kiemduyet',  ['id' => $value->id] ) }}" >
-			                                  <span class="badge badge-pill badge-info">Đã Duyệt</span>
+			                                  <span class="badge badge-pill badge-warning">Bị khóa</span>
 			                                </a> 
 		                                
 		                                @else
-		                                		<a href="{{ route('doanhnghiep.baiviet.kiemduyet',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
+		                                		<a href="{{ route('doanhnghiep.baiviet.kiemduyet',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-info">Đã Duyệt</span></a> 
 		                                @endif
 																</td>
-		                            
-		                             
+		                           
 		                             <td class="align-middle text-right">
 			                              <a href="{{ route('doanhnghiep.baiviet.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 			                                <i class="fa fa-pencil-alt"></i>

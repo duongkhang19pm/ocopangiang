@@ -32,16 +32,17 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            @foreach($hinhanh as $image)
-                            <img class="product__details__pic__item--large"
-                                src="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}" height="500" alt="">
-                            @break
+                            @foreach($all_files as $image)
+
+                                <img class="product__details__pic__item--large"
+                                    src="{{ url($dir . $image['basename']) }}" height="500" alt="">
+                                @break
                             @endforeach
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            @foreach($hinhanh as $image)
-                            <img data-imgbigurl="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}"
-                                src="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}"width="100" height="150" alt="">
+                            @foreach($all_files as $image)
+                            <img data-imgbigurl="{{ url($dir . $image['basename']) }}"
+                                src="{{ url($dir . $image['basename']) }}"width="100" height="150" alt="">
                             
                             @endforeach
                         </div>
@@ -130,7 +131,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">Phân Hạng OCOP</a>
+                                    aria-selected="false">Đánh Giá Sản Phẩm ({{ $danhgia->count()}})</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
@@ -154,17 +155,12 @@
                                             <p> <strong>Điều Kiện Lưu Trữ:</strong> {{$sanpham->dieukienluutru ?? 'N/A'}}</p>
                                         </div>
                                     </div>
-                                    <p> <strong>Mô Tả:</strong>   <?php echo ($sanpham->motasanpham); ?></p>
-                                    
-
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="product__details__tab__desc">
                                      @foreach($sanpham->ChiTiet_PhanHang_SanPham as $ct)
-                                    <h6>Phân Hạng OCOP 
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                        <p> <strong> Phân Hạng OCOP </strong>
                                    
-                                         @if( $ct->phanhang_id  == 1)
+                                        @if( $ct->phanhang_id  == 1)
                                             <span class="rating has-readonly">
                                                 <label >
                                                     <span class="fa fa-star "></span>
@@ -186,107 +182,169 @@
 
                                             </span>
                                         @endif
-                                @if( $ct->phanhang_id  == 2)
-                                    <span class="rating has-readonly">
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
+                                        @if( $ct->phanhang_id  == 2)
+                                            <span class="rating has-readonly">
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                    </span>
-                                @endif
-                                @if( $ct->phanhang_id  == 3)
-                                    <span class="rating has-readonly">
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                            </span>
+                                        @endif
+                                        @if( $ct->phanhang_id  == 3)
+                                            <span class="rating has-readonly">
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                    </span>
-                                @endif
-                                @if( $ct->phanhang_id  == 4)
-                                    <span class="rating has-readonly">
-                                        <label >
-                                            <span class="fa fa-star"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                            </span>
+                                        @endif
+                                        @if( $ct->phanhang_id  == 4)
+                                            <span class="rating has-readonly">
+                                                <label >
+                                                    <span class="fa fa-star"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                    </span>
-                                @endif
-                                @if( $ct->phanhang_id  == 5)
-                                    <span class="rating has-readonly">
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                            </span>
+                                        @endif
+                                        @if( $ct->phanhang_id  == 5)
+                                            <span class="rating has-readonly">
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                        <label >
-                                            <span class="fa fa-star"style="color:Gold"></span>
-                                        </label>
+                                                <label >
+                                                    <span class="fa fa-star"style="color:Gold"></span>
+                                                </label>
 
-                                    </span>
-                                @endif
-                                </h6>
-                                     <div class="row">
-                                        <div class="col-lg-6">
+                                            </span>
+                                        @endif
+                                        </p>
+                                        </div>
+                                       <div class="col-lg-4">
                                             <p> <strong>Ngày Bắt Đầu:</strong>{{ Carbon\Carbon::parse($ct->ngaybatdau)->format('d/m/Y') }}</p>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <p> <strong>Ngày Kết Thúc:</strong>{{ Carbon\Carbon::parse($ct->ngayketthuc)->format('d/m/Y') }}</p>
                                         </div>
                                     </div>
                                  
                                     @endforeach
-                                     
+                                    <p> <strong>Mô Tả:</strong>   <?php echo ($sanpham->motasanpham); ?></p>
+                                    
+
                                 </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                @foreach($danhgia as $value)
+                                <div class="product__details__tab__desc">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-2">
+                                                @if(empty($value->taikhoan->hinhanh))
+                                                   <img  src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="100" width="150" >
+                                                @else
+                                                  <img src="{{env('APP_URL').'/storage/app/'.$value->taikhoan->hinhanh  }}"height="90" width="100" />
+                                                @endif
+                                        </div>
+
+                                        <div class="col-lg-10">
+                                            <p> {{$value->taikhoan->name}}</p>
+                                    
+                                        </div>
+                                    </div>
+                                     <div class=" mt-3">
+                                        <p>    <?php echo ($value->noidung); ?></p>
+
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                             <p>  {{ Carbon\Carbon::parse( $value->created_at)->format('d/m/Y') }}</p>
+                                            
+                                        </div>
+                                      
+                                    </div>
+                                    
+                                </div>
+                                @endforeach
+                                @if($sanpham->danhgia == 1)
+                                <div class="product__details__tab__desc">
+                                    <form  action="{{route('frontend.sanpham.danhgia',['tennhom_slug' => $nhomsanpham->tennhom_slug,'tenloai_slug' => $loaisanpham->tenloai_slug,'tensanpham_slug' => $sanpham->tensanpham_slug])}}" method="post" >
+                                    @csrf
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea  class="form-control w-50 @error('noidung') is-invalid @enderror" name="noidung" id="noidung" cols="30" rows="9"
+                                                    placeholder="Nội dung "></textarea>
+                                                </div>
+                                                @error('noidung')
+                                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                                @enderror
+                                            </div> 
+                                           
+                                        </div>
+                                        @if(Auth::user() == null)
+                                            <div class="form-group">
+                                                <a href="{{route('khachhang.dangnhap')}}" class="site-btn" > Đăng Nhập Để Đánh Giá </a>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <button type="submit" class="site-btn" >Đánh Giá</button>
+                                            </div>
+                                        @endif
+                                    </form>
+                                </div>
+                                @endif
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
@@ -332,30 +390,66 @@
                 </div>
             </div>
             <div class="row">
-                @foreach($loai as $loai_sanpham)
-                    @foreach($loai_sanpham->sanpham as $value)
+               
+                    @foreach($sanpham_lienquan as $value)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="product__item">
-                                @foreach($value->hinhanh as $image)
+                               
                      
-                                    <div class="product__item__pic set-bg" data-setbg="{{ env('APP_URL') . '/storage/app/' . $image->hinhanh }}">
+                                    <div class="product__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                         <ul class="product__item__pic__hover">
                                             
                                             <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" onclick=" confirm('Đã thêm sản phẩm {{$value->tensanpham}} vào giỏ hàng của mình')"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                     @break
-                               @endforeach
+                                
                                
                                 <div class="product__item__text">
-                                    <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h6>
-                                    <h5>{{ number_format($value->dongia ) }} <sup>VNĐ</sup></h5>
+                                     <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h6>
+                                <h5> {{ number_format($value->dongia ) }}  <sup>VNĐ</sup></h5>
+                                 @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
+                                    @if( $ct->phanhang_id  == 1)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 2)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 3)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 4)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:SlateGray"></span>
+                                    @endif
+                                    @if( $ct->phanhang_id  == 5)
+                                        <span class="fa fa-star " style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                        <span class="fa fa-star"style="color:Gold"></span>
+                                    @endif
+                                @endforeach
                                 </div>
                             </div>
                         </div>
                     @endforeach
-                @endforeach
+              
             </div>
         </div>
     </section>

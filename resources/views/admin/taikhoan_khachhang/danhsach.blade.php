@@ -66,7 +66,7 @@
                               </td>
                               <td class="align-middle"> 
                                 Họ Và Tên: {{ $value->name }} <br/>
-                               Địa Chỉ: {{ $value->tinh->tentinh ?? 'N/A'}} - {{ $value->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
+                               Địa Chỉ: {{ $value->xa->huyen->tinh->tentinh ?? 'N/A'}} - {{ $value->xa->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
                                Email: {{ $value->email }} <br/>
                                Điện Thoại: {{ $value->phone }}<br/>
                                Tên Đăng Nhập: {{ $value->username }} 
@@ -75,11 +75,13 @@
                                <td class="align-middle"><span class="badge badge-pill badge-danger">Khách Hàng</span></td>
 
                                <td class="align-middle">
-                                @if($value->kichhoat == 0)
-                                <a href="#"></a> 
-                                <span class="badge badge-pill badge-info">Đang sử dụng</span>
+                                 @if($value->kichhoat == 0)
+                                <a href="{{ route('admin.taikhoan_khachhang.kichhoat',  ['id' => $value->id] ) }}" >
+                                  <span class="badge badge-pill badge-info">Đang sử dụng</span>
+                                </a> 
+                                
                                 @else
-                                <a href="#"></a> <span class="badge badge-pill badge-warning">Bị khóa</span>
+                                <a href="{{ route('admin.taikhoan_khachhang.kichhoat',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
                                 @endif
                                 </td>
 	                            <td class="align-middle text-right">

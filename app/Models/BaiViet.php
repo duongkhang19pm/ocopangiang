@@ -21,6 +21,7 @@ class BaiViet extends Model
     {
     return $this->belongsTo(TaiKhoan::class, 'taikhoan_id', 'id');
     }
+  
 
     
 }

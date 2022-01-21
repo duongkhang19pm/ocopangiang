@@ -33,10 +33,7 @@ class DonHang extends Model
     {
     return $this->belongsTo(TaiKhoan::class, 'taikhoan_id', 'id');
     }
-    public function TinhTrang()
-    {
-    return $this->belongsTo(TinhTrang::class, 'tinhtrang_id', 'id');
-    }
+    
    
     public function DonHang_ChiTiet()
     {

@@ -26,7 +26,16 @@
 <body>
 <main class="auth auth-floated">
       <!-- form -->
+     
        <form class="auth-form" method="post" action="{{ route('login') }}">
+         @if(session('warning'))
+
+            
+            <span class="font-weight-bold text-danger">
+                <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
+            </span>
+        
+        @endif
        @csrf
         <div class="mb-4">
           <div class="mb-3">

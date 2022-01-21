@@ -129,7 +129,7 @@
                  <hr/>
                   <div class="row">
                       
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                          <label class="form-label" for="hinhanh">Hình ảnh </label>
                          <input type="file" class="form-control @error('hinhanh') is-invalid @enderror" id="hinhanh" name="hinhanh" value="{{ old('hinhanh') }}" />
                          @error('hinhanh')

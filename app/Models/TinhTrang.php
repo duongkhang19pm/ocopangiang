@@ -12,8 +12,8 @@ class TinhTrang extends Model
      protected $fillable = [
         'tinhtrang',
     ];
-    public function DonHang()
+    public function DonHang_ChiTiet()
     {
-        return $this->hasMany(DonHang::class, 'tinhtrang_id','id');
+        return $this->hasMany(DonHang_ChiTiet::class, 'tinhtrang_id','id');
     }
 }

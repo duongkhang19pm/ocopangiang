@@ -244,6 +244,24 @@
                   </ul>
                   <!-- /child menu -->
                 </li>
+
+
+                <li class="menu-header">Thống Kê</li>
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                    <span class="menu-icon fas fa-blog"></span>
+                    <span class="menu-text">Doanh Thu</span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                  
+                    <li class="menu-item">
+                      <a href="{{route('doanhnghiep.donhang.doanhthu')}}" class="menu-link">DoanhThu</a>
+                    </li>
+                    
+                  </ul>
+                  <!-- /child menu -->
+                </li>
                  @endguest
                  
                 <!-- /.menu-item -->

@@ -48,9 +48,12 @@
                             <h4>Bài Viết Mới Nhất</h4>
                             <div class="blog__sidebar__recent">
                                 @foreach($baivietnew as $value)
+                                @php
+                                  $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                @endphp
                                 <a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}" class="blog__sidebar__recent__item">
                                     <div class="blog__sidebar__recent__item__pic">
-                                        <img src="{{ asset('public/Image/logo.jpg') }}" width="80" alt="">
+                                         <img src="{{ $img }}" width="80" alt="">
                                     </div>
                                     <div class="blog__sidebar__recent__item__text">
                                         <h6>{{$value->tieude}}</h6>
@@ -71,7 +74,10 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
-                                        <img src="{{ asset('public/Image/logo.jpg') }}" alt="">
+                                         @php
+                                              $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                            @endphp
+                                        <img src="{{ $img }}" alt="">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>

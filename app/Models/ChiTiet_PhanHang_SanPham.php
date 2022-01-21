@@ -12,7 +12,9 @@ class ChiTiet_PhanHang_SanPham extends Model
     // protected $primaryKey = 'id';
     // public $incrementing = false;
     // protected $keyType = 'string';
-
+      protected $fillable = [
+        'phanhang_id','sanpham_id','ngaybatdau','ngayketthuc', 
+    ];
     public function PhanHang()
     {
     return $this->belongsTo(PhanHang::class, 'phanhang_id', 'id');
