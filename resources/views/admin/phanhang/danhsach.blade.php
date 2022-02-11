@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('pagetitle')
+Phân Hạng
+@endsection
 @section('content')
 
 <div class="wrapper">

@@ -400,7 +400,7 @@ class HomeController extends Controller
 
          foreach(Cart::content() as $value)
          {
-            //$tong = $phi->phivanchuyen + $value->total;
+            //$tong = $phi->phivanchuyen + $value->priceTotal;
          $ct = new DonHang_ChiTiet();
          $ct->donhang_id = $dh->id;
          $ct->sanpham_id = $value->id;

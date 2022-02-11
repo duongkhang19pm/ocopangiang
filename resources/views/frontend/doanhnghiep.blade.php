@@ -138,7 +138,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section-title product__discount__title">
+                    
+                </div>
+            </div>
+            <div class="section-title product__discount__title">
                             <h2>Thông Tin Doanh Nghiệp</h2>
                         </div>
                     <div class="row">
@@ -154,10 +157,7 @@
                                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
                                                 aria-selected="false">Giới Thiệu</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                                aria-selected="false">Vị Trí Trên Bản Đồ</a>
-                                        </li>
+                                        
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -190,43 +190,37 @@
                                                  <p> <?php echo ($doanhnghiep->gioithieu); ?></p>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                            <div class="product__details__tab__desc">
-                                                <div class="card-body" id="mapid"></div>
-                                            </div>
+                                        <div  id="tabs-3" role="tabpanel">
+                                           
+                                                <div  id="mapid"></div>
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
                     </div>
-                </div>
-            </div>
         </div>
     </section>
 
 
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin=""/>
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
 
 <style>
     #mapid { height: 400px; }
 </style>
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-    integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-    crossorigin=""></script>
 
 <script>
-    var map = L.map('mapid').setView([{{ $doanhnghiep->vido }}, {{ $doanhnghiep->kinhdo }}],  {{ config('leaflet.detail_zoom_level') }});
+    var map = L.map('mapid').setView(['{{$doanhnghiep->kinhdo}}','{{$doanhnghiep->vido}}'],  {{ config('leaflet.detail_zoom_level') }});
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([{{ $doanhnghiep->vido }}, {{ $doanhnghiep->kinhdo }}]).addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.');
+    L.marker(['{{$doanhnghiep->kinhdo}}','{{$doanhnghiep->vido}}']).addTo(map)
+        .bindPopup('{{ $doanhnghiep->tendoanhnghiep }}');
 
 
 </script>

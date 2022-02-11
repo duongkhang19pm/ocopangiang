@@ -96,7 +96,7 @@
         <p class="py-3">
             <a href="{{ route('password.request') }}" class="link">Quên mật khẩu đăng nhập?</a>
           <span class="mx-2">·</span>
-          <a href="{{ route('register') }}" class="link">Chưa Có Tài Khoản? Tạo tài khoản</a>
+          
           
         </p>
         <!-- /recovery links -->

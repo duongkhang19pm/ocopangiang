@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('pagetitle')
+	Đơn Vị Quản Lý
+@endsection
 @section('content')
 
 <div class="wrapper">
@@ -33,7 +36,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover"id="table_id">
 		                 <thead>
 		                     <tr>
 		                         <th >#</th>
@@ -48,7 +51,7 @@
 		                 <tbody>
 		                     @foreach($donviquanly as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $donviquanly->firstItem() + $loop->index }}</td>
+		                             <td class="align-middle">{{ $loop->iteration }}</td>
 		                             <td class="align-middle">
 		                             	 @if(empty($value->hinhanh)||$value->hinhanh == 'N/A' )
                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
@@ -85,9 +88,7 @@
 
                       <!-- /.table -->
                     </div>
-                      <ul class="pagination justify-content-center mt-4">
-                       {{ $donviquanly->links() }}
-                     </ul>
+                      
                   </div>
                 </section>
                

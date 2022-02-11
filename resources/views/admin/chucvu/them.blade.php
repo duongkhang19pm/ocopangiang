@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('pagetitle')
+  Thêm Chức Vụ
+@endsection
 @section('content')
 
 <div class="wrapper">

@@ -254,7 +254,8 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function() {
     Route::get('/taikhoan/admin/sua/{id}', [TaiKhoanController::class, 'getSua_Admin'])->name('taikhoan_admin.sua');
     Route::post('/taikhoan/admin/sua/{id}', [TaiKhoanController::class, 'postSua_Admin'])->name('taikhoan_admin.sua');
     Route::get('/taikhoan/admin/xoa/{id}', [TaiKhoanController::class, 'getXoa_Admin'])->name('taikhoan_admin.xoa');
-
+    Route::get('/taikhoan/admin/hosocanhan', [TaiKhoanController::class, 'getHoSoCaNhan'])->name('taikhoan_admin.hosocanhan');
+     Route::post('/taikhoan/admin/hosocanhan', [TaiKhoanController::class, 'postHoSoCaNhan'])->name('taikhoan_admin.hosocanhan');
 
     // Quản lý Tài khoản Khách Hàng 
     Route::get('/taikhoan/khachhang/getHuyen',[TaiKhoanController::class, 'getHuyen'])->name('taikhoan_khachhang.getHuyen');
@@ -322,6 +323,9 @@ Route::prefix('donviquanly')->name('donviquanly.')->middleware('donviquanly')->g
     Route::get('/doanhnghiep/xuat', [DoanhNghiepController::class, 'getXuat'])->name('doanhnghiep.xuat');
 
 
+    Route::get('/doanhnghiep/doanhthu_doanhnghiep/{id}',[DonHangController::class, 'getDoanhThu_DoanhNghiep'])->name('doanhnghiep.doanhthu_doanhnghiep');
+    Route::get('/doanhnghiep/doanhthu',[DonHangController::class, 'getDoanhThu_DonViQuanLy'])->name('doanhnghiep.doanhthu');
+    Route::get('/donviquanly/doanhthu/xuat', [DonHangController::class, 'getXuat'])->name('doanhthu.xuat');
     // Quản lý Tài khoản DoanhNghiep
     Route::get('/taikhoan/doanhnghiep/getHuyen',[TaiKhoanController::class, 'getHuyen'])->name('taikhoan_doanhnghiep.getHuyen');
     Route::get('/taikhoan/doanhnghiep/getXa',[TaiKhoanController::class, 'getXa'])->name('taikhoan_doanhnghiep.getXa');

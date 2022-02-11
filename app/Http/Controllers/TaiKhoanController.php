@@ -39,8 +39,51 @@ class TaiKhoanController extends Controller
         $xa =Xa::all();
         return view('admin.taikhoan_admin.danhsach', compact('taikhoan', 'tinh','huyen','xa'));
     }
+    public function getHoSoCaNhan()
+    {
+        $taikhoan = TaiKhoan::where('id', Auth::user()->id)->first();
+         $tinh = Tinh::all();
+        $huyen =Huyen::all();
+        $xa =Xa::all();
+        return view('admin.taikhoan_admin.hosocanhan',compact('taikhoan', 'tinh','huyen','xa'));
+    }
+    public function postHoSoCaNhan(Request $request)
+    {
+       $request->validate([
+        'tinh_id' => ['nullable'],
+        'huyen_id'=>['nullable'],
+        'xa_id'=>['nullable'],
+        'tenduong'=>['nullable','string','max:191'],
+        'name' => ['required', 'string', 'max:100'],
+        'username' => ['required', 'max:255', 'unique:taikhoan,username,'.$id],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:taikhoan,email,'.$id],
+        'phone'=>['required','string','min:10','max:12','unique:taikhoan,phone,'.$id],
+        'password' => [ 'confirmed'],
+        ]);
+        if($request->hasFile('hinhanh'))
+       {
+            $orm=TaiKhoan::where('id', Auth::user()->id)->first();
+            Storage::delete($orm->hinhanh);
+            $extension = $request->file('hinhanh')->extension();
+            $fileName = Str::slug($request->name,'-').'.'.$extension;
+            // Upload vào thư mục và trả về đường dẫn
+            $path = Storage::putFileAs('taikhoan/taikhoan_admin', $request->file('hinhanh'), $fileName);
 
-  
+       }
+        $orm = TaiKhoan::where('id', Auth::user()->id)->first();
+      
+        $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
+        $orm->name = $request->name;
+        $orm->username = $request->username;
+        $orm->email = $request->email;
+        $orm->phone = $request->phone;
+        if(!empty($request->password)) $orm->password = Hash::make($request->password);
+        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+        $orm->save();
+
+        return redirect()->route('admin.taikhoan_admin.hosocanhan');
+    }
 
     public function getThem_Admin()
     {

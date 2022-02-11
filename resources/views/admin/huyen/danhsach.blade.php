@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('pagetitle')
+  Quận/Huyện
+@endsection
 @section('content')
 
 <!-- .wrapper -->
@@ -11,12 +14,9 @@
           <!-- .page-title-bar -->
           <header class="page-title-bar">
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Quận/Huyện </h1>
+                  <h1 class="page-title mr-sm-auto">Danh Sách Quận/Huyện </h1>
                   <div class="btn-toolbar">
-                    <p><button  type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
-                      <i class="oi oi-data-transfer-upload"></i>
-                      <span class="ml-1">Import</span>
-                    </button></p>
+                    <a type="button" href="#nhap" class="btn btn-light" data-toggle="modal" data-target="#importModal"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
                   </div>    
                 </div> 
             <!-- /title and toolbar -->
@@ -30,7 +30,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
                         <!-- thead -->
                         <thead>
                           <tr>
@@ -49,7 +49,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $huyen->firstItem() + $loop->index }}</td>
+	                            <td class="align-middle">{{ $loop->iteration }}</td>
                               <td class="align-middle"> {{ $value->Tinh->tentinh }} </td>
 	                            <td class="align-middle"> {{ $value->tenhuyen }} </td>
                               <td class="align-middle"> {{ $value->phivanchuyen }} </td>
@@ -65,7 +65,7 @@
                       <!-- /.table -->
                     </div>
                       <ul class="pagination justify-content-center mt-4">
-                       {{ $huyen->links() }}
+                       
                      </ul>
                   </div>
                 </section>

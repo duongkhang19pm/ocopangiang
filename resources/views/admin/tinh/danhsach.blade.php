@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('pagetitle')
+  Tỉnh/Thành Phố
+@endsection
 @section('content')
 
 <!-- .wrapper -->
@@ -11,12 +13,9 @@
           <!-- .page-title-bar -->
           <header class="page-title-bar">
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Tỉnh/Thành Phố </h1>
+                  <h1 class="page-title mr-sm-auto">Danh Sách Tỉnh/Thành Phố </h1>
                   <div class="btn-toolbar">
-                    <p><button  type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
-                      <i class="oi oi-data-transfer-upload"></i>
-                      <span class="ml-1">Import</span>
-                    </button></p>
+                    <a type="button" href="#nhap" class="btn btn-light" data-toggle="modal" data-target="#importModal"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
                   </div>    
                 </div> 
             <!-- /title and toolbar -->
@@ -30,7 +29,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
                         <!-- thead -->
                         <thead>
                           <tr>
@@ -47,7 +46,7 @@
 	                          <!-- tr -->
 	                          <tr>
 	                            
-	                            <td class="align-middle">{{ $tinh->firstItem() + $loop->index }}</td>
+	                            <td class="align-middle">{{ $loop->iteration }}</td>
 	                            <td class="align-middle"> {{ $value->tentinh }} </td>
 	    
 	                          </tr>
@@ -60,9 +59,7 @@
 
                       <!-- /.table -->
                     </div>
-                      <ul class="pagination justify-content-center mt-4">
-                       {{ $tinh->links() }}
-                     </ul>
+                     
                   </div>
                 </section>
                

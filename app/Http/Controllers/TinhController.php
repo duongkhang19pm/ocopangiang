@@ -9,7 +9,7 @@ class TinhController extends Controller
 {
     public function getDanhSach()
     {
-        $tinh = Tinh::paginate(25);
+        $tinh = Tinh::all();
         return view('admin.tinh.danhsach',compact('tinh'));
     }
 

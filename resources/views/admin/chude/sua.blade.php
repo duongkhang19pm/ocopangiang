@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('pagetitle')
+  Cập Nhật Chủ Đề
+@endsection
 @section('content')
 <div class="wrapper">
    <div class="page"><div class="sidebar-backdrop"></div>

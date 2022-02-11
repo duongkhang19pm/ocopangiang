@@ -41,6 +41,7 @@ class CreateLoaiSanPhamsTable extends Migration
         LoaiSanPham::create(['nhomsanpham_id'=>'5','tenloai'=>'Tiêu Dùng Mua Sắm','tenloai_slug'=>'tieu-dung-mua-sam']);
         LoaiSanPham::create(['nhomsanpham_id'=>'5','tenloai'=>'Tiêu Dùng Đặc Biệt','tenloai_slug'=>'tieu-dung-dac-biet']);
         LoaiSanPham::create(['nhomsanpham_id'=>'5','tenloai'=>'Dịch Vụ','tenloai_slug'=>'dich-vu']);
+        LoaiSanPham::create(['nhomsanpham_id'=>'2','tenloai'=>'Lúa Gạo','tenloai_slug'=>'lua-gao']);
     }
 
     /**

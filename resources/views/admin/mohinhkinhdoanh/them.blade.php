@@ -1,4 +1,8 @@
 @extends('layouts.admin')
+
+@section('pagetitle')
+  Thêm Loại Hình Kinh Doanh
+@endsection
 @section('content')
 
 <div class="wrapper">

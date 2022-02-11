@@ -21,7 +21,7 @@ class DonViQuanLyController extends Controller
 {
      public function getDanhSach()
     {
-        $donviquanly = DonViQuanLy::paginate(10);
+        $donviquanly = DonViQuanLy::orderBy('created_at', 'desc')->get();
         return view('admin.donviquanly.danhsach',compact('donviquanly'));
     }
     // Nhập từ Excel

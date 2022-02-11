@@ -170,6 +170,8 @@ class DoanhNghiepController extends Controller
         $orm->website = $request->website;
         $orm->ngaythanhlap =  $request->ngaythanhlap;
        if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
+       $orm->kinhdo = $request->kinhdo;
+       $orm->vido = $request->vido;
        $orm->gioithieu = $request->gioithieu;
         $orm->save();
 

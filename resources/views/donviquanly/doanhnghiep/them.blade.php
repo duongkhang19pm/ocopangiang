@@ -169,7 +169,7 @@
                       </div>
                        <div class="col-md-4">
                           <label for="website">Website Doanh Nghiệp<span class="text-danger font-weight-bold">*</span></label>
-                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ old('website') }}" placeholder="Website Doanh Nghiệp" required />
+                          <input type="text" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ old('website') }}" placeholder="Website Doanh Nghiệp"  />
                           
                             @error('website')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>

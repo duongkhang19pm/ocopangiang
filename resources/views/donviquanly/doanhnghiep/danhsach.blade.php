@@ -72,6 +72,10 @@
 		                             <td class="align-middle">{{ $value->tendoanhnghiep_slug }}</td>
 		                             
 		                             <td class="align-middle text-right">
+		                             		<a href="{{ route('donviquanly.doanhnghiep.doanhthu_doanhnghiep', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
+			                                <i class="fas fa-signal"></i>
+			                                <span class="sr-only">DoanhThu</span>
+			                              </a>
 			                              <a href="{{ route('donviquanly.doanhnghiep.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
 			                                <i class="fa fa-pencil-alt"></i>
 			                                <span class="sr-only">Edit</span>

@@ -194,59 +194,23 @@
                 </li>
                 <!-- /.menu-item -->
                 @guest
-                    @if (Route::has('login'))
-                       <li class="sidebar-item  has-sub">
-                            <a class="menu-link" href="{{ route('login') }}">
-                                
-                                <span class="menu-text"> Đăng nhập</span>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Route::has('register'))
-                       <li class="sidebar-item  has-sub">
-                            <a class="menu-link" href="{{ route('register') }}" >Đăng ký</a>
-                        </li>
-                    @endif
+                    
                @else
                
-                
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Quản Lý Doanh Nghiêp</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-
-                    <li class="menu-item">
-                      <a href="{{route('donviquanly.doanhnghiep')}}" class="menu-link">Doanh Nghiệp</a>
-                    </li>
-                     <li class="menu-item">
-                      <a href="{{route('donviquanly.baiviet')}}" class="menu-link">Bài Viết</a>
-                    </li>
-
-                   
-                  
-                  </ul>
-                  <!-- /child menu -->
+                <li class="menu-header">Quản Lý</li>
+                <li class="menu-item">
+                  <a href="{{route('donviquanly.doanhnghiep')}}" class="menu-link"><span class="menu-icon oi oi-fork"></span> <span class="menu-text">Doanh Nghiệp</span></a>
                 </li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon oi oi-infinity"></span>
-                    <span class="menu-text">Tài Khoản</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-
-                    <li class="menu-item">
-                      <a href="{{route('donviquanly.taikhoan_doanhnghiep')}}" class="menu-link">Tài Khoản Doanh Nghiệp</a>
-                    </li>
-                     
-
-                   
-                  
-                  </ul>
-                  <!-- /child menu -->
+                <li class="menu-item">
+                  <a href="{{route('donviquanly.baiviet')}}" class="menu-link"><span class="menu-icon fas fa-book"></span> <span class="menu-text">Bài Viết</span></a>
+                </li>
+                <li class="menu-header">Tài Khoản</li>
+                <li class="menu-item">
+                  <a href="{{route('donviquanly.taikhoan_doanhnghiep')}}" class="menu-link"><span class="menu-icon fas fa-user-circle"></span> <span class="menu-text">Tài Khoản Doanh Nghiệp</span></a>
+                </li>
+               <li class="menu-header">Thống Kê</li>
+               <li class="menu-item">
+                  <a href="{{route('donviquanly.doanhnghiep.doanhthu')}}" class="menu-link"><span class="menu-icon far fa-chart-bar"></span> <span class="menu-text">Doanh Thu</span></a>
                 </li>
                
                
@@ -302,6 +266,8 @@
   <script src="{{ asset('public/backend/vendor/chart.js/Chart.min.js') }}"></script>
   <script src="{{ asset('public/backend/javascript/theme.min.js') }}"></script>
   <script src="{{ asset('public/backend/javascript/main.min.js') }}"></script>
+ 
   @yield('javascript')
+ 
   </body>
 </html>

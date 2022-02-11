@@ -1,25 +1,164 @@
 @extends('layouts.donviquanly')
 
 @section('pagetitle')
-	Quản trị hệ thống
+	Đơn Vị Quản Lý  {{ Auth::user()->donviquanly->tendonviquanly }}
 @endsection
 
 @section('content')
-	<div class="page">
-		<div class="page-inner">
-			<header class="page-title-bar">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">
-							<a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang chủ</a>
-						</li>
-					</ol>
-				</nav>
-				<h1 class="page-title">Đơn Vị Quản Lý  {{ Auth::user()->donviquanly->tendonviquanly }}</h1>
-			</header>
-			<div class="page-section">
-				<h3>Trang chủ Đơn Vị Quản Lý đang cập nhật!</h3>
-			</div>
-		</div>
-	</div>
+<?php
+ 
+$dataPoints1 = array(
+	array("label"=> "2010", "y"=> 36.12),
+	array("label"=> "2011", "y"=> 34.87),
+	array("label"=> "2012", "y"=> 40.30),
+	array("label"=> "2013", "y"=> 35.30),
+	array("label"=> "2014", "y"=> 39.50),
+	array("label"=> "2015", "y"=> 50.82),
+	array("label"=> "2016", "y"=> 74.70)
+);
+$dataPoints2 = array(
+	array("label"=> "2010", "y"=> 64.61),
+	array("label"=> "2011", "y"=> 70.55),
+	array("label"=> "2012", "y"=> 72.50),
+	array("label"=> "2013", "y"=> 81.30),
+	array("label"=> "2014", "y"=> 63.60),
+	array("label"=> "2015", "y"=> 69.38),
+	array("label"=> "2016", "y"=> 98.70)
+);
+$dataPoints3 = array(
+	array("label"=> "2017", "y"=> 50.61),
+	array("label"=> "2018", "y"=> 60.55),
+	array("label"=> "2019", "y"=> 70.50)
+);
+	
+?>
+<div class="wrapper">
+  <!-- .page -->
+  <div class="page">
+    <!-- .page-inner -->
+    <div class="page-inner">
+      <!-- .page-title-bar -->
+      <header class="page-title-bar">
+        <div class="d-flex flex-column flex-md-row">
+          <p class="lead">
+            <span class="font-weight-bold">Hi, {{ Auth::user()->name }}.</span> <span class="d-block text-muted">Chào mừng bạn đến với đơn vị quản lý {{ Auth::user()->donviquanly->tendonviquanly }}.</span>
+          </p>
+    
+        </div>
+      </header><!-- /.page-title-bar -->
+      <!-- .page-section -->
+      <div class="page-section">
+        <!-- .section-block -->
+        <div class="section-block">
+          <!-- metric row -->
+          <div class="metric-row">
+            <div class="col-lg-9">
+              <div class="metric-row metric-flush">
+                <!-- metric column -->
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('donviquanly.doanhnghiep')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label">Doanh Nghiệp </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="oi oi-fork"></i></sub> <span class="value">{{count($doanhnghiep)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('donviquanly.taikhoan_doanhnghiep')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Người Dùng Doanh Nghiệp </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="oi oi-people"></i></sub> <span class="value">{{count($taikhoan)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('donviquanly.baiviet')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Bài Viết </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="fas fa-book"></i></sub> <span class="value">{{count($baiviet)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+              </div>
+            </div>
+           
+            
+            <div class="col-lg-3">
+              <!-- .metric -->
+              <a href="user-tasks.html" class="metric metric-bordered">
+                <div class="metric-badge">
+                  <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
+                </div>
+                <p class="metric-value h3">
+                  <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
+                </p>
+              </a> <!-- /.metric -->
+            </div>
+            <!-- /metric column -->
+          </div><!-- /metric row -->
+        </div><!-- /.section-block -->
+        <!-- grid row -->
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+      </div>
+     
+    </div><!-- /.page-inner -->
+  </div><!-- /.page -->
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+@endsection
+@section('javascript')
+<script>
+window.onload = function () {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Average Amount Spent on Real and Artificial X-Mas Trees in U.S."
+	},
+	axisY:{
+		includeZero: true
+	},
+	legend:{
+		cursor: "pointer",
+		verticalAlign: "center",
+		horizontalAlign: "right",
+		itemclick: toggleDataSeries
+	},
+	data: [{
+		type: "column",
+		name: "Real Trees",
+		indexLabel: "{y}",
+		yValueFormatString: "$#0.##",
+		showInLegend: true,
+		dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
+	},{
+		type: "column",
+		name: "Artificial Trees",
+		indexLabel: "{y}",
+		yValueFormatString: "$#0.##",
+		showInLegend: true,
+		dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+function toggleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	}
+	else{
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+ 
+}
+</script>
+
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.doanhnghiep')
 
 @section('pagetitle')
-	Quản trị hệ thống
+	Doanh Nghiệp {{ Auth::user()->doanhnghiep->tendoanhnghiep }}
 @endsection
 
 @section('content')
@@ -22,4 +22,6 @@
 			</div>
 		</div>
 	</div>
+	
+	
 @endsection

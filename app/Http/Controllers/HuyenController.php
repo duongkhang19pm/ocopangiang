@@ -10,7 +10,7 @@ class HuyenController extends Controller
 {
     public function getDanhSach()
     {
-        $huyen = Huyen::paginate(50);
+        $huyen = Huyen::all();
         return view('admin.huyen.danhsach',compact('huyen'));
     }
    // Nhập từ Excel

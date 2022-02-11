@@ -11,16 +11,26 @@ use App\Models\Huyen;
 use App\Models\SanPham;
 use App\Models\Xa;
 use App\Models\HinhThucThanhToan;
+use App\Models\DoanhNghiep;
+use App\Models\DonViQuanLy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Exports\DoanhThu_DonViQuanLyExport;
+use Excel;
+
 class DonHangController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
+     // Xuất ra Excel
+     public function getXuat()
+     {
+
+        return Excel::download(new DoanhThu_DonViQuanLyExport, 'danh-sach-doanh-thu-cac-doanh-nghiep.xlsx');
+     }
     public function getDanhSach()
     {
         
@@ -50,6 +60,8 @@ class DonHangController extends Controller
       
         return view('doanhnghiep.donhang.danhsach', compact('donhang','tinhtrang'));
     }
+
+
      public function postTrangThai(Request $request, $id)
     {
         
@@ -191,6 +203,7 @@ class DonHangController extends Controller
     }
     public function getDoanhThu (Request $request)
     {
+
          if($request->dateStart != '' && $request->dateEnd != '')
         {
             $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
@@ -232,6 +245,86 @@ class DonHangController extends Controller
             ->get();
             return view('doanhnghiep.donhang.doanhthu',compact('tongdoanhthu'));
         }
+        
+    }
+
+    public function getDoanhThu_DoanhNghiep (Request $request,$id)
+    {    $doanhnghiep = DoanhNghiep::find($id);
+      
+
+         if($request->dateStart != '' && $request->dateEnd != '')
+        {
+            $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select('sanpham.*',
+                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
+                    )
+            ->where([
+                //['donhang.created_at', '>=', $request->dateStart],
+                //['donhang.created_at', '<=', $request->dateEnd],
+                ['donhang_chitiet.tinhtrang_id',10],
+                ['sanpham.doanhnghiep_id',$id]
+            ])
+            ->whereBetween('donhang.created_at', [ Carbon::parse($request->dateStart)->format('Y-m-d')." 00:00:00", Carbon::parse($request->dateEnd)->format('Y-m-d')." 23:59:59"])
+            ->groupBy('sanpham.id')
+            ->get();
+     
+            $session_title_dateStart = $request->dateStart;
+            $session_title_dateEnd = $request->dateEnd;
+            
+            return view('donviquanly.doanhnghiep.doanhthu',compact('doanhthu','session_title_dateStart','session_title_dateEnd','doanhnghiep'));  
+        }
+        else
+        {
+            $tongdoanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select('sanpham.*',
+                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
+                    )
+            ->where([
+                //['donhang.created_at', '>=', $request->dateStart],
+                //['donhang.created_at', '<=', $request->dateEnd],
+                ['donhang_chitiet.tinhtrang_id',10],
+                ['sanpham.doanhnghiep_id',$id]
+            ])
+          
+            ->groupBy('sanpham.id')
+        
+            ->get();
+            return view('donviquanly.doanhnghiep.doanhthu',compact('tongdoanhthu','doanhnghiep'));
+        }
+        
+    }
+    public function getDoanhThu_DonViQuanLy ()
+    {    
+       
+       
+            
+            
+               
+                $tongdoanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+                ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+                ->leftJoin('doanhnghiep','doanhnghiep.id','=','sanpham.doanhnghiep_id')
+                ->select('doanhnghiep.*',
+                        
+                           DB::raw('sum(donhang_chitiet.soluongban)  AS tongsoluongban'),
+                            DB::raw('sum(donhang_chitiet.dongiaban)  AS tongdongiaban'),
+                        )
+                ->where([
+                    //['donhang.created_at', '>=', $request->dateStart],
+                    //['donhang.created_at', '<=', $request->dateEnd],
+                    ['donhang_chitiet.tinhtrang_id',10],
+                   ['doanhnghiep.donviquanly_id',Auth::user()->donviquanly->id]
+                ])
+              
+           
+                ->groupBy('doanhnghiep.id')
+                
+                ->get();
+            
+                return view('donviquanly.doanhthu.danhsach',compact('tongdoanhthu'));
+            
+    
         
     }
 }

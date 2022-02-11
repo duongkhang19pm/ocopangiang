@@ -10,7 +10,7 @@ class XaController extends Controller
 {
     public function getDanhSach()
     {
-        $xa = Xa::paginate(100);
+        $xa = Xa::all();
         return view('admin.xa.danhsach',compact('xa'));
     }
    // Nhập từ Excel
