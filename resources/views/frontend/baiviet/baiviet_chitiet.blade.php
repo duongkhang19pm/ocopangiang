@@ -134,7 +134,7 @@
                                 @php
                                   $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
                                 @endphp
-                                <img src="{{ $img }}" alt="">
+                                <img src="{{ $img }}" alt="" height="200">
                             </div>
                             <div class="blog__item__text">
                                 <ul>
@@ -142,7 +142,7 @@
                                     <span><i class="far fa-eye mr-2"></i>{{$value->luotxem}}</span>
                                 </ul>
                                 <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
-                                <p><?php echo Str::limit($value->tomtat, 120); ?></p>
+                                
                             </div>
                         </div>
                     </div>
@@ -153,42 +153,7 @@
         </div>
     </section>
     <!-- Related Blog Section Begin -->
-    <section class="related-blog spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title related-blog-title">
-                        <h2>Tin Tức Liên Quan</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach($baiviettheochude as $value)
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="blog__item">
-                            <div class="blog__item__pic">
-                                @php
-                                  $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
-                                @endphp
-                                <img src="{{ $img }}" alt="">
-                            </div>
-                            <div class="blog__item__text">
-                                <ul>
-                                    <span><i class="far fa-calendar-alt mr-2"></i>{{ Carbon\Carbon::parse($value->ngaydang)->format('d/m/Y') }}</span>
-                                    <span><i class="far fa-eye mr-2"></i>{{$value->luotxem}}</span>
-                                </ul>
-                                <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
-                                <p><?php echo Str::limit($value->tomtat, 120); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                
-                
-            </div>
-        </div>
-    </section>
-
+   
    
 @endsection
 

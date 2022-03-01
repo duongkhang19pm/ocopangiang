@@ -58,14 +58,14 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<button type="submit" class="btn btn-primary btn-block">ĐĂNG KÝ</button>
+										<button type="submit" class="btn btn-success btn-block">ĐĂNG KÝ</button>
 									</div>
 								
 									<div class="form-group text-center">
 										<span >Hoặc</span>
 									</div>
 									<div class="form-group">								
-										<a href="#" class="btn btn-danger btn-block"><i class="ion-social-googleplus"></i>Google</a>
+										<a href="{{ route('google.login') }}" class="btn btn-danger btn-block"><i class="ion-social-googleplus"></i>Google</a>
 									</div>
 								</form>
 								<div class="form-note text-center">Bạn đã có tài khoản? <a href="{{ route('khachhang.dangnhap') }}">Đăng nhập</a></div>

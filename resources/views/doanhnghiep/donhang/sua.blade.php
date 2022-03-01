@@ -6,10 +6,21 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.donhang') }}">Danh Sách</a>
+                  
+                </li>
+              </ol>
+            </nav>    
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Cập nhật đơn hàng </h1>
+                  <h1 class="page-title mr-sm-auto"> Cập Nhật Đơn Hàng </h1>
                 </div>
             <!-- /title and toolbar -->
         </header>
@@ -105,7 +116,7 @@
                       </div>
                   </div>
                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                               <label for="hinhthucthanhtoan_id">Hình thức thanh toán
                                 <abbr title="Required">*</abbr>
                               </label>
@@ -120,21 +131,7 @@
                                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                                 @enderror
                         </div> 
-                        <div class="col-md-6">
-                              <label for="tinhtrang_id">Tỉnh/Thành Phố
-                                <abbr title="Required">*</abbr>
-                              </label>
-                              <select class="custom-select d-block w-100 @error('tinhtrang_id') is-invalid @enderror" id="tinhtrang_id" name="tinhtrang_id" required>
-                                <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
-                                 @foreach($tinhtrang as $value)
-                                    <option value="{{ $value->id }}" {{ ($donhang->tinhtrang_id == $value->id) ? 'selected' : '' }}>{{ $value->tinhtrang }}</option>
-                                 @endforeach
-                              </select>
-                              
-                               @error('tinhtrang_id')
-                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                                @enderror
-                        </div>                      
+                                            
                       </div>
 
                     <div class="form-group">

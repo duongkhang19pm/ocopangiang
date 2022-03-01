@@ -185,19 +185,7 @@
                                         </div>
                                     </div>
                                        
-                                 @guest
-                                    <div class="checkout__input__checkbox">
-                                        <label for="acc">
-                                            Đăng ký tài khoản?
-                                            <input type="checkbox" id="acc">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="checkout__input">
-                                        <p>Mật Khẩu<span>*</span></p>
-                                        <input type="password" required class="form-control" placeholder="Mật khẩu" name="password" />
-                                    </div>
-                                @endguest
+                                
                             </form>
                                     <a href="{{ route('frontend.giohang') }}" class="primary-btn ">QUAY VỀ TRƯỚC</a>
                                     <a href="{{ route('frontend.nhapthongtin') }}"onclick="event.preventDefault();document.getElementById('checkoutform').submit();" class="primary-btn ">TIẾP THEO</a>

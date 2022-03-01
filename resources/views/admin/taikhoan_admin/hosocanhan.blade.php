@@ -32,7 +32,7 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
-                      <a href="user-profile.html"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Overview</a>
+                      <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
                     </li>
                   </ol>
                 </nav>
@@ -45,9 +45,9 @@
                   <div class="col-lg-2">
                     <!-- .card -->
                     <div class="card card-fluid">
-                      <h6 class="card-header"> Your Details </h6><!-- .nav -->
+                      <h6 class="card-header"> Thông Tin Chi Tiết </h6><!-- .nav -->
                       <nav class="nav nav-tabs flex-column border-0">
-                        <a href="user-profile-settings.html" class="nav-link active">Profile</a> <a href="user-account-settings.html" class="nav-link">Account</a> <a href="user-billing-settings.html" class="nav-link">Billing</a> <a href="user-notification-settings.html" class="nav-link">Notifications</a>
+                        <a href="user-profile-settings.html" class="nav-link active">Thông Tin</a> 
                       </nav><!-- /.nav -->
                     </div><!-- /.card -->
                   </div>
@@ -58,12 +58,12 @@
                       <h6 class="card-header"> Thông Tin Cá Nhân </h6><!-- .card-body -->
                       <div class="card-body">
                         <!-- .media -->
-                         <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_admin.hosocanhan') }}" method="post" enctype="multipart/form-data">
+                         <form class="needs-validation was-validated" novalidate="" action="{{ route('admin.taikhoan_admin.hosocanhan',['id'=> $taikhoan->id]) }}" method="post" enctype="multipart/form-data">
                           @csrf
                             <div class="media mb-3">
                               <!-- avatar -->
                               <div class="user-avatar user-avatar-xl fileinput-button">
-                                <div class="fileinput-button-label"> Change photo </div>
+                                <div class="fileinput-button-label"> Đổi Ảnh </div>
                                   @if(!empty($taikhoan->hinhanh))
                                      <img class="d-block rounded" src="{{env('APP_URL').'/storage/app/'.$taikhoan->hinhanh}}" width="100" />
                                      
@@ -113,6 +113,63 @@
                                   </div>
                                 </div>
                             </div>
+                            @if($taikhoan->id == 1 && empty($taikhoan->xa_id))
+                             <div class="form-row">
+                             
+                                <label for="phone" class="col-md-2">Địa Chỉ </label>
+                                <div class="col-md-2 mb-3">
+                                  <div class="custom-file">
+                                    <select class="custom-select d-block w-100 @error('tinh_id') is-invalid @enderror" id="tinh_id" name="tinh_id" required>
+                                    <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
+                                     @foreach($tinh as $value)
+                                        <option value="{{ $value->id }}" >{{ $value->tentinh }}</option>
+                                     @endforeach
+                                  </select>
+                                  <div class="invalid-feedback">Vui lòng chọn tỉnh/thành phố . </div>
+                                   @error('tinh_id')
+                                        <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                    @enderror
+                                  </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                  <div class="custom-file">
+                                    <select class="custom-select d-block w-100 @error('huyen_id') is-invalid @enderror" id="huyen_id" name="huyen_id" required>
+                                
+                                      @foreach($huyen as $value)
+                                        <option value="{{ $value->id }}" >{{ $value->tenhuyen }}</option>
+                                     @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Vui lòng chọn quận/huyện . </div>
+                                     @error('huyen_id')
+                                          <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                      @enderror
+                                  </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                  <div class="custom-file">
+                                    <select class="custom-select d-block w-100 @error('xa_id') is-invalid @enderror" id="xa_id" name="xa_id" required>
+                                        @foreach($xa as $value)
+                                            <option value="{{ $value->id }}" >{{ $value->tenxa }}</option>
+                                         @endforeach
+                                      </select>
+                                      <div class="invalid-feedback">Vui lòng chọn xã/phường . </div>
+                                       @error('xa_id')
+                                            <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                        @enderror
+                                  </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                  <div class="custom-file">
+                                    <input type="text" class="form-control @error('tenduong') is-invalid @enderror" id="tenduong" name="tenduong" value="{{ $taikhoan->tenduong }}" placeholder="Tên Đường/Số Nhà" required />
+                              
+                                    @error('tenduong')
+                                      <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                    @enderror
+                                  </div>
+                                </div>
+                            </div>
+                            @else
+
                             <div class="form-row">
                              
                                 <label for="phone" class="col-md-2">Địa Chỉ </label>
@@ -167,6 +224,8 @@
                                   </div>
                                 </div>
                             </div>
+
+                            @endif
                             <div class="form-row">
                              
                                 <label for="username" class="col-md-2">Tên đăng nhập </label>
@@ -220,7 +279,7 @@
                           <hr>
                           <!-- .form-actions -->
                           <div class="form-actions">
-                            <button type="submit" class="btn btn-primary ml-auto">Update Profile</button>
+                            <button type="submit" class="btn btn-primary ml-auto">Cập Nhật Hồ Sơ</button>
                           </div><!-- /.form-actions -->
                         </form><!-- /form -->
                       </div><!-- /.card-body -->

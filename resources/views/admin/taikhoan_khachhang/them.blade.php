@@ -9,10 +9,21 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.taikhoan_khachhang') }}">Danh Sách</a>
+                  
+                </li>
+              </ol>
+            </nav>       
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Thêm tài khoản khách hàng </h1>
+                  <h1 class="page-title mr-sm-auto">Thêm Tài Khoản Khách Hàng </h1>
                 </div>
             <!-- /title and toolbar -->
         </header>

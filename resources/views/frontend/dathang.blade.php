@@ -179,7 +179,7 @@
                                 <div class="checkout__order__subtotal">Tổng tiền sản phẩm <span>{{ Cart::subtotal() }}<sup>VND</sup></span></div>
                                 <div class="checkout__order__subtotal">Thuế VAT (10%)<span>{{ Cart::tax() }}<sup>VND</sup></span></div>
                                 <div class="checkout__order__subtotal">Phí Vận Chuyển<span >
-                                    {{$huyen->phivanchuyen}}
+                                    {{ number_format($huyen->phivanchuyen)}} 
                                     <sup>VND</sup></span>
 
                                    

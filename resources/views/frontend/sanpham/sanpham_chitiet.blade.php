@@ -4,7 +4,12 @@
 @endsection
 @section('content')
 @include('frontend.nav')
-
+    @if(session('status'))
+        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
+            <span class="fas fa-check-circle"></span>
+            <span class="msg">{!! session('status') !!}</span>           
+        </div>    
+    @endif
    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('public/frontend/assets/img/breadcrumb.jpg' ) }}">
         <div class="container">

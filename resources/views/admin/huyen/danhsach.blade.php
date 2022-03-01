@@ -13,6 +13,13 @@
         <div class="page-inner">
           <!-- .page-title-bar -->
           <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>
                 <div class="d-md-flex align-items-md-start">
                   <h1 class="page-title mr-sm-auto">Danh Sách Quận/Huyện </h1>
                   <div class="btn-toolbar">
@@ -37,9 +44,9 @@
                            
                             <th >#</th>
                             <th>Tỉnh/Thành Phố</th>
-                             <th >Tên Quận/Huyện</th> 
-                              <th >Phí Vận Chuyển</th> 
-                        
+                            <th >Tên Quận/Huyện</th> 
+                            <th >Phí Vận Chuyển</th> 
+                            <th style="width:100px; min-width:100px;"> &nbsp; </th>
                           </tr>
                         </thead>
                         <!-- /thead -->
@@ -53,6 +60,18 @@
                               <td class="align-middle"> {{ $value->Tinh->tentinh }} </td>
 	                            <td class="align-middle"> {{ $value->tenhuyen }} </td>
                               <td class="align-middle"> {{ $value->phivanchuyen }} </td>
+                              <td class="align-middle text-right">
+                                <div class="dropdown">
+                                  <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+                                  <div class="dropdown-menu dropdown-menu-right" style="">
+                                    <div class="dropdown-arrow"></div>
+                                      
+                                      <a href="{{ route('admin.huyen.sua', ['id' => $value->id]) }}" class="dropdown-item">Cập Nhật Phí Vận Chuyển</a> 
+                                      
+                                  </div>
+                                </div>
+                                    
+                              </td>
 	    
 	                          </tr>
                           <!-- /tr -->

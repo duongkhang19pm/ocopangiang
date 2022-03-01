@@ -8,17 +8,24 @@
         <!-- .page-inner -->
         <div class="page-inner">
           <!-- .page-title-bar -->
-          <header class="page-title-bar">
-            
-                <a type="button" href="{{route('doanhnghiep.baiviet.them')}}" class="btn btn-success btn-floated">
-                  <i class="fa fa-plus"></i>
-                </a>
-         
-                <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Ý kiến đánh giá của khách hàng về {{$sanpham->tensanpham}} </h1>
-                </div>
+           <header class="page-title-bar">   
+     				<nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.sanpham') }}">Danh Sách</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="d-md-flex align-items-md-start">
+              <h1 class="page-title mr-sm-auto"> Ý Kiến Đánh Giá Của Khách Hàng Về Sản Phẩm {{$sanpham->tensanpham}} </h1>
+              
+            </div>
             <!-- /title and toolbar -->
           </header>
+         
           <!-- /.page-title-bar -->
           <!-- .page-section -->
           <div class="page-section">

@@ -33,21 +33,21 @@ class TaiKhoanController extends Controller
     //Tài Khoản Admin
     public function getDanhSach_Admin()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'admin')->paginate(10);
+        $taikhoan = TaiKhoan::where('privilege', 'admin')->get();
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
         return view('admin.taikhoan_admin.danhsach', compact('taikhoan', 'tinh','huyen','xa'));
     }
-    public function getHoSoCaNhan()
+    public function getHoSoCaNhan($id)
     {
-        $taikhoan = TaiKhoan::where('id', Auth::user()->id)->first();
+        $taikhoan = TaiKhoan::find($id);
          $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
         return view('admin.taikhoan_admin.hosocanhan',compact('taikhoan', 'tinh','huyen','xa'));
     }
-    public function postHoSoCaNhan(Request $request)
+    public function postHoSoCaNhan(Request $request,$id)
     {
        $request->validate([
         'tinh_id' => ['nullable'],
@@ -62,7 +62,7 @@ class TaiKhoanController extends Controller
         ]);
         if($request->hasFile('hinhanh'))
        {
-            $orm=TaiKhoan::where('id', Auth::user()->id)->first();
+            $orm=TaiKhoan::find($id);
             Storage::delete($orm->hinhanh);
             $extension = $request->file('hinhanh')->extension();
             $fileName = Str::slug($request->name,'-').'.'.$extension;
@@ -82,7 +82,7 @@ class TaiKhoanController extends Controller
         if($request->hasFile('hinhanh')) $orm->hinhanh = $path;
         $orm->save();
 
-        return redirect()->route('admin.taikhoan_admin.hosocanhan');
+        return redirect()->route('admin.taikhoan_admin.hosocanhan',['id'=>$id]);
     }
 
     public function getThem_Admin()
@@ -192,7 +192,7 @@ class TaiKhoanController extends Controller
     //Tài Khoản Khách Hàng
     public function getDanhSach_KhachHang()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'user')->paginate(10);
+        $taikhoan = TaiKhoan::where('privilege', 'user')->get();
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
@@ -314,14 +314,14 @@ class TaiKhoanController extends Controller
     //Tài Khoản Đơn Vị Quản Lý
     public function getDanhSach_DonViQuanLy()
     {
-        $taikhoan = TaiKhoan::where('privilege', 'donviquanly')->paginate(10);
+        $taikhoan = TaiKhoan::where('privilege', 'donviquanly')->get();
         $donviquanly = DonViQuanLy::all();
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
         return view('admin.taikhoan_donviquanly.danhsach', compact('taikhoan','donviquanly', 'tinh','huyen','xa'));
     }
-    
+   
     public function getThem_DonViQuanLy()
     {
          $donviquanly = DonViQuanLy::all();
@@ -518,7 +518,8 @@ class TaiKhoanController extends Controller
           $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
-        return view('donviquanly.taikhoan_doanhnghiep.sua', compact('taikhoan','chucvu', 'tinh','huyen','xa'));
+        $doanhnghiep = DoanhNghiep::where('donviquanly_id', Auth::user()->donviquanly_id)->get();
+        return view('donviquanly.taikhoan_doanhnghiep.sua', compact('taikhoan','chucvu', 'tinh','huyen','xa','doanhnghiep'));
     }
 
     public function postSua_DoanhNghiep(Request $request , $id)

@@ -183,11 +183,17 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
+                                    
+                                    <form action="{{ route('frontend.sanpham') }}" method="post">
+                                         @csrf
+                                         <select class="form-control form-control-sm" id="sapxep" name="sapxep" onchange="if(this.value != 0) { this.form.submit(); }">
+                                         <option value="default" {{ session('sapxep') == 'default' ? 'selected' : '' }}>Sắp xếp mặc định</option>
+                                         <option value="BUY" {{ session('sapxep') == 'BUY' ? 'selected' : '' }}>Mua nhiều nhất</option>
+                                         <option value="NEW" {{ session('sapxep') == 'NEW' ? 'selected' : '' }}>Hàng mới nhất</option>
+                                         <option value="ASC" {{ session('sapxep') == 'ASC' ? 'selected' : '' }}>Giá thấp đến cao</option>
+                                         <option value="DESC" {{ session('sapxep') == 'DESC' ? 'selected' : '' }}>Giá cao xuống thấp</option>
+                                         </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">

@@ -29,6 +29,7 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/thongbao.css')}}">
   </head>
   <body>
     <!-- .app -->
@@ -123,7 +124,7 @@
                   <div class="dropdown-arrow d-lg-none" x-arrow=""></div>
                   <div class="dropdown-arrow ml-3 d-none d-lg-block"></div>
                   <h6 class="dropdown-header d-none d-md-block d-lg-none">{{ Auth::user()->name }}</h6>
-                  <a class="dropdown-item" href="{{ route('admin.taikhoan_admin.hosocanhan') }}">
+                  <a class="dropdown-item" href="{{ route('admin.taikhoan_admin.hosocanhan',['id'=> Auth::user()->id]) }}">
                   <span class="dropdown-icon oi oi-person"></span> Hồ sơ cá nhân</a>
                   
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="dropdown-icon oi oi-account-logout"></span> Đăng xuất hệ thống</a>
@@ -168,7 +169,7 @@
             <div id="dropdown-aside" class="dropdown-aside collapse">
               <!-- dropdown-items -->
               <div class="pb-3">
-                <a class="dropdown-item" href="{{ route('admin.taikhoan_admin.hosocanhan') }}">
+                <a class="dropdown-item" href="{{ route('admin.taikhoan_admin.hosocanhan',['id'=> Auth::user()->id]) }}">
                   <span class="dropdown-icon oi oi-person"></span> Hồ sơ cá nhân</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                   <span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
@@ -334,7 +335,7 @@
                   <!-- child menu -->
                   <ul class="menu">
                     <li class="menu-item">
-                      <a href="{{route('admin.taikhoan_admin')}}" class="menu-link">Quản Lý</a>
+                      <a href="{{route('admin.taikhoan_admin')}}" class="menu-link">Quản Trị Viên</a>
                     </li>
                     <li class="menu-item">
                       <a href="{{route('admin.taikhoan_donviquanly')}}" class="menu-link">Đơn Vị Quản Lý</a>
@@ -432,6 +433,15 @@
     
 } );
   </script>
+  <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+           $('.thongbao').addClass("showAlert");
+           $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
+    </script>
   @yield('javascript')
   </body>
 </html>

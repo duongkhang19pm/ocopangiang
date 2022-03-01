@@ -6,10 +6,18 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+
+                </li>
+                
+              </ol>
+            </nav>    
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Doanh Thu </h1>
+                  <h1 class="page-title mr-sm-auto"> Doanh Thu Của {{$doanhnghiep->tendoanhnghiep}}</h1>
                 </div>
             <!-- /title and toolbar -->
         </header>
@@ -19,13 +27,13 @@
           <section class="card card-fluid">
             <!-- .card-body -->
             <div class="card-body">
-              <div class="table-responsive">
+              
 
                 <!-- form .needs-validation -->
                 <form class="needs-validation was-validated" novalidate="" action="{{ route('doanhnghiep.donhang.doanhthu') }}" method="get" enctype="multipart/form-data">
                   @csrf
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                               <label  id="inputGroupPrepend">Ngày bắt đầu</label>
                               <input type="date" class="form-control" id="validationCustomUsername" name="dateStart" aria-describedby="inputGroupPrepend" required>
                                 <div class="invalid-feedback">
@@ -33,7 +41,7 @@
                                 </div>  
                             
                         </div>
-                         <div class="col-md-6">
+                         <div class="col-md-5">
                             <label  id="inputGroupPrepend">Ngày kết thúc</label>
                             <input type="date" class="form-control" id="validationCustomUsername" name="dateEnd" aria-describedby="inputGroupPrepend" required>
                                 <div class="invalid-feedback">
@@ -41,27 +49,30 @@
                                 </div>
                             
                         </div>
+                        <div class="col-md-2 text-right">
+                            
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Thống Kê</button>
+                        </div>
                         
                         
                     </div>
                     
                 
                   
-                    <hr class="mb-4">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Thống Kê</button>
+                    
 
                 </form>
 
                 
-              <!-- /form .needs-validation -->
-              </div>
+              
             </div>
 
 
           </section>
             @if( $doanhthu->count() == null)
-                <div class="alert alert-success text-center" role="alert">
-                    <p>không có sản phẩm nào được bán ra trong thời gian từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></p>
+                <div class="alert alert-danger text-center" role="alert">
+                    <p>Từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong> </p>
+                    <p> Doanh Nghiệp {{$doanhnghiep->tendoanhnghiep}} không có doanh thu </p>
                 </div>
             @else
 
@@ -72,7 +83,8 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <!-- .table -->
-                          <h4 class="text-center">Doanh thu từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></h4>
+                          <h4 class="text-center">Doanh Thu của {{$doanhnghiep->tendoanhnghiep}} </h4>
+                          <h4 class="text-center">từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></h4>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -121,13 +133,13 @@
           <section class="card card-fluid">
             <!-- .card-body -->
             <div class="card-body">
-              <div class="table-responsive">
+         
 
                 <!-- form .needs-validation -->
                 <form class="needs-validation was-validated" novalidate="" action="{{ route('doanhnghiep.donhang.doanhthu') }}" method="get" enctype="multipart/form-data">
                 @csrf
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                              <label  id="inputGroupPrepend">Ngày bắt đầu</label>
                             <input type="date" class="form-control" id="validationCustomUsername" name="dateStart" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
@@ -135,25 +147,28 @@
                             </div>
                             
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <label  id="inputGroupPrepend">Ngày kết thúc</label>
                             <input type="date" class="form-control" id="validationCustomUsername" name="dateEnd" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
                                 Vui lòng chọn ngày kết thúc 
                             </div>
                         </div>
+
+                     <div class="col-md-2 text-right">
+                            
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Thống Kê</button>
+                        </div>
                     </div>
                    
                   
 
                   
-                    <hr class="mb-4">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Thống Kê</button>
 
                 </form>
                
               <!-- /form .needs-validation -->
-              </div>
+        
             </div>
           </section>
            <div class="page-section">
@@ -163,7 +178,7 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <!-- .table -->
-                          <h4 class="text-center">Tổng Doanh Thu</h4>
+                          <h4 class="text-center">Tổng Doanh Thu Của {{$doanhnghiep->tendoanhnghiep}}</h4>
                              <table class="table table-hover">
                                 <thead>
                                     <tr>

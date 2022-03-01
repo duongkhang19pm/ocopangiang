@@ -21,10 +21,11 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-    @if (session('status'))
-        <div id="AlertBox" class="alert alert-success hide" role="alert">
-            {!! session('status') !!}
-        </div>
+    @if(session('status'))
+        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
+            <span class="fas fa-check-circle"></span>
+            <span class="msg">{!! session('status') !!}</span>           
+        </div>    
     @endif
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
@@ -37,9 +38,9 @@
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="40%" class="shoping__product">Sản Phẩm</th>
+                                    <th width="55%" class="shoping__product">Sản Phẩm</th>
                                     <th width="10%">Đơn giá</th>
-                                    <th width="30%">Số lượng</th>
+                                    <th width="15%">Số lượng</th>
                                     <th width="10%">Thành tiền</th>
                                     <th width="5%"></th>
                                 </tr>
@@ -54,7 +55,7 @@
                                         
                                         <td>{{ $stt++ }}</td>
                                         <td class="shoping__cart__item">
-                                            <img src="{{ env('APP_URL') . '/storage/app/' . $value->options->image }}" width="200" height="150" alt="">
+                                            <img src="{{ env('APP_URL') . '/storage/app/' . $value->options->image }}" width="100" height="100" alt="">
                                             <h5>{{ $value->name }}</h5>
                                              
                                         </td>

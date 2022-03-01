@@ -8,21 +8,26 @@
         <!-- .page-inner -->
         <div class="page-inner">
           <!-- .page-title-bar -->
-          <header class="page-title-bar">
-            
-                <a type="button" href="{{route('doanhnghiep.sanpham.them')}}" class="btn btn-success btn-floated">
-                  <i class="fa fa-plus"></i>
-                </a>
-                
-         
-                <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Sản Phẩm </h1>
-                  <div class="btn-toolbar">
-                    <a type="button" href="{{ route('doanhnghiep.sanpham.xuat') }}" class="btn btn-light" ><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
-                    <a type="button" href="#nhap" class="btn btn-light" data-toggle="modal" data-target="#importModal"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
-                    
-                  </div>
+          <header class="page-title-bar">   
+     				<nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('doanhnghiep.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="d-md-flex align-items-md-start">
+              <h1 class="page-title mr-sm-auto"> Sản Phẩm </h1>
+              <div class="dropdown">
+                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>
+                <div class="dropdown-menu dropdown-menu-right" style="">
+                  <div class="dropdown-arrow"></div>
+                    <a href="{{route('doanhnghiep.sanpham.them')}}" class="dropdown-item"><i class="fa fa-plus mr-2"></i>Thêm Mới</a> 
+                    <a href="{{ route('doanhnghiep.sanpham.xuat') }}"class="dropdown-item"><i class="oi oi-data-transfer-download mr-2"></i>Export</a> 
+                    <a href="#nhap" class="dropdown-item" data-toggle="modal" data-target="#importModal"><i class="oi oi-data-transfer-upload mr-2"></i> Import</a>
                 </div>
+              </div>
+            </div>
             <!-- /title and toolbar -->
           </header>
           <!-- /.page-title-bar -->
@@ -34,7 +39,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
 		                 <thead>
 		                     <tr>
 		                         <th >#</th>
@@ -50,7 +55,7 @@
 		                 <tbody>
 		                     @foreach($sanpham as $value)
 		                         <tr>
-		                             <td class="align-middle">{{ $sanpham->firstItem() + $loop->index }}</td>
+		                             <td class="align-middle">{{ $loop->iteration }}</td>
 		                             <td class="align-middle">
 		                             	@if(empty($value->hinhanh)||$value->hinhanh == 'N/A')
                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
@@ -219,21 +224,19 @@
 																			<a href="{{ route('doanhnghiep.sanpham.hienthi', ['id' => $value->id])  }}"><i class="fas fa-check-circle text-info"></i></a>
 																		@endif
 																	</td>
-		                            
-		                             <td class="align-middle text-right">
-		                             		<a href="{{ route('doanhnghiep.danhgia', ['tensanpham_slug' => $value->tensanpham_slug]) }}" class="btn btn-sm btn-secondary">
-			                                <i class="fas fa-comment-dots"></i>
-			                                <span class="sr-only">Đánh Giá</span>
-			                              </a>
-			                              <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-			                                <i class="fa fa-pencil-alt"></i>
-			                                <span class="sr-only">Edit</span>
-			                              </a>
-			                              <a   href="{{ route('doanhnghiep.sanpham.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-			                                <i class="far fa-trash-alt"></i>
-			                                <span class="sr-only">Remove</span>
-			                              </a>
+		                            <td class="align-middle text-right">
+		                             	<div class="dropdown">
+								                    <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+								                    <div class="dropdown-menu dropdown-menu-right" style="">
+								                      <div class="dropdown-arrow"></div>
+								                        <a href="{{ route('doanhnghiep.danhgia', ['tensanpham_slug' => $value->tensanpham_slug]) }}" class="dropdown-item">Xem Đánh Giá</a> 
+								                        <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}" class="dropdown-item">Cập Nhật</a> 
+								                        <a href="{{ route('doanhnghiep.sanpham.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa sản phẩm {{ $value->tensanpham}} không?')" class="dropdown-item">Xóa</a>
+								                    </div>
+								                  </div>
+		                             		
 	                            	</td>
+		                            
 		                         </tr>
 		                     @endforeach
 		                 </tbody>
@@ -241,9 +244,7 @@
 
                       <!-- /.table -->
                     </div>
-                      <ul class="pagination justify-content-center mt-4">
-                       {{$sanpham->links()}}
-                     </ul>
+                      
                   </div>
                 </section>
                

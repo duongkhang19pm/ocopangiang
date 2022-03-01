@@ -34,31 +34,16 @@ class DonHangController extends Controller
     public function getDanhSach()
     {
         
-                $donhang = DonHang::orderBy('created_at', 'desc')->paginate(5);
+                $donhang = DonHang::orderBy('created_at', 'desc')->get();
          
         
         
       
        
       
-        $tinhtrang = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
-            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
-            ->leftJoin('tinhtrang', 'tinhtrang.id', '=', 'donhang_chitiet.tinhtrang_id')
-            ->select('DonHang_ChiTiet.*'
-                    )
-            ->where([
-                //['donhang.created_at', '>=', $request->dateStart],
-                //['donhang.created_at', '<=', $request->dateEnd],
-                
-                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id],
-
-            ])
-           
-            ->groupBy('DonHang_ChiTiet.id')
-            ->get();
         
       
-        return view('doanhnghiep.donhang.danhsach', compact('donhang','tinhtrang'));
+        return view('doanhnghiep.donhang.danhsach', compact('donhang'));
     }
 
 
@@ -105,7 +90,10 @@ class DonHangController extends Controller
             elseif($request->select == 3 || $request->select1 == 3) 
             {
                 $orm->tinhtrang_id = 3;
-                $orm->save();       
+                $orm->save(); 
+                $sanpham = SanPham::where('id',$orm->sanpham_id)->first();
+                $sanpham->soluong = $sanpham->soluong +$orm->soluongban;
+                $sanpham->save();      
             }
             elseif($request->select == 2 || $request->select1 == 2) 
             {
@@ -204,6 +192,7 @@ class DonHangController extends Controller
     public function getDoanhThu (Request $request)
     {
 
+        $doanhnghiep = DoanhNghiep::where('id',Auth::user()->doanhnghiep->id)->first();
          if($request->dateStart != '' && $request->dateEnd != '')
         {
             $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
@@ -224,7 +213,7 @@ class DonHangController extends Controller
             $session_title_dateStart = $request->dateStart;
             $session_title_dateEnd = $request->dateEnd;
             
-            return view('doanhnghiep.donhang.doanhthu',compact('doanhthu','session_title_dateStart','session_title_dateEnd'));  
+            return view('doanhnghiep.donhang.doanhthu',compact('doanhthu','session_title_dateStart','session_title_dateEnd','doanhnghiep'));  
         }
         else
         {
@@ -243,7 +232,7 @@ class DonHangController extends Controller
             ->groupBy('sanpham.id')
         
             ->get();
-            return view('doanhnghiep.donhang.doanhthu',compact('tongdoanhthu'));
+            return view('doanhnghiep.donhang.doanhthu',compact('tongdoanhthu','doanhnghiep'));
         }
         
     }
@@ -282,8 +271,7 @@ class DonHangController extends Controller
                       DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
                     )
             ->where([
-                //['donhang.created_at', '>=', $request->dateStart],
-                //['donhang.created_at', '<=', $request->dateEnd],
+                
                 ['donhang_chitiet.tinhtrang_id',10],
                 ['sanpham.doanhnghiep_id',$id]
             ])

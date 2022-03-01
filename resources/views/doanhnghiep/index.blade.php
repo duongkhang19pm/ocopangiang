@@ -5,23 +5,130 @@
 @endsection
 
 @section('content')
-	<div class="page">
-		<div class="page-inner">
-			<header class="page-title-bar">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">
-							<a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang chủ</a>
-						</li>
-					</ol>
-				</nav>
-				<h1 class="page-title">Trang Doanh Nghiệp {{ Auth::user()->doanhnghiep->tendoanhnghiep }}</h1>
-			</header>
-			<div class="page-section">
-				<h3>Trang chủ Doanh Nghiệp đang cập nhật!</h3>
-			</div>
-		</div>
-	</div>
+<div class="wrapper">
+  <!-- .page -->
+  <div class="page">
+    <!-- .page-inner -->
+    <div class="page-inner">
+      <!-- .page-title-bar -->
+      <header class="page-title-bar">
+        <div class="d-flex flex-column flex-md-row">
+          <p class="lead">
+            <span class="font-weight-bold">Hi, {{ Auth::user()->name }}.</span> <span class="d-block text-muted">Chào mừng bạn đến với doanh nghiệp {{ Auth::user()->doanhnghiep->tendoanhnghiep }}.</span>
+          </p>
+    
+        </div>
+      </header><!-- /.page-title-bar -->
+      <!-- .page-section -->
+      <div class="page-section">
+        <!-- .section-block -->
+        <div class="section-block">
+          <!-- metric row -->
+          <div class="metric-row">
+            <div class="col-lg-9">
+              <div class="metric-row metric-flush">
+                <!-- metric column -->
+                
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('doanhnghiep.donhang')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Đơn Hàng Mới </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="fas fa-file-invoice-dollar"></i></sub> <span class="value">{{count($donhang)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('doanhnghiep.sanpham')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label">Sản Phẩm </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="oi oi-fork"></i></sub> <span class="value">{{count($sanpham)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('doanhnghiep.baiviet')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Bài Viết </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="fas fa-book"></i></sub> <span class="value">{{count($baiviet)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
+              </div>
+            </div>
+           
+            
+            <div class="col-lg-3">
+              <!-- .metric -->
+              <a href="user-tasks.html" class="metric metric-bordered">
+                <div class="metric-badge">
+                  <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
+                </div>
+                <p class="metric-value h3">
+                  <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
+                </p>
+              </a> <!-- /.metric -->
+            </div>
+            <!-- /metric column -->
+          </div><!-- /metric row -->
+        </div><!-- /.section-block -->
+        <!-- grid row -->
+        <div class="container-fluid pt-4 px-4">
+                <div>
+          <canvas id="myChart"></canvas>
+        </div>  
+                
+                        
+            
+      </div>
+     
+    </div><!-- /.page-inner -->
+  </div><!-- /.page -->
+</div>
 	
 	
+@endsection
+@section('javascript')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+ <script>
+  $(function(){
+      //get the pie chart canvas
+      var cData = JSON.parse('<?php echo $chart_data; ?>');
+      
+ 
+      //pie chart data
+      var data = {
+      
+        labels:cData.label ,
+        datasets: [
+          {
+            label: "Doanh Thu",
+            data: cData.data,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+            
+          }
+        ]
+      };
+ 
+  
+      const config = {
+        type: 'line',
+        data: data,
+        
+      };
+      const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+      
+ 
+  });
+</script>
+
 @endsection

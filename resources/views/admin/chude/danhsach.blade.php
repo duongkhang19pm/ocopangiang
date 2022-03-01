@@ -10,15 +10,25 @@
         <!-- .page-inner -->
         <div class="page-inner">
           <!-- .page-title-bar -->
-          <header class="page-title-bar">
-            
-                <a type="button" href="{{route('admin.chude.them')}}" class="btn btn-success btn-floated">
-                  <i class="fa fa-plus"></i>
-                </a>
-         
-                <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Chủ Đề </h1>
+          <header class="page-title-bar">   
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="d-md-flex align-items-md-start">
+              <h1 class="page-title mr-sm-auto"> Chủ Đề </h1>
+              <div class="dropdown">
+                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>
+                <div class="dropdown-menu dropdown-menu-right" style="">
+                  <div class="dropdown-arrow"></div>
+                    <a href="{{route('admin.chude.them')}}" class="dropdown-item"><i class="fa fa-plus mr-2"></i>Thêm Mới</a> 
+                    
                 </div>
+              </div>
+            </div>
             <!-- /title and toolbar -->
           </header>
           <!-- /.page-title-bar -->
@@ -53,15 +63,17 @@
 	                            <td class="align-middle"> {{ $value->tenchude_slug }} </td>
 	                       
 	                            <td class="align-middle text-right">
-	                              <a href="{{ route('admin.chude.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-	                                <i class="fa fa-pencil-alt"></i>
-	                                <span class="sr-only">Edit</span>
-	                              </a>
-	                               <a   href="{{ route('admin.chude.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-                                      <i class="far fa-trash-alt"></i>
-                                      <span class="sr-only">Remove</span>
-                                    </a>
-	                            </td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+                                  <div class="dropdown-menu dropdown-menu-right" style="">
+                                    <div class="dropdown-arrow"></div>
+                                      
+                                      <a href="{{ route('admin.chude.sua', ['id' => $value->id]) }}" class="dropdown-item">Cập Nhật</a> 
+                                      <a href="{{ route('admin.chude.xoa', ['id' => $value->id]) }}" onclick="return confirm('Bạn có muốn xóa chủ đề {{ $value->tenchude}} không?')" class="dropdown-item">Xóa</a>
+                                  </div>
+                                </div>
+                                    
+                              </td>
 	                          </tr>
                           <!-- /tr -->
                           @endforeach

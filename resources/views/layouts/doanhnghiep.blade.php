@@ -26,6 +26,9 @@
     if (isCompact == true) document.querySelector('html').classList.add('preparing-compact-menu');
   </script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/thongbao.css')}}">
   </head>
   <body>
     <!-- .app -->
@@ -120,7 +123,7 @@
                   <div class="dropdown-arrow d-lg-none" x-arrow=""></div>
                   <div class="dropdown-arrow ml-3 d-none d-lg-block"></div>
                   <h6 class="dropdown-header d-none d-md-block d-lg-none">{{ Auth::user()->name }}</h6>
-                  <a class="dropdown-item" href="#"><span class="dropdown-icon oi oi-person"></span> Đổi mật khẩu</a>
+                  <a class="dropdown-item" href="{{ route('doanhnghiep.hosocanhan',['id'=> Auth::user()->id]) }}"><span class="dropdown-icon oi oi-person"></span> Hồ Sơ Cá Nhân</a>
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="dropdown-icon oi oi-account-logout"></span> Đăng xuất hệ thống</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="post" style="display:none;">{{ csrf_field() }}</form>
                 </div>
@@ -163,8 +166,8 @@
             <div id="dropdown-aside" class="dropdown-aside collapse">
               <!-- dropdown-items -->
               <div class="pb-3">
-                <a class="dropdown-item" href="user-profile.html">
-                  <span class="dropdown-icon oi oi-person"></span> Profile</a>
+                <a class="dropdown-item" href="{{ route('doanhnghiep.hosocanhan',['id'=> Auth::user()->id]) }}">
+                  <span class="dropdown-icon oi oi-person"></span> Hồ Sơ Cá Nhân</a>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                   <span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
                    <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
@@ -209,59 +212,31 @@
                     @endif
                @else
                
-                 <li class="menu-header">Quản Lý</li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon far fa-building"></span>
-                    <span class="menu-text">Doanh Nghiêp</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                   
-                    <li class="menu-item">
-                      <a href="{{route('doanhnghiep.sanpham')}}" class="menu-link">Sản Phẩm</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('doanhnghiep.donhang')}}" class="menu-link">Thông Tin đặt Hàng</a>
-                    </li>
-                 
-                  </ul>
-                  <!-- /child menu -->
+                <li class="menu-header">Doanh Mục</li>
+               
+ 
+ 
+
+                <li class="menu-item">
+                  <a href="{{route('doanhnghiep.sanpham')}}" class="menu-link"><span class="menu-icon fab fa-product-hunt"></span> <span class="menu-text">Sản Phẩm</span></a>
                 </li>
-                <li class="menu-header">Bài Viết</li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon fas fa-blog"></span>
-                    <span class="menu-text">Bài Viết</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                  
-                    <li class="menu-item">
-                      <a href="{{route('doanhnghiep.baiviet')}}" class="menu-link">Bài Viết</a>
-                    </li>
-                    
-                  </ul>
-                  <!-- /child menu -->
+                 <li class="menu-item">
+                  <a href="{{route('doanhnghiep.donhang')}}" class="menu-link"><span class="menu-icon fas fa-file-invoice-dollar"></span> <span class="menu-text">Thông Tin Đơn Hàng</span></a>
+                </li>
+               
+                <li class="menu-item">
+                  <a href="{{route('doanhnghiep.baiviet')}}" class="menu-link"><span class="menu-icon fas fa-book"></span> <span class="menu-text">Bài Viết</span></a>
                 </li>
 
 
                 <li class="menu-header">Thống Kê</li>
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon fas fa-blog"></span>
-                    <span class="menu-text">Doanh Thu</span>
-                  </a>
-                  <!-- child menu -->
-                  <ul class="menu">
-                  
-                    <li class="menu-item">
-                      <a href="{{route('doanhnghiep.donhang.doanhthu')}}" class="menu-link">DoanhThu</a>
-                    </li>
-                    
-                  </ul>
-                  <!-- /child menu -->
+                <li class="menu-item">
+                  <a href="{{route('doanhnghiep.donhang.doanhthu')}}" class="menu-link"><span class="menu-icon fas fa-signal"></span> <span class="menu-text">Doanh Thu</span></a>
                 </li>
+                
+ 
+ 
+
                  @endguest
                  
                 <!-- /.menu-item -->
@@ -314,6 +289,48 @@
   <script src="{{ asset('public/backend/vendor/chart.js/Chart.min.js') }}"></script>
   <script src="{{ asset('public/backend/javascript/theme.min.js') }}"></script>
   <script src="{{ asset('public/backend/javascript/main.min.js') }}"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+  <script>
+    
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+       
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tất cả"]],
+        "iDisplayLength": 10,
+        "oLanguage": {
+          "sLengthMenu": "Hiện _MENU_ dòng",
+          "oPaginate": {
+            "sFirst": "<i class='fas fa-step-backward'></i>",
+            "sLast": "<i class='fas fa-step-forward'></i>",
+            "sNext": "<i class='fas fa-chevron-right'></i>",
+            "sPrevious": "<i class='fas fa-chevron-left'></i>"
+          },
+          "sEmptyTable": "Không có dữ liệu",
+          "sSearch": "Tìm kiếm:",
+          "sZeroRecords": "Không có dữ liệu",
+          "sInfo": "Hiện từ _START_ đến _END_ của _TOTAL_ dòng",
+          "sInfoEmpty" : "Không tìm thấy",
+          "sInfoFiltered": " (tổng số _MAX_ dòng)"
+        }
+        
+    } );
+    
+} );
+  </script>
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <script src="https://unpkg.com/chart.js@^2.9.3/dist/Chart.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
+  <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+           $('.thongbao').addClass("showAlert");
+           $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
+    </script>
   @yield('javascript')
   </body>
 </html>

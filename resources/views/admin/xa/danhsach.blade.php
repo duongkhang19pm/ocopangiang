@@ -12,6 +12,13 @@
         <div class="page-inner">
           <!-- .page-title-bar -->
           <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>
                 <div class="d-md-flex align-items-md-start">
                   <h1 class="page-title mr-sm-auto">Danh Sách Xã/Phường </h1>
                   <div class="btn-toolbar">

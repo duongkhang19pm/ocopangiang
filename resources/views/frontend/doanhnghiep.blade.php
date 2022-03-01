@@ -49,7 +49,10 @@
                                     @foreach($baiviet as $value)
                                     <a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}" class="blog__sidebar__recent__item">
                                         <div class="blog__sidebar__recent__item__pic">
-                                            <img src="{{ asset('public/Image/logo.jpg') }}" width="80" alt="">
+                                            @php
+                                              $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
+                                            @endphp
+                                            <img src="{{ $img }}" alt=""  width="100">
                                         </div>
                                         <div class="blog__sidebar__recent__item__text">
                                             <h6>{{$value->tieude}}</h6>
@@ -164,9 +167,9 @@
                                              <div class="product__details__tab__desc">
                                                  <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
                                                 @if(empty($doanhnghiep->hinhanh)||$doanhnghiep->hinhanh == 'N/A')
-                                                   <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="100" width="150" >
+                                                   <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="250" width="300"  >
                                                 @else
-                                                  <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="90" width="100" />
+                                                  <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="250" width="300"  />
                                                 @endif
                                                 <div class="row mt-3">
                                                     <div class="col-lg-6">
@@ -183,6 +186,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div  id="tabs-3" role="tabpanel">
+                                                <p> <strong>Vị Trí Trên Bản Đồ</strong> </p>
+                                                <div  id="mapid"></div>
+                                           
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                                             <div class="product__details__tab__desc">
@@ -190,11 +198,7 @@
                                                  <p> <?php echo ($doanhnghiep->gioithieu); ?></p>
                                             </div>
                                         </div>
-                                        <div  id="tabs-3" role="tabpanel">
-                                           
-                                                <div  id="mapid"></div>
-                                           
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

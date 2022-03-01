@@ -23,10 +23,11 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-    @if (session('status'))
-        <div class="alert alert-danger" role="alert">
-            {!! session('status') !!}
-        </div>
+    @if(session('status'))
+        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
+            <span class="fas fa-check-circle"></span>
+            <span class="msg">{!! session('status') !!}</span>           
+        </div>    
     @endif
     <!-- Product Section Begin -->
     <section class="product spad">
@@ -80,14 +81,16 @@
                        
                     </div>
                     <div class="shoping__cart__table">
-                    
+                        @if(count($donhang) < 1)
+                            <p> Bạn chưa có đơn hàng nào. Vui lòng mua hàng để có đơn hàng mới</p>
+                        @else
                         <table>
                             <thead>
                                 <tr>
                                     <th >#</th>
                                   
                                     <th>Thông tin giao hàng </th>
-                                    <th>Tình trạng</th>
+                               
                                     <th style="width:100px; min-width:100px;"> &nbsp; </th>
                                 </tr>
                             </thead>
@@ -99,7 +102,7 @@
                                             
                                             <td class="text-left">
                                                 Điện thoại: <strong>{{ $value->dienthoaigiaohang }}</strong>
-                                                <span class="d-block">Địa chỉ giao: <strong>{{ $value->Tinh->tentinh }} - {{ $value->Huyen->tenhuyen }} - {{ $value->Xa->tenxa }}  -  Đường:{{ $value->tenduong }}</strong></span>
+                                                <span class="d-block">Địa chỉ giao: <strong>{{ $value->Xa->Huyen->Tinh->tentinh }} - {{ $value->Xa->Huyen->tenhuyen }} - {{ $value->Xa->tenxa }}  -  Đường:{{ $value->tenduong }}</strong></span>
                                                 <span class="d-block">Hình thức thanh toán: <strong>{{ $value->HinhThucThanhToan->hinhthucthanhtoan }}</strong></span>
                                                 <span class="d-block">Ngày đặt: <strong>{{ $value->created_at->format('d/m/Y H:i:s') }}</strong></span>
                                                
@@ -112,6 +115,8 @@
                                                             <th >Đơn giá</th>
                                                             <th >VAT</th>
                                                             <th >Thành tiền</th>
+                                                            <th>Tình trạng</th>
+                                                            <th style="width:100px; min-width:100px;"> &nbsp; </th>
                                                         </thead>
                                                         <tbody>
                                                             @php $tongtien = 0; @endphp
@@ -125,19 +130,28 @@
                                                                     <td class="text-end">{{ number_format($chitiet->sanpham->dongia) }}<sup><u>đ</u></sup></td>
                                                                     <td class="text-end">{{ number_format($chitiet->sanpham->dongia *0.1) }}<sup><u>đ</u></sup></td>
                                                                     <td class="text-end">{{ number_format($chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
+                                                                    <td> {{$chitiet->TinhTrang->tinhtrang}}</td>
+                                                                    <td class="align-middle text-right">
+                                                                          <a href="{{ route('khachhang.donhang.huy', ['taikhoan'=>$taikhoan->id,'id' => $chitiet->id]) }}" class="site-btn btn-danger">
+                                                                            
+                                                                            <span >Hủy Đơn</span>
+                                                                          </a>
+
+                                                                        
+                                                                    </td>
                                                                 </tr>
                                                                 @php $tongtien += $chitiet->soluongban * $chitiet->dongiaban; @endphp
                                                            
                                                             @endforeach
                                                             <tr>
-                                                                <td colspan="5" class="text-left">Phí vận chuyển:</td>
+                                                                <td colspan="6" class="text-left">Phí vận chuyển:</td>
                                                                 
-                                                                <td class="text-end"><strong>{{ number_format($value->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
+                                                                <td class="text-end"><strong>{{ number_format($value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
                                                             </tr>
                                                              <tr>
                                                                     
-                                                                <td colspan="5" class="text-left">Tổng tiền sản phẩm:</td>
-                                                                <td class="text-end"><strong>{{ number_format($tongtien + $value->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
+                                                                <td colspan="6" class="text-left">Tổng tiền sản phẩm:</td>
+                                                                <td class="text-end"><strong>{{ number_format($tongtien + $value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
                                                             </tr>
                                                         
                                                         </tbody>
@@ -145,17 +159,7 @@
 
                                                 
                                             </td>
-                                            <td class="align-middle">
-                                                {{$value->TinhTrang->tinhtrang}}
-                                            </td>
-                                            <td class="align-middle text-right">
-                                                  <a href="{{ route('khachhang.donhang.huy', ['taikhoan'=>$taikhoan->id,'id' => $value->id]) }}" class="site-btn">
-                                                    
-                                                    <span >Hủy Đơn</span>
-                                                  </a>
-
-                                                
-                                            </td>
+                                           
                                              <td class="align-middle text-right">
                                                  
                                                    @if($value->hienthi == 1)
@@ -173,6 +177,7 @@
                        {{$donhang->links()}}
                         
                         </div>
+                        @endif
                        
                         
                     </div>

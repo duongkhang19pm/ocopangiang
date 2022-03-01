@@ -92,8 +92,7 @@
             </div>
         </div>
     </section>
-    <!-- Categories Section End -->
-     @if(session('status'))
+    @if(session('status'))
         <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
             <span class="fas fa-check-circle"></span>
             <span class="msg">{!! session('status') !!}</span>           
@@ -266,7 +265,10 @@
                                 @php
                                   $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
                                 @endphp
-                                <img src="{{ $img }}" alt="">
+                                
+                               
+                                    <img src="{{ $img }}" alt=""  height="200">
+                               
                             </div>
                             <div class="blog__item__text">
                                 <ul>
@@ -274,7 +276,7 @@
                                     <li><i class="far fa-eye"></i> {{$value->luotxem}}</li>
                                 </ul>
                                 <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
-                                <p><?php echo Str::limit($value->tomtat, 120); ?></p>
+                               
                             </div>
                         </div>
                     </div>
@@ -283,6 +285,7 @@
                
             </div>
         </div>
+       
     </section>
 
      <section class="categories mt-3">

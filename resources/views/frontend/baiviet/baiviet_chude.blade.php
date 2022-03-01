@@ -77,7 +77,7 @@
                                          @php
                                               $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
                                             @endphp
-                                        <img src="{{ $img }}" alt="">
+                                        <img src="{{ $img }}" height="200" alt="">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>
@@ -85,7 +85,7 @@
                                             <li><i class="far fa-eye mr-2"></i>{{$value->luotxem}}</li>
                                         </ul>
                                         <h5><a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}">{{$value->tieude}}</a></h5>
-                                        <p><?php echo Str::limit($value->tomtat, 120); ?></p>
+                                      
                                         <a href="{{route('frontend.baiviet.chitiet',['tenchude_slug'=>$value->chude->tenchude_slug,'tieude_slug' => $value->tieude_slug])}}" class="blog__btn">XEM THÊM<span class="arrow_right"></span></a>
                                     </div>
                                 </div>

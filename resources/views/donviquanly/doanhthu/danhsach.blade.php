@@ -6,10 +6,19 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('donviquanly.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>   
          
                 <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> </h1>
+                  <h1 class="page-title mr-sm-auto"> Tổng Doanh Thu Của Các Doanh Nghiệp  </h1>
+                   <div class="btn-toolbar">
+                        <a type="button" href="{{ route('donviquanly.doanhthu.xuat') }}" class="btn btn-light" ><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
+                    </div>
                 </div>
             <!-- /title and toolbar -->
         </header>
@@ -24,11 +33,9 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <!-- .table -->
-                          <h4 class="text-center">Tổng Doanh Thu</h4>
-                            <div class="btn-toolbar">
-                                <a type="button" href="{{ route('donviquanly.doanhthu.xuat') }}" class="btn btn-light" ><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
-                            </div>
-                             <table class="table table-hover">
+                          
+                           
+                             <table class="table table-hover" >
                                 <thead>
                                     <tr>
                                         <th>#</th>

@@ -101,64 +101,73 @@ $dataPoints3 = array(
           </div><!-- /metric row -->
         </div><!-- /.section-block -->
         <!-- grid row -->
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <div class="container-fluid pt-4 px-4">
+                <div>
+          <canvas id="chart_donviquanly"></canvas>
+        </div> 
       </div>
      
     </div><!-- /.page-inner -->
   </div><!-- /.page -->
 </div>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 
 @endsection
 @section('javascript')
-<script>
-window.onload = function () {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+ <script>
+  $(function(){
+      //get the pie chart canvas
+      var dData = JSON.parse('<?php echo $doanhthu1; ?>');
+      
  
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "Average Amount Spent on Real and Artificial X-Mas Trees in U.S."
-	},
-	axisY:{
-		includeZero: true
-	},
-	legend:{
-		cursor: "pointer",
-		verticalAlign: "center",
-		horizontalAlign: "right",
-		itemclick: toggleDataSeries
-	},
-	data: [{
-		type: "column",
-		name: "Real Trees",
-		indexLabel: "{y}",
-		yValueFormatString: "$#0.##",
-		showInLegend: true,
-		dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
-	},{
-		type: "column",
-		name: "Artificial Trees",
-		indexLabel: "{y}",
-		yValueFormatString: "$#0.##",
-		showInLegend: true,
-		dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
-	}]
-});
-chart.render();
  
-function toggleDataSeries(e){
-	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	}
-	else{
-		e.dataSeries.visible = true;
-	}
-	chart.render();
-}
+      const data1 = {
+        labels:dData.label ,
+          datasets: [{
+            label: 'Doanh Thu',
+            data: dData.data ,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(153, 102, 255)',
+              'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+          }]
+        };
+      const config = {
+        type: 'bar',
+        data: data1,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+      const chart_donviquanly = new Chart(
+    document.getElementById('chart_donviquanly'),
+    config
+  );
+      
  
-}
+  });
 </script>
 
 @endsection

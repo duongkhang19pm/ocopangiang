@@ -5,11 +5,22 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('donviquanly.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('donviquanly.taikhoan_doanhnghiep') }}">Danh Sách</a>
+                  
+                </li>
+              </ol>
+          </nav>     
          
-                <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Cập nhật tài khoản doanh nghiệp </h1>
-                </div>
+          <div class="d-md-flex align-items-md-start">
+            <h1 class="page-title mr-sm-auto"> Cập Nhật Tài Khoản Doanh Nghiệp </h1>
+          </div>
             <!-- /title and toolbar -->
         </header>
         <div class="page-section">
@@ -30,7 +41,7 @@
                           <select class="custom-select d-block w-100 @error('tinh_id') is-invalid @enderror" id="tinh_id" name="tinh_id" required>
                             <option value="" selected disabled>-- Chọn Tỉnh/Thành Phố --</option>
                              @foreach($tinh as $value)
-                                <option value="{{ $value->id }}" {{ ($taikhoan->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
+                                <option value="{{ $value->id }}" {{ ($taikhoan->xa->huyen->tinh_id == $value->id) ? 'selected' : '' }}>{{ $value->tentinh }}</option>
                              @endforeach
                           </select>
                           <div class="invalid-feedback">Vui lòng chọn tỉnh/thành phố . </div>
@@ -45,7 +56,7 @@
                               <select class="custom-select d-block w-100 @error('huyen_id') is-invalid @enderror" id="huyen_id" name="huyen_id" required>
                                 
                                  @foreach($huyen as $value)
-                                    <option value="{{ $value->id }}" {{ ($taikhoan->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
+                                    <option value="{{ $value->id }}" {{ ($taikhoan->xa->huyen_id == $value->id) ? 'selected' : '' }}>{{ $value->tenhuyen }}</option>
                                  @endforeach
                               </select>
                               <div class="invalid-feedback">Vui lòng chọn quận/huyện . </div>
@@ -68,7 +79,7 @@
                                 @enderror
                       </div>
                       <div class="col-md-3">
-                          <label for="tenduong">Số Đường<span class="text-danger font-weight-bold">*</span></label>
+                          <label for="tenduong">Số Đường<abbr title="Required">*</abbr></label>
                           <input type="text" class="form-control @error('tenduong') is-invalid @enderror" id="tenduong" name="tenduong" value="{{ $taikhoan->tenduong }}" placeholder="Tên Đường/Số Nhà" required />
                               
                             @error('tenduong')

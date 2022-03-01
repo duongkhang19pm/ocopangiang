@@ -8,21 +8,25 @@
         <!-- .page-inner -->
         <div class="page-inner">
           <!-- .page-title-bar -->
-          <header class="page-title-bar">
-              <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">
-                      <a href="{{ route('donviquanly.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang chủ</a>
-                    </li>
-                  </ol>
-                </nav>
-                <a type="button" href="{{route('donviquanly.taikhoan_doanhnghiep.them')}}" class="btn btn-success btn-floated">
-                  <i class="fa fa-plus"></i>
-                </a>
-         
-                <div class="d-md-flex align-items-md-start">
-                  <h1 class="page-title mr-sm-auto"> Tài Khoản Doanh Nghiệp </h1>
+          <header class="page-title-bar">   
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('donviquanly.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="d-md-flex align-items-md-start">
+              <h1 class="page-title mr-sm-auto"> Tài Khoản Doanh Nghiệp </h1>
+              <div class="dropdown">
+                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>
+                <div class="dropdown-menu dropdown-menu-right" style="">
+                  <div class="dropdown-arrow"></div>
+                    <a href="{{route('donviquanly.taikhoan_doanhnghiep.them')}}" class="dropdown-item"><i class="fa fa-plus mr-2"></i>Thêm Mới</a> 
+                    
                 </div>
+              </div>
+            </div>
             <!-- /title and toolbar -->
           </header>
           <!-- /.page-title-bar -->
@@ -86,16 +90,19 @@
                                 <a href="{{ route('donviquanly.taikhoan_doanhnghiep.kichhoat',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
                                 @endif
                                 </td>
-	                            <td class="align-middle text-right">
-	                              <a href="{{ route('donviquanly.taikhoan_doanhnghiep.sua', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-	                                <i class="fa fa-pencil-alt"></i>
-	                                <span class="sr-only">Edit</span>
-	                              </a>
-	                               <a   href="{{ route('donviquanly.taikhoan_doanhnghiep.xoa', ['id' => $value->id]) }}" class="btn btn-sm btn-secondary">
-                                      <i class="far fa-trash-alt"></i>
-                                      <span class="sr-only">Remove</span>
-                                    </a>
-	                            </td>
+                                <td class="align-middle text-right">
+                                  <div class="dropdown">
+                                    <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                      <div class="dropdown-arrow"></div>
+                                        
+                                        <a href="{{ route('donviquanly.taikhoan_doanhnghiep.sua', ['id' => $value->id]) }}" class="dropdown-item">Cập Nhật</a> 
+                                        <a href="{{ route('donviquanly.taikhoan_doanhnghiep.xoa', ['id' => $value->id]) }}" class="dropdown-item">Xóa</a>
+                                    </div>
+                                  </div>
+                                    
+                                </td>
+	                            
 	                          </tr>
                           <!-- /tr -->
                           @endforeach

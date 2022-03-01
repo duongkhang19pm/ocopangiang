@@ -10,7 +10,19 @@
       <div class="page-inner">
         <!-- .card-body -->
         <header class="page-title-bar">
-               
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.home') }}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trang Chủ</a>
+
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="{{ route('admin.mohinhkinhdoanh') }}">Danh Sách</a>
+                  
+                </li>
+              </ol>
+            </nav>     
+              
          
                 <div class="d-md-flex align-items-md-start">
                   <h1 class="page-title mr-sm-auto"> Thêm Mô Hình Kinh Doanh </h1>
