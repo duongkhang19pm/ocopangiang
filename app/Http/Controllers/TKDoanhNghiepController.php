@@ -62,7 +62,25 @@ class TKDoanhNghiepController extends Controller
             ->groupBy('donhang_chitiet.id')
             ->get();
 
-            $data = [];
+            $date = Carbon::today();//lay ngay hien tai
+
+            $doanhthuhomnay = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+                ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+                ->leftJoin('tinhtrang', 'tinhtrang.id', '=', 'donhang_chitiet.tinhtrang_id')
+                ->select('sanpham.*',
+                        DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban'),
+                        DB::raw('(select donhang_chitiet.dongiaban from donhang_chitiet limit 1) as dongiaban')
+                        )
+                ->whereBetween('donhang.created_at', [$date->format('Y-m-d')." 00:00:00", $date->format('Y-m-d')." 23:59:59"])
+                ->where([
+                    ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id],
+                    ['donhang_chitiet.tinhtrang_id',10]
+                    ])
+                ->groupBy('sanpham.id')
+                ->get();
+
+
+                $data = [];
  
                 foreach($doanhthu as $row) {
                     
@@ -71,7 +89,8 @@ class TKDoanhNghiepController extends Controller
                 }
             
                 $data['chart_data'] = json_encode($data);
-            return view('doanhnghiep.index',compact('baiviet','sanpham','donhang'),$data);
+            
+            return view('doanhnghiep.index',compact('baiviet','sanpham','donhang','doanhthuhomnay'),$data);
         }
          elseif(Auth::user()->kichhoat === 1)
         {

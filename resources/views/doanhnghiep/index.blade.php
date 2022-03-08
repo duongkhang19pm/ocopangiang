@@ -31,7 +31,7 @@
                 
                 <div class="col">
                   <!-- .metric -->
-                  <a href="{{route('doanhnghiep.donhang')}}" class="metric metric-bordered align-items-center">
+                  <a href="{{route('doanhnghiep.donhang.moi')}}" class="metric metric-bordered align-items-center">
                     <h2 class="metric-label"> Đơn Hàng Mới </h2>
                     <p class="metric-value h3">
                       <sub><i class="fas fa-file-invoice-dollar"></i></sub> <span class="value">{{count($donhang)}}</span>
@@ -62,14 +62,19 @@
             
             <div class="col-lg-3">
               <!-- .metric -->
-              <a href="user-tasks.html" class="metric metric-bordered">
-                <div class="metric-badge">
-                  <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
-                </div>
-                <p class="metric-value h3">
-                  <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
-                </p>
-              </a> <!-- /.metric -->
+                <a href="{{route('doanhnghiep.donhang.ngay')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Doanh Thu Hôm Nay </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="fas fa-chart-bar mr-2"></i></sub>
+                       <span class="value">
+                         @php $tongtien=0; @endphp
+                          @foreach($doanhthuhomnay as $value)
+                            @php $tongtien += $value->tongsoluongban * $value->dongia; @endphp
+                          @endforeach
+                          {{number_format($tongtien)}}<sup>VNĐ</sup>
+                    </span>
+                    </p>
+                </a>
             </div>
             <!-- /metric column -->
           </div><!-- /metric row -->

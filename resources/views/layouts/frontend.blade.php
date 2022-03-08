@@ -246,7 +246,7 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Thiết kế và xây dựng <i class="fa fa-heart" aria-hidden="true"></i> bởi <a href="https://colorlib.com" target="_blank">Dương Văn Khang</a>
+  Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Thiết kế và xây dựng <i class="fa fa-heart" aria-hidden="true"></i> bởi <a href="#" target="_blank">Dương Văn Khang</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="{{ asset('public/frontend/assets/img/payment-item.png' ) }}" alt=""></div>
                     </div>

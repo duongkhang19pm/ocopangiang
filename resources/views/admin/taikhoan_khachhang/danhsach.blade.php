@@ -48,10 +48,9 @@
                             <th >#</th>
                             <th >Hình Ảnh</th>
                             <th >Thông Tin</th>
-		                        
-                            
                             <th >Quyền Hạn</th>
                             <th >Tình Trạng</th>
+                            <th >Trạng Thái</th>
                             <th style="width:100px; min-width:100px;"> &nbsp; </th>
                           </tr>
                         </thead>
@@ -90,6 +89,15 @@
                                 <a href="{{ route('admin.taikhoan_khachhang.kichhoat',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
                                 @endif
                                 </td>
+                                <td class="align-middle">
+                                    @if(Cache::has('user-is-online-' . $value->id))
+                                    <span class="badge badge-subtle badge-success">Online</span>
+                                   
+                                    @else
+                                    <span class="badge badge-subtle badge-warning">Offline</span>
+                                  
+                                    @endif
+                              </td> 
 	                            <td class="align-middle text-right">
                                 <div class="dropdown">
                                   <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>

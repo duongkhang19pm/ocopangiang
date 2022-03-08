@@ -160,6 +160,7 @@ class DoanhNghiepController extends Controller
         $orm->donviquanly_id = Auth::user()->donviquanly->id;
     
         $orm->xa_id = $request->xa_id;
+        $orm->tenduong = $request->tenduong;
         $orm->mohinhkinhdoanh_id = $request->mohinhkinhdoanh_id;
         $orm->loaihinhkinhdoanh_id = $request->loaihinhkinhdoanh_id;
         $orm->masothue = $request->masothue;

@@ -108,14 +108,11 @@
       <!-- /.auth-form -->
       <!-- .auth-announcement -->
      <div id="announcement" class="auth-announcement" style="background-image: url({{ asset('public/backend/images/img-1.png') }});">
-      <div class="announcement-body">
-        <h2 class="announcement-title">Hướng dẫn sử dụng phần mềm {{ config('app.short_name', 'Laravel') }}</h2>
-        <a href="#huongdan" class="btn btn-warning"><i class="fa fa-fw fa-angle-right"></i> Xem tại đây</a>
-      </div>
+      
     </div>
 </main>
 
-<script src="{{ asset('public/backend/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('public/backend/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('public/backend/vendor/popper.js/umd/popper.min.js') }}"></script>
   <script src="{{ asset('public/backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('public/backend/vendor/particles.js/particles.min.js') }}"></script>

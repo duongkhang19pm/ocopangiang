@@ -13,6 +13,7 @@ use App\Models\Xa;
 use Illuminate\Support\Facades\Auth;
 use Storage;
 use Illuminate\Support\Arr;
+use Cache;
 class TaiKhoanController extends Controller
 {
     public function __construct()
@@ -30,6 +31,7 @@ class TaiKhoanController extends Controller
         $xa = Xa::where("huyen_id", $request->huyen_id)->pluck("tenxa", "id");
         return response()->json($xa);
     }
+    
     //Tài Khoản Admin
     public function getDanhSach_Admin()
     {
@@ -37,6 +39,7 @@ class TaiKhoanController extends Controller
         $tinh = Tinh::all();
         $huyen =Huyen::all();
         $xa =Xa::all();
+        
         return view('admin.taikhoan_admin.danhsach', compact('taikhoan', 'tinh','huyen','xa'));
     }
     public function getHoSoCaNhan($id)

@@ -33,20 +33,26 @@ class DonHangController extends Controller
      }
     public function getDanhSach()
     {
-        
-                $donhang = DonHang::orderBy('created_at', 'desc')->get();
-         
-        
-        
-      
-       
-      
-        
-      
+         $donhang = DonHang::orderBy('created_at', 'desc')->get();
         return view('doanhnghiep.donhang.danhsach', compact('donhang'));
     }
-
-
+    public function getDanhSach_DH_Ngay()
+    {
+        $date = Carbon::today();//lay ngay hien tai
+        $donhang = DonHang::whereBetween('donhang.created_at', [$date->format('Y-m-d')." 00:00:00", $date->format('Y-m-d')." 23:59:59"])
+                    ->orderBy('created_at', 'desc')->get();
+        
+        
+        return view('doanhnghiep.donhang.donhangngay', compact('donhang'));
+    }
+    public function getDanhSach_DH_Moi()
+    {
+       
+        $donhang = DonHang::orderBy('created_at', 'desc')->get();
+        
+        
+        return view('doanhnghiep.donhang.moi', compact('donhang'));
+    }
      public function postTrangThai(Request $request, $id)
     {
         
@@ -112,21 +118,27 @@ class DonHangController extends Controller
       public function getSua($id)
     {
         $donhang = DonHang::find($id);
-        if($donhang->tinhtrang_id <= 3)
+        $chitiet = DonHang_ChiTiet::where('donhang_id', $donhang->id)->get();
+        foreach ($chitiet as $value)
         {
-            $tinhtrang = TinhTrang::all();
-            $tinh = Tinh::all();
-            $huyen = Huyen::all();
-            $xa = Xa::all();
-            $hinhthucthanhtoan = HinhThucThanhToan::all();
-            $tinhtrang = TinhTrang::all();
-             return view('doanhnghiep.donhang.sua', compact('donhang', 'tinhtrang','tinh','huyen','xa','hinhthucthanhtoan','tinhtrang'));
-        }
-        else
-        {
-            $tinhtrang = TinhTrang::where('id',$donhang->tinhtrang_id)->first();
-             return redirect()->route('doanhnghiep.donhang')->with('status','Đơn Hàng Trong Tình Trạng '.$tinhtrang->tinhtrang.' Không Thể Cập Nhật!');
-           
+
+       
+            if($value->tinhtrang_id <= 3)
+            {
+                $tinhtrang = TinhTrang::all();
+                $tinh = Tinh::all();
+                $huyen = Huyen::all();
+                $xa = Xa::all();
+                $hinhthucthanhtoan = HinhThucThanhToan::all();
+                $tinhtrang = TinhTrang::all();
+                return view('doanhnghiep.donhang.sua', compact('donhang', 'tinhtrang','tinh','huyen','xa','hinhthucthanhtoan','tinhtrang'));
+            }
+            else
+            {
+            
+                return redirect()->route('doanhnghiep.donhang')->with('status','Đơn Hàng Trong Tình Trạng  Không Thể Cập Nhật!');
+            
+            }
         }
         
     }
@@ -173,18 +185,21 @@ class DonHangController extends Controller
     public function getXoa($id)
     {
         $donhang = DonHang::find($id);
-        
-        if($donhang->tinhtrang_id == 1)
+        $chitiet = DonHang_ChiTiet::where('donhang_id', $donhang->id)->get();
+        foreach ($chitiet as $value)
         {
-            $chitiet = DonHang_ChiTiet::where('donhang_id', $donhang->id)->delete();
-           
-            $donhang->delete();
-            return redirect()->route('doanhnghiep.donhang');
-        }
-        else
-        {
-            $tinhtrang = TinhTrang::where('id',$donhang->tinhtrang_id)->first();
-             return redirect()->route('doanhnghiep.donhang')->with('status','Đơn Hàng Trong Tình Trạng '.$tinhtrang->tinhtrang.' Không Thể Xóa!');
+            if($donhang->tinhtrang_id == 1)
+            {
+                $chitiet = DonHang_ChiTiet::where('donhang_id', $donhang->id)->delete();
+            
+                $donhang->delete();
+                return redirect()->route('doanhnghiep.donhang');
+            }
+            else
+            {
+               
+                return redirect()->route('doanhnghiep.donhang')->with('status','Đơn Hàng Trong Tình Trạng  Không Thể Xóa!');
+            }
         }
         
       

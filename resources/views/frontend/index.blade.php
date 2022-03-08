@@ -287,8 +287,8 @@
         </div>
        
     </section>
-
-     <section class="categories mt-3">
+    <!-- Latest Product Section Begin -->
+    <section class="categories mt-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -305,12 +305,12 @@
                     @foreach($donviquanly as $value)
                      <div class="col-lg-3">
                          @if(empty($value->hinhanh))
-                                   <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
-                            
+                                   <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
+                                        <h5><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a></h5>
                                     </div>
                                   @else
                                   <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
-                            
+                                          <h5><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a></h5>
                                     </div>
                                  
                                   @endif
@@ -321,10 +321,11 @@
                     
                    
                 </div>
-                
+
             </div>
         </div>
     </section>
+     
  
 
 

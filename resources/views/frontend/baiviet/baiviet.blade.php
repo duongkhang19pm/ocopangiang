@@ -77,7 +77,7 @@
                                          @php
                                               $img = App\Http\Controllers\HomeController::LayHinhDauTien($value->noidung); 
                                             @endphp
-                                        <img src="{{ $img }}" alt="">
+                                        <img src="{{ $img }}" alt=""  height="200">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>

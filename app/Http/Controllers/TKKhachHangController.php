@@ -57,22 +57,21 @@ class TKKhachHangController extends Controller
     public function getDonHang_Huy($taikhoan,$id)
      {
 
-         $donhang = DonHang::find($id);
-      
-         if($donhang->tinhtrang_id < 3)
-         {
-            $donhang->tinhtrang_id = 3;
-            $donhang->save();
-          
-           
+ 
+         $chitiet = DonHang_ChiTiet::find($id);
+         
+            if($chitiet->tinhtrang_id < 3)
+            {
+                $chitiet->tinhtrang_id = 3;
+                $chitiet->save();
+                return redirect()->route('khachhang.donhang',['id'=>$taikhoan]);
+            }
+            else
+            {
+                return redirect()->route('khachhang.donhang',['id'=>$taikhoan])->with('status','Đơn hàng trong tình trạng không thể hủy <strong>');
+            }
+        
 
-
-            return redirect()->route('khachhang.donhang',['id'=>$taikhoan]);
-         }
-         else
-         {
-             return redirect()->route('khachhang.donhang',['id'=>$taikhoan])->with('status','Đơn hàng trong tình trạng <strong>'.$donhang->tinhtrang->tinhtrang.'</strong> nên không thể hủy <strong>');
-         }
        
         
          
@@ -82,7 +81,13 @@ class TKKhachHangController extends Controller
     {
         $orm = DonHang::find($id);
         $orm->hienthi = 1 - $orm->hienthi;
-        $orm->tinhtrang_id = 3;
+        $chitiet = DonHang_ChiTiet::where('donhang_id',$orm->id)->get();
+        foreach($chitiet as $value)
+        {
+            $value->tinhtrang_id = 3;
+            $value->save();
+        }
+        
         $orm->save();
          return redirect()->route('khachhang.donhang',['id'=>$taikhoan]);
 

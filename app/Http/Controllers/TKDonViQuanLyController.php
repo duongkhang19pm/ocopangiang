@@ -29,7 +29,7 @@ class TKDonViQuanLyController extends Controller
     {
         if(Auth::user()->kichhoat === 0  )
         {
-            $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'donviquanly')->get();
+            $taikhoan = TaiKhoan::where('donviquanly_id',Auth::user()->donviquanly_id)->where('privilege', 'doanhnghiep')->get();
             $doanhnghiep = DoanhNghiep::where('donviquanly_id', Auth::user()->donviquanly_id)->get();
             $baiviet = BaiViet::where('taikhoan_id', Auth::user()->id)->get();
             
@@ -61,11 +61,11 @@ class TKDonViQuanLyController extends Controller
             }
         
             $data['doanhthu1'] = json_encode($data);
+            
 
 
 
-
-            return view('donviquanly.index',$data,compact('taikhoan','doanhnghiep','baiviet'));
+            return view('donviquanly.index',compact('taikhoan','doanhnghiep','baiviet'),$data);
         }
          elseif(Auth::user()->kichhoat === 1)
         {

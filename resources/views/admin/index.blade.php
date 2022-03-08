@@ -69,17 +69,7 @@
                     </p>
                   </a><!-- /.metric -->
             </div><!-- metric column -->
-            <div class="col-lg-3">
-              <!-- .metric -->
-              <a href="user-tasks.html" class="metric metric-bordered">
-                <div class="metric-badge">
-                  <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
-                </div>
-                <p class="metric-value h3">
-                  <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
-                </p>
-              </a> <!-- /.metric -->
-            </div>
+           
             <!-- /metric column -->
           </div><!-- /metric row -->
         </div><!-- /.section-block -->
@@ -90,4 +80,29 @@
     </div><!-- /.page-inner -->
   </div><!-- /.page -->
 </div>
+
+@endsection
+@section('javascript')
+
+	<script>
+		$(function(){
+      //get the pie chart canvas
+      const totalOnline = 0;
+
+      Echo.join(`chat.${roomId}`)
+        .here((users) => {
+            totalOnline = users.length
+        })
+        .joining((user) => {
+            totalOnline++;
+        })
+        .leaving((user) => {
+            totalOnline--;
+        });
+    
+  );
+      
+ 
+  });
+	</script>
 @endsection

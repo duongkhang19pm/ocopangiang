@@ -50,7 +50,8 @@
                             <th >Quyền Hạn</th>
                             <th>Doanh Nghiệp</th>
                             <th>Chức Vụ</th>
-                            <th>Trạng Thái</th>
+                            <th>Tình Trạng</th>
+                            <th >Trạng Thái</th>
                             <th style="width:100px; min-width:100px;"> &nbsp; </th>
                           </tr>
                         </thead>
@@ -77,7 +78,7 @@
                                Điện Thoại: {{ $value->phone }}<br/>
                                Tên Đăng Nhập: {{ $value->username }} 
                                  </td>
-                              <td class="align-middle"><span class="badge badge-pill badge-success">Nhân Viên Doanh Nghiệp</span></td>
+                              <td class="align-middle"><span class="badge badge-pill badge-success">Nhân Viên</span></td>
                               <td class="align-middle">{{ $value->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</td>
                                <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>
                                <td class="align-middle">
@@ -90,6 +91,15 @@
                                 <a href="{{ route('donviquanly.taikhoan_doanhnghiep.kichhoat',  ['id' => $value->id] ) }}"><span class="badge badge-pill badge-warning">Bị khóa</span></a> 
                                 @endif
                                 </td>
+                                <td class="align-middle">
+                                    @if(Cache::has('user-is-online-' . $value->id))
+                                    <span class="badge badge-subtle badge-success">Online</span>
+                                   
+                                    @else
+                                    <span class="badge badge-subtle badge-warning">Offline</span>
+                                  
+                                    @endif
+                                </td> 
                                 <td class="align-middle text-right">
                                   <div class="dropdown">
                                     <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>

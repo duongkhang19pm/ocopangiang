@@ -48,7 +48,7 @@ class HomeController extends Controller
         $sanpham = SanPham::where('sanpham.hienthi',1)->where('sanpham.soluong','>',0)->orderBy('created_at', 'desc')->paginate(20);
         $doanhnghiep = DoanhNghiep::all();
         $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
-        $nhomsanpham = NhomSanPham::all();
+        $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
         $donviquanly = DonViQuanLy::all();
         return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly'));
     }
@@ -109,7 +109,23 @@ class HomeController extends Controller
       
     }
 
-   
+    public function getDonViQuanLy($tendonviquanly_slug)
+    {
+        $donviquanly = DonViQuanLy::where('tendonviquanly_slug',$tendonviquanly_slug)->first();
+        
+        $taikhoan=TaiKhoan::where('donviquanly_id', $donviquanly->id)->first();
+        if(!empty($taikhoan))
+        {
+            $baiviet = BaiViet::where('taikhoan_id',$taikhoan->id)->where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(12);
+            return view('frontend.donviquanly',compact('donviquanly','baiviet','taikhoan'));
+        }
+        else{
+            return view('frontend.donviquanly',compact('donviquanly','taikhoan'));
+        }
+       
+      
+       
+    }
     public function getDoanhNghiep($tendoanhnghiep_slug)
     {
         $doanhnghiep = DoanhNghiep::where('tendoanhnghiep_slug',$tendoanhnghiep_slug)->first();
@@ -122,7 +138,7 @@ class HomeController extends Controller
     public function getSanPham()
     {
         $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->paginate(21);
-        $nhomsanpham = NhomSanPham::all();
+        $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
         $phanhang= PhanHang::all();
         return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
     }

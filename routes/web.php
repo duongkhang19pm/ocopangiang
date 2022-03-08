@@ -45,6 +45,8 @@ Auth::routes();
 Route::get('/lien-he', [HomeController::class, 'getLienHe'])->name('frontend.lienhe');
 // Trang Giới thiệu Doanh Nghiệp
 Route::get('/doanh-nghiep/{tendoanhnghiep_slug}', [HomeController::class, 'getDoanhNghiep'])->name('frontend.doanhnghiep');
+// Trang Giới thiệu Đơn Vị Quản Lý
+Route::get('/don-vi-quan-ly/{tendonviquanly_slug}', [HomeController::class, 'getDonViQuanLy'])->name('frontend.donviquanly');
 // Trang sản phẩm
 Route::get('/san-pham', [HomeController::class, 'getSanPham'])->name('frontend.sanpham');
 Route::post('/san-pham', [HomeController::class, 'postSanPham'])->name('frontend.sanpham');
@@ -414,8 +416,8 @@ Route::prefix('doanhnghiep')->name('doanhnghiep.')->middleware('doanhnghiep')->g
     Route::get('/donhang/getXa',[DonHangController::class, 'getXa'])->name('donhang.getXa');
     Route::post('/donhang/trangthai/{id}', [DonHangController::class, 'postTrangThai'])->name('donhang.trangthai');
     Route::get('/donhang/doanhthu',[DonHangController::class, 'getDoanhThu'])->name('donhang.doanhthu');
-
-
+    Route::get('/donhang/ngay', [DonHangController::class, 'getDanhSach_DH_Ngay'])->name('donhang.ngay');
+    Route::get('/donhang/moi', [DonHangController::class, 'getDanhSach_DH_Moi'])->name('donhang.moi');
 
     // Quản lý Đơn hàng chi tiết
     Route::get('/donhang/chitiet', [DonHangChiTietController::class, 'getDanhSach'])->name('donhang.chitiet');

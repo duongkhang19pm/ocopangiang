@@ -5,33 +5,7 @@
 @endsection
 
 @section('content')
-<?php
- 
-$dataPoints1 = array(
-	array("label"=> "2010", "y"=> 36.12),
-	array("label"=> "2011", "y"=> 34.87),
-	array("label"=> "2012", "y"=> 40.30),
-	array("label"=> "2013", "y"=> 35.30),
-	array("label"=> "2014", "y"=> 39.50),
-	array("label"=> "2015", "y"=> 50.82),
-	array("label"=> "2016", "y"=> 74.70)
-);
-$dataPoints2 = array(
-	array("label"=> "2010", "y"=> 64.61),
-	array("label"=> "2011", "y"=> 70.55),
-	array("label"=> "2012", "y"=> 72.50),
-	array("label"=> "2013", "y"=> 81.30),
-	array("label"=> "2014", "y"=> 63.60),
-	array("label"=> "2015", "y"=> 69.38),
-	array("label"=> "2016", "y"=> 98.70)
-);
-$dataPoints3 = array(
-	array("label"=> "2017", "y"=> 50.61),
-	array("label"=> "2018", "y"=> 60.55),
-	array("label"=> "2019", "y"=> 70.50)
-);
-	
-?>
+
 <div class="wrapper">
   <!-- .page -->
   <div class="page">
@@ -52,7 +26,7 @@ $dataPoints3 = array(
         <div class="section-block">
           <!-- metric row -->
           <div class="metric-row">
-            <div class="col-lg-9">
+            <div class="col-lg-8">
               <div class="metric-row metric-flush">
                 <!-- metric column -->
                 <div class="col">
@@ -73,36 +47,26 @@ $dataPoints3 = array(
                     </p>
                   </a> <!-- /.metric -->
                 </div>
-                <div class="col">
-                  <!-- .metric -->
-                  <a href="{{route('donviquanly.baiviet')}}" class="metric metric-bordered align-items-center">
+                
+              </div>
+            </div>
+           
+            
+            <div class="col-lg-4">
+              <!-- .metric -->
+              <a href="{{route('donviquanly.baiviet')}}" class="metric metric-bordered align-items-center">
                     <h2 class="metric-label"> Bài Viết </h2>
                     <p class="metric-value h3">
                       <sub><i class="fas fa-book"></i></sub> <span class="value">{{count($baiviet)}}</span>
                     </p>
                   </a> <!-- /.metric -->
-                </div>
-              </div>
-            </div>
-           
-            
-            <div class="col-lg-3">
-              <!-- .metric -->
-              <a href="user-tasks.html" class="metric metric-bordered">
-                <div class="metric-badge">
-                  <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
-                </div>
-                <p class="metric-value h3">
-                  <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
-                </p>
-              </a> <!-- /.metric -->
             </div>
             <!-- /metric column -->
           </div><!-- /metric row -->
         </div><!-- /.section-block -->
         <!-- grid row -->
-        <div class="container-fluid pt-4 px-4">
-                <div>
+        <div class="section-block">
+               
           <canvas id="chart_donviquanly"></canvas>
         </div> 
       </div>
