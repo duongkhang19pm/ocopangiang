@@ -73,7 +73,7 @@
                                 Họ Và Tên: {{ $value->name }} <br/>
                                Địa Chỉ: {{ $value->xa->huyen->tinh->tentinh ?? 'N/A'}} - {{ $value->xa->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  Đường:{{ $value->tenduong ?? 'N/A'}}<br/>
                                Email: {{ $value->email }} <br/>
-                               Điện Thoại: {{ $value->phone }}<br/>
+                               Điện Thoại: {{ $value->phone ?? 'N/A'}}<br/>
                                Tên Đăng Nhập: {{ $value->username }} 
                                  </td>
 	                            

@@ -22,7 +22,7 @@
             <div class="d-md-flex align-items-md-start">
               <h1 class="page-title mr-sm-auto"> Chức Vụ </h1>
               <div class="dropdown">
-                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>
+                <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
                 <div class="dropdown-menu dropdown-menu-right" style="">
                   <div class="dropdown-arrow"></div>
                     <a href="{{route('admin.chucvu.them')}}" class="dropdown-item"><i class="fa fa-plus mr-2"></i>Thêm Mới</a> 
@@ -41,7 +41,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
                         <!-- thead -->
                         <thead>
                           <tr>

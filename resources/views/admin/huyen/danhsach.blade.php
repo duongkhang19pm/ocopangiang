@@ -61,7 +61,7 @@
 	                            <td class="align-middle"> {{ $value->tenhuyen }} </td>
                               <td class="align-middle"> {{ $value->phivanchuyen }} </td>
                               <td class="align-middle text-right">
-                                <div class="dropdown">
+                              <div class="dropdown">
                                   <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
                                   <div class="dropdown-menu dropdown-menu-right" style="">
                                     <div class="dropdown-arrow"></div>

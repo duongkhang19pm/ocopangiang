@@ -31,7 +31,7 @@
         <div class="container">
            
             @if(!empty($taikhoan))
-            <div class="section-title product__discount__title">
+            <div class="section-title product__discount__title text-center">
                 <h2>Bài Viết</h2>
             </div>            
                
@@ -64,7 +64,7 @@
             </div>
                 @endif
             
-            <div class="section-title product__discount__title">
+            <div class="section-title product__discount__title text-center">
                 <h2>Thông Tin Đơn Vị Quản Lý</h2>
             </div>
             <div class="row">

@@ -23,18 +23,18 @@
 
         @foreach($doanhnghiep as $value)
             <tr>
-                <td>{{ $value->xa->huyen->tinh_id }}</td>
-                <td>{{ $value->xa->huyen_id }}</td>
-                <td>{{ $value->xa_id }}</td>
+                <td>{{ $value->xa->huyen->tinh->tentinh }}</td>
+                <td>{{ $value->xa->huyen->tenhuyen }}</td>
+                <td>{{ $value->xa->tenxa }}</td>
                 <td>{{ $value->tenduong }}</td>
-                <td>{{ $value->mohinhkinhdoanh_id }}</td>
-                <td>{{ $value->loaihinhkinhdoanh_id }}</td>
+                <td>{{ $value->mohinhkinhdoanh->tenmohinhkinhdoanh }}</td>
+                <td>{{ $value->loaihinhkinhdoanh->tenloaihinhkinhdoanh }}</td>
                 <td>{{ $value->masothue }}</td>
                 <td>{{ $value->tendoanhnghiep }}</td>
                 <td>{{ $value->email }}</td>
                 <td>{{ $value->SDT }}</td>
                 <td>{{ $value->website ?? ''}}</td>
-                <td>{{ $value->ngaythanhlap }}</td>
+                <td>{{ Carbon\Carbon::parse( $value->ngaythanhlap)->format('d-m-Y')}}</td>
                 <td>{{ $value->hinhanh ?? 'N/A'}}</td>
                 <td>{{ $value->kinhdo }}</td>
                 <td>{{ $value->vido }}</td>

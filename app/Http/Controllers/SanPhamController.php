@@ -17,6 +17,7 @@ use Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Imports\SanPhamImport;
 use App\Exports\SanPhamExport;
+use App\Exports\SanPhamSapHetExport;
 use Excel;
 use App\Models\ChiTiet_PhanHang_SanPham;
 use Illuminate\Support\Facades\DB;
@@ -40,13 +41,26 @@ class SanPhamController extends Controller
 
         return Excel::download(new SanPhamExport, 'danh-sach-san-pham.xlsx');
      }
+      // Xuất ra Excel
+      public function getXuat_SPSapHet()
+      {
+ 
+         return Excel::download(new SanPhamSapHetExport, 'danh-sach-san-pham-sap-het.xlsx');
+      }
     public function getDanhSach()
     {
         
-        $iddoanhnghiep = Auth::user()->doanhnghiep->id;
-        $sanpham = SanPham::where('doanhnghiep_id', $iddoanhnghiep)->paginate(10);
+       
+        $sanpham = SanPham::where('doanhnghiep_id',Auth::user()->doanhnghiep->id)->get();
         
         return view('doanhnghiep.sanpham.danhsach',compact('sanpham'));
+    }
+    public function getDanhSach_SPSapHet()
+    {
+        
+        $sanpham = Sanpham::where('soluong','<',10)->where('doanhnghiep_id',Auth::user()->doanhnghiep->id)->get();
+        
+        return view('doanhnghiep.sanpham.saphet',compact('sanpham'));
     }
     public function getThem()
     {

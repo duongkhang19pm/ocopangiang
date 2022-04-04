@@ -139,6 +139,7 @@
                                              <a href="{{ route('khachhang.dangnhap') }}"><i class="fa fa-user"></i> Đăng Nhập</a>
                                         @endif
                                     @else
+                                       @if(Auth::user()->kichhoat == 0)
                                         <div class="header__top__right__language">
                                            
                                             <div>{{ Auth::user()->name }}</div>
@@ -153,6 +154,11 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        @endif
+                                        @if(Auth::user()->kichhoat ==1)
+                                        {{Auth::logout()}}
+                                        <a href="{{ route('khachhang.dangnhap') }}"><i class="fa fa-user"></i> Đăng Nhập</a>
+                                        @endif
                                     @endguest
 
                             </div>
@@ -182,11 +188,19 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                          
+                        <li><a href="{{ route('frontend.sanphamyeuthich')}}"><i class="fa fa-heart"></i> 
+                            @guest
+                            <span>0</span>
+                            @else
+                                @if(!isset($sanphamyeuthich) || $sanphamyeuthich == null)
+                                <span>0</span>
+                                @else 
+                                <span>{{count($sanphamyeuthich) > 0 ?count($sanphamyeuthich):'0'}}</span>
+                                @endif
+                            @endguest
+                            </a></li>
                             <li><a href="{{ route('frontend.giohang') }}"><i class="fa fa-shopping-bag"></i> <span>
-                                {{Cart::count() > 0 ? Cart::count() : ''}}</span></a></li>
-
-                                
+                                {{Cart::count() > 0 ? Cart::count() : '0'}}</span></a></li>    
                         </ul>
                         
                         <div class="header__cart__price">Tạm Tính: <span>{{ Cart::total() }} <sup>VNĐ</sup></span></div>

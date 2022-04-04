@@ -38,7 +38,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
                         <!-- thead -->
                         <thead>
                           <tr>
@@ -49,7 +49,7 @@
 		                        
                             <th >Quyền Hạn</th>
                             <th>Doanh Nghiệp</th>
-                            <th>Chức Vụ</th>
+                            
                             <th>Tình Trạng</th>
                             <th >Trạng Thái</th>
                             <th style="width:100px; min-width:100px;"> &nbsp; </th>
@@ -73,6 +73,7 @@
                                </td>
                               <td class="align-middle"> 
                                 Họ Và Tên: {{ $value->name }} <br/>
+                              Chức Vụ: {{ $value->chucvu->tenchucvu ?? 'N/A' }}<br/>
                                Địa Chỉ: {{ $value->xa->huyen->tinh->tentinh ?? 'N/A'}} - {{ $value->xa->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  {{ $value->tenduong ?? 'N/A'}}<br/>
                                Email: {{ $value->email }} <br/>
                                Điện Thoại: {{ $value->phone }}<br/>
@@ -80,7 +81,7 @@
                                  </td>
                               <td class="align-middle"><span class="badge badge-pill badge-success">Nhân Viên</span></td>
                               <td class="align-middle">{{ $value->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</td>
-                               <td class="align-middle">{{ $value->chucvu->tenchucvu ?? 'N/A' }}</td>
+                      
                                <td class="align-middle">
                                 @if($value->kichhoat == 0)
                                 <a href="{{ route('donviquanly.taikhoan_doanhnghiep.kichhoat',  ['id' => $value->id] ) }}" >

@@ -25,9 +25,9 @@ class TKDoanhNghiepController extends Controller
     
     public function getHome ()
     {
-        if( Auth::user()->kichhoat === 0  )
-        {
+       
             $sanpham = SanPham::where('doanhnghiep_id',Auth::user()->doanhnghiep->id)->get();
+            $sanpham_saphet = Sanpham::where('soluong','<',10)->where('doanhnghiep_id',Auth::user()->doanhnghiep->id)->get();
             $baiviet = BaiViet::where('taikhoan_id', Auth::user()->id)->get();
             foreach($sanpham as $value)
             {
@@ -84,19 +84,15 @@ class TKDoanhNghiepController extends Controller
  
                 foreach($doanhthu as $row) {
                     
-                    $data['label'][] = Carbon::parse($row->day)->format('Y-m-d');
-                    $data['data'][] =  $row->giaban;
+                    $data['label'][] = Carbon::parse($row->day)->format('d/m/Y');
+                    $data['data'][] = $row->giaban;
                 }
             
                 $data['chart_data'] = json_encode($data);
             
-            return view('doanhnghiep.index',compact('baiviet','sanpham','donhang','doanhthuhomnay'),$data);
-        }
-         elseif(Auth::user()->kichhoat === 1)
-        {
-            Auth::logout();
-            return redirect()->route('login')->with('warning', 'Tài khoản của bạn đã bị tạm khóa. Vui lòng liên hệ quản trị viên');
-        }
+            return view('doanhnghiep.index',compact('baiviet','sanpham','donhang','doanhthuhomnay','sanpham_saphet'),$data);
+        
+        
     } 
      public function getHuyen(Request $request)
     {

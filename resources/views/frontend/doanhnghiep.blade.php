@@ -85,7 +85,7 @@
                                                 <div class="product__discount__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                                     <ul class="product__item__pic__hover">
                                                         
-                                                    <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye"></i></a></li>
                                                     <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -144,7 +144,7 @@
                     
                 </div>
             </div>
-            <div class="section-title product__discount__title">
+            <div class="section-title product__discount__title text-center">
                             <h2>Thông Tin Doanh Nghiệp</h2>
                         </div>
                     <div class="row">
@@ -165,12 +165,19 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                              <div class="product__details__tab__desc">
-                                                 <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
-                                                @if(empty($doanhnghiep->hinhanh)||$doanhnghiep->hinhanh == 'N/A')
-                                                   <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="250" width="300"  >
-                                                @else
-                                                  <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="250" width="300"  />
-                                                @endif
+                                                <div class="row mt-3">
+                                                    <div class="col-lg-2">
+                                                        @if(empty($doanhnghiep->hinhanh)||$doanhnghiep->hinhanh == 'N/A')
+                                                        <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="150" width="250"  >
+                                                        @else
+                                                        <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="150" width="250"  />
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-10  text-center">
+                                                        <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
+                                                    </div>
+                                                    
+                                                </div>
                                                 <div class="row mt-3">
                                                     <div class="col-lg-6">
                                                         <p> <strong>Mã Số Thuế:</strong> {{$doanhnghiep->masothue}}</p>

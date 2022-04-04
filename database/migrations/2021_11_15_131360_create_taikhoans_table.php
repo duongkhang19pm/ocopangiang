@@ -25,7 +25,7 @@ class CreateTaiKhoansTable extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->string('privilege', 20)->default('user'); // admin, donviquanly, doanhnghiep, khachhang
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

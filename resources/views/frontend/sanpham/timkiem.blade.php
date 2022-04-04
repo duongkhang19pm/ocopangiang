@@ -21,10 +21,11 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-    @if (session('status'))
-        <div class="alert alert-danger" role="alert">
-            {!! session('status') !!}
-        </div>
+    @if(session('status'))
+        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
+            <span class="fas fa-check-circle"></span>
+            <span class="msg">{!! session('status') !!}</span>           
+        </div>    
     @endif
     <!-- Product Section Begin -->
     <section class="product spad">

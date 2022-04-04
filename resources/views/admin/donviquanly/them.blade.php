@@ -83,7 +83,7 @@
                                     @enderror
                           </div>
                            <div class="col-md-3">
-                              <label for="tenduong">Số Đường/Nhà<span class="text-danger font-weight-bold">*</span></label>
+                              <label for="tenduong">Số Đường/Nhà<abbr title="Required">*</abbr></label>
                               <input type="text" class="form-control @error('tenduong') is-invalid @enderror" id="tenduong" name="tenduong" value="{{ old('tenduong') }}" placeholder="Tên Đường/Số Nhà" required />
                                   
                                 @error('tenduong')
@@ -97,7 +97,7 @@
                    <div class="row">
                        
                       <div class="col-md-6">
-                          <label for="tendonviquanly">Tên Đơn Vị Quản lý <span class="text-danger font-weight-bold">*</span></label>
+                          <label for="tendonviquanly">Tên Đơn Vị Quản lý <abbr title="Required">*</abbr></label>
                           <input type="text" class="form-control @error('tendonviquanly') is-invalid @enderror" id="tendonviquanly" name="tendonviquanly" value="{{ old('tendonviquanly') }}" placeholder="Tên Đơn Vị Quản Lý" required />
                           
                             @error('tendonviquanly')
@@ -105,8 +105,8 @@
                             @enderror
                       </div>
                       <div class="col-md-6">
-                          <label for="tenthutruong">Tên Thủ Trưởng <span class="text-danger font-weight-bold">*</span></label>
-                          <input type="text" class="form-control @error('tenthutruong') is-invalid @enderror" id="tenthutruong" name="tenthutruong" value="{{ old('tenthutruong') }}" placeholder="Tên Đơn Vị Quản Lý" required />
+                          <label for="tenthutruong">Tên Thủ Trưởng <abbr title="Required">*</abbr></label>
+                          <input type="text" class="form-control @error('tenthutruong') is-invalid @enderror" id="tenthutruong" name="tenthutruong" value="{{ old('tenthutruong') }}" placeholder="Tên Thủ Trưởng" required />
                           
                             @error('tenthutruong')
                               <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -117,7 +117,7 @@
                   <!-- .form-group -->
                  <div class="row">
                         <div class="col-md-4">
-                          <label for="email">Địa Chỉ Email<span class="text-danger font-weight-bold">*</span></label>
+                          <label for="email">Địa Chỉ Email<abbr title="Required">*</abbr></label>
                           <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Địa Chỉ Email" required />
                           
                             @error('email')
@@ -125,7 +125,7 @@
                             @enderror
                       </div>
                       <div class="col-md-4">
-                          <label for="SDT">Điện Thoại<span class="text-danger font-weight-bold">*</span></label>
+                          <label for="SDT">Điện Thoại<abbr title="Required">*</abbr></label>
                           <input type="text" class="form-control @error('SDT') is-invalid @enderror" id="SDT" name="SDT" value="{{ old('SDT') }}" placeholder="Điện Thoại" required />
                           
                             @error('SDT')

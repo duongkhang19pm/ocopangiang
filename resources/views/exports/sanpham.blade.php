@@ -26,10 +26,10 @@
 
         @foreach($sanpham as $value)
             <tr>
-                <td>{{ $value->loaisanpham->nhomsanpham_id }}</td>
-                <td>{{ $value->loaisanpham_id }}</td>
-                <td>{{ $value->quycach->donvitinh_id }}</td>
-                <td>{{ $value->quycach_id }}</td>
+                <td>{{ $value->loaisanpham->nhomsanpham->tennhom }}</td>
+                <td>{{ $value->loaisanpham->tenloai }}</td>
+                <td>{{ $value->quycach->donvitinh->tendonvitinh }}</td>
+                <td>{{ $value->quycach->tenquycach }}</td>
                 <td>{{ $value->tensanpham }}</td>
                 <td>{{ $value->nguyenlieu ?? ''}}</td>
                 <td>{{ $value->tieuchuan ?? ''}}</td>
@@ -56,8 +56,12 @@
                 @endforeach
                 
                 <td>{{ $phanhang }}</td>
-                <td>{{ $ngaybatdau }}</td>
-                <td>{{ $ngayketthuc }}</td>
+                <td>{{ Carbon\Carbon::parse( $ngaybatdau)->format('d-m-Y')}}</td>
+                @if( $ngayketthuc != null)
+                <td>{{ Carbon\Carbon::parse( $ngayketthuc)->format('d-m-Y')}}</td>
+                @else
+                <td></td>
+                @endif
             </tr>
         @endforeach
     </tbody>

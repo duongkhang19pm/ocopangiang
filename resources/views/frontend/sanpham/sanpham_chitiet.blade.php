@@ -123,6 +123,26 @@
                                 </div>
 
                             <button type="submit" class="btn primary-btn">THÊM VÀO GIỎ HÀNG</button>
+                            @guest
+                                    @else
+                                        @php
+                                            $yeuthich = false;
+                                        @endphp
+                                        @foreach($sanphamyeuthich as $sp_yeuthich)
+                                            @if($sp_yeuthich->sanpham_id == $sanpham->id)
+                                                @php
+                                                    $yeuthich = true;
+                                                @endphp
+                                                <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><span class="icon_heart_alt text-danger"></span></a>
+
+                                                @break
+                                            @endif                                      
+                                        @endforeach
+                                        @if($yeuthich==false)
+                                        <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><span class="icon_heart_alt "></span></a>
+                                        @endif
+                            @endguest
+                            
                         </form>
                         
                     </div>
@@ -404,7 +424,7 @@
                                     <div class="product__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                         <ul class="product__item__pic__hover">
                                             
-                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>

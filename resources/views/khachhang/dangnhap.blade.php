@@ -31,17 +31,17 @@
 								<div class="heading_s1">
 								<h3 align="center">Đăng nhập</h3>
 								<hr>
-								 @if(session('warning'))
-
-            
-						            <span class="font-weight-bold text-danger">
-						                <i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
-						            </span>
-						        
-						        @endif
+								
 								</div>								
 								<form action="{{ route('login') }}" method="post">
-								
+										@if(session('warning'))
+
+            
+										<span class="font-weight-bold text-danger">
+											<i class="fas fa-exclamation-triangle"></i> {{ session('warning') }}
+										</span>
+
+										@endif
 									@csrf
 									<div class="form-group">								
 										<input type="text" class="form-control{{ ($errors->has('email') || $errors->has('username')) ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Tên đăng nhập hoặc Email *" required />

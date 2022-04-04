@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <p>Xin chào {{ Auth::user()->name }}!</p>
+    <p>Xin chào {{ $donhang->hoten }}!</p>
     <p>Xin cảm ơn bạn đã đặt hàng tại {{ config('app.name', 'Laravel') }}.</p>
     <p>Thông tin giao hàng:</p>
     <p>- Điện thoại: <strong>{{ $donhang->dienthoaigiaohang }}</strong></p>

@@ -43,7 +43,9 @@
                     <div class="form-group">
                         <label for="phivanchuyen">Phí Vận Chuyển <span class="text-danger font-weight-bold">*</span></label>
                         <input type="text" class="form-control" id="phivanchuyen" name="phivanchuyen" value="{{$huyen->phivanchuyen}}"required />
-                        
+                        @error('phivanchuyen')
+                          <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                        @enderror
                         
                     </div>
                   

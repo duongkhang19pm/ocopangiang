@@ -28,7 +28,7 @@
       <!-- form -->
      
        <form class="auth-form" method="post" action="{{ route('login') }}">
-         @if(session('warning'))
+        @if(session('warning'))
 
             
             <span class="font-weight-bold text-danger">

@@ -186,7 +186,11 @@
 
 
 		                             	<strong>Ngày Bắt Đầu: </strong>{{ Carbon\Carbon::parse($ct->ngaybatdau)->format('d/m/Y') }}<br/>
-		                             	<strong>Ngày Kết Thúc: </strong>{{ Carbon\Carbon::parse( $ct->ngayketthuc)->format('d/m/Y') ?? 'N/A'}}<br/>
+										 @if($ct->ngayketthuc != null)
+		                             	<strong>Ngày Kết Thúc: </strong>{{ Carbon\Carbon::parse($ct->ngayketthuc)->format('d/m/Y') }}<br/>
+										 @else
+										 <strong>Ngày Kết Thúc: </strong><br/>
+										 @endif
 
 		                             	
 		                             	@endforeach

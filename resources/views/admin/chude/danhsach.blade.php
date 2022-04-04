@@ -40,7 +40,7 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <!-- .table -->
-                         <table class="table table-hover">
+                         <table class="table table-hover" id="table_id">
                         <!-- thead -->
                         <thead>
                           <tr>

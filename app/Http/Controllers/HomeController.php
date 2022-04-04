@@ -22,6 +22,7 @@ use App\Models\Huyen;
 use App\Models\Xa;
 use App\Models\DonViQuanLy;
 use App\Models\ChiTiet_PhanHang_SanPham;
+use App\Models\SanPhamYeuThich;
 use Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -45,12 +46,19 @@ class HomeController extends Controller
     public function getHome()
     {
        
-        $sanpham = SanPham::where('sanpham.hienthi',1)->where('sanpham.soluong','>',0)->orderBy('created_at', 'desc')->paginate(20);
+        $sanpham = SanPham::where('sanpham.hienthi',1)->where('sanpham.soluong','>',0)->orderBy('created_at', 'desc')->paginate(8);
         $doanhnghiep = DoanhNghiep::all();
         $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
         $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
         $donviquanly = DonViQuanLy::all();
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly','sanphamyeuthich'));
+        }
+        else
         return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly'));
+        
     }
     public function getGoogleLogin()
     {
@@ -85,8 +93,6 @@ class HomeController extends Controller
             'name' => $user->name,
             'username' => Str::before($user->email, '@'),
             'email' => $user->email,
-            'phone' => Hash::make(null),
-            
             'password' => Hash::make('ocopangiang@2022'), // Gán mật khẩu tự do
             ]);
             
@@ -133,13 +139,34 @@ class HomeController extends Controller
         $taikhoan=TaiKhoan::where('doanhnghiep_id', $doanhnghiep->id)->first();
         $baiviet = BaiViet::where('taikhoan_id',$taikhoan->id)->where('kiemduyet',1)->orderBy('created_at', 'desc')->get();
         $sanpham =SanPham::where('doanhnghiep_id',$doanhnghiep->id)->orderBy('created_at', 'desc')->get();
+        
         return view('frontend.doanhnghiep',compact('doanhnghiep','baiviet','sanpham'));
     }
     public function getSanPham()
     {
-        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->paginate(21);
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->take(12)->get();
         $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
         $phanhang= PhanHang::all();
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang','sanphamyeuthich'));
+        }
+        else
+        return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
+    }
+    public function postSanPham_Show(Request $request)
+    {
+        $soluong = $request->show + 12;
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->take( $soluong)->get();
+        $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
+        $phanhang= PhanHang::all();
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang','sanphamyeuthich'));
+        }
+        else
         return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
     }
     public function postSanPham(Request $request)
@@ -190,6 +217,15 @@ class HomeController extends Controller
         $loaisanpham = LoaiSanPham::where('nhomsanpham_id',$nhomsanpham->id)->get();
         $phanhang= PhanHang::all();
        
+    
+         
+        
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham_nhom',compact('loaisanpham','nhomsanpham','phanhang','sanphamyeuthich'));
+        }
+        else
         return view('frontend.sanpham.sanpham_nhom',compact('loaisanpham','nhomsanpham','phanhang'));
     }
     public function getSanPham_PhanHang($tenphanhang_slug)
@@ -200,7 +236,12 @@ class HomeController extends Controller
         $chitiet_phanhang_sanpham = ChiTiet_PhanHang_SanPham::where('phanhang_id',$phanhang->id)->get();
         $nhomsanpham = NhomSanPham::all();
        
-
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham_phanhang',compact('nhomsanpham','phanhang','chitiet_phanhang_sanpham','sanphamyeuthich'));
+        }
+        else
 
         return view('frontend.sanpham.sanpham_phanhang',compact('nhomsanpham','phanhang','chitiet_phanhang_sanpham'));
     }
@@ -211,7 +252,12 @@ class HomeController extends Controller
         $loaisanpham = LoaiSanPham::where('tenloai_slug',$tenloai_slug)->first();
         $sanpham = SanPham::where('loaisanpham_id',$loaisanpham->id)->where('hienthi',1)->where('soluong','>',0)->paginate(21);
         $phanhang= PhanHang::all();
-        
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham_loai',compact('nhomsanpham','loaisanpham','sanpham','phanhang','sanphamyeuthich'));
+        }
+        else
         
         return view('frontend.sanpham.sanpham_loai',compact('nhomsanpham','loaisanpham','sanpham','phanhang'));
     }
@@ -241,7 +287,12 @@ class HomeController extends Controller
 
         
         $sanpham_lienquan = SanPham::where('loaisanpham_id',$loaisanpham->id)->orderBy('created_at', 'desc')->get();
-        
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanpham.sanpham_chitiet',compact('sanpham','nhomsanpham','loaisanpham','all_files','dir','sanpham_lienquan','danhgia','sanphamyeuthich'));
+        }
+        else
         return view('frontend.sanpham.sanpham_chitiet',compact('sanpham','nhomsanpham','loaisanpham','all_files','dir','sanpham_lienquan','danhgia'));
     }
      public function postDanhGia(Request $request,$tennhom_slug,$tenloai_slug, $tensanpham_slug)
@@ -287,14 +338,72 @@ class HomeController extends Controller
     {
         return view('khachhang.dangnhap');
     }
-
-    public function getGioHang()
+    public function getSanPhamYeuThich()
     {
-        if(Cart::count() <= 0)
-            return view('frontend.giohang_rong');
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.sanphamyeuthich',compact('sanphamyeuthich'));
+        }
+        
         else
         {
            
+            return view('khachhang.dangnhap');
+        }
+    }
+    public function getSanPhamYeuThich_Them($tensanpham_slug)
+    {
+        if(Auth::check())
+        {
+            $sanpham = SanPham::where('tensanpham_slug', $tensanpham_slug)->first();
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->where('sanpham_id',$sanpham->id)->first();
+            if($sanphamyeuthich != null )
+            {
+                $orm=SanPhamYeuThich::where('id',$sanphamyeuthich->id);
+                $orm->delete();
+
+               
+            }
+            else{
+
+                $orm = new SanPhamYeuThich ();
+                $orm->sanpham_id = $sanpham->id;
+                $orm->taikhoan_id = Auth::user()->id;
+                $orm->save();
+               
+            }
+               
+            return redirect()->route('frontend');
+        }
+            
+        else
+        {
+        
+            return view('khachhang.dangnhap');
+        }
+    }
+    public function getSanPhamYeuThich_Xoa($id)
+    {
+        $orm=SanPhamYeuThich::find($id);
+        $orm->delete();
+      
+        return redirect()->route('frontend.sanphamyeuthich');
+    }
+    public function getSanPhamYeuThich_XoaTatCa()
+    {
+        $orm = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->delete();
+      
+        return redirect()->route('frontend.sanphamyeuthich');
+    }
+    public function getGioHang()
+    {
+        if(Cart::count() <= 0)
+            
+            return view('frontend.giohang_rong');
+        else
+        {
+            
             return view('frontend.giohang');
         }
     }
@@ -317,7 +426,7 @@ class HomeController extends Controller
             ]
         ]);
 
-        return redirect()->route('frontend')->with('status', 'Đã thêm sản phẩm vào giỏ hàng');
+        return redirect()->back()->with('status', 'Đã thêm sản phẩm vào giỏ hàng');
     }
     public function getGioHang_ThemChiTiet(Request $request, $tensanpham_slug)
     {
@@ -330,7 +439,7 @@ class HomeController extends Controller
             'qty' => $request->qty,
             'weight' => 0,
             'options' => [
-               
+                'image'=>$sanpham->hinhanh,
             ]
         ]);
 
@@ -397,8 +506,9 @@ class HomeController extends Controller
     }
      public function getNhapThongTin()
     {
-        
         $tinh = Tinh::all();
+        
+        
         return view('frontend.nhapthongtin',compact('tinh'));
    
     }
@@ -449,7 +559,7 @@ class HomeController extends Controller
         $tinh = Tinh::where('id',$tinh)->first();
         $huyen = Huyen::where('id',$huyen)->first();
         $xa = Xa::where('id',$xa)->first();
-
+       
         return view('frontend.dathang',compact('tinh','huyen','xa','hoten','tenduong','email','dienthoaigiaohang'));
    
     }
@@ -531,7 +641,7 @@ class HomeController extends Controller
     // Xóa giỏ hàng khi hoàn tất đặt hàng?
         Cart::destroy();
 
-
+        
         return view('frontend.dathangthanhcong');
     }
 

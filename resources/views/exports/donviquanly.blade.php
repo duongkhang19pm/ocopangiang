@@ -18,9 +18,9 @@
 
         @foreach($donviquanly as $value)
             <tr>
-                <td>{{ $value->xa->huyen->tinh_id }}</td>
-                <td>{{ $value->xa->huyen_id }}</td>
-                <td>{{ $value->xa_id }}</td>
+                <td>{{ $value->xa->huyen->tinh->tentinh }}</td>
+                <td>{{ $value->xa->huyen->tenhuyen }}</td>
+                <td>{{ $value->xa->tenxa }}</td>
                 <td>{{ $value->tenduong }}</td>
                 <td>{{ $value->tendonviquanly }}</td>
                 <td>{{ $value->tenthutruong }}</td>

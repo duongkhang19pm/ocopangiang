@@ -20,4 +20,24 @@ class HuyenController extends Controller
      
      return redirect()->route('admin.huyen');
      }
+     public function getSua($id)
+    {
+        $huyen = Huyen::find($id);
+        return view('admin.huyen.sua',compact('huyen'));
+    }
+    public function postSua(Request $request , $id)
+    {
+        //kiểm tra 
+
+        $this->validate($request, [
+            'phivanchuyen' => ['required','numeric']
+        ]);
+        // sửa
+        $orm = Huyen::find($id);
+        
+        $orm->phivanchuyen = $request->phivanchuyen;
+        $orm->save();
+        //quay về danh sách
+        return redirect()->route('admin.huyen');
+    }
 }

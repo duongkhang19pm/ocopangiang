@@ -65,7 +65,7 @@
 				                             	Mã Số Thuế :{{ $value->masothue }}<br/>
 				                             	Tên Doanh Nghiệp: {{ $value->tendoanhnghiep }} <br/>
 				                             	Địa Chỉ: {{ $value->xa->huyen->tinh->tentinh ?? 'N/A'}} - {{ $value->xa->huyen->tenhuyen ?? 'N/A' }} - {{ $value->xa->tenxa ?? 'N/A'}}  -  {{ $value->tenduong ?? 'N/A'}}<br/>
-				                             	Tọa Độ : {{ $value->kinhdo }} - {{ $value->vido }}<br/>
+				                             	Tọa Độ : [{{ $value->kinhdo }} , {{ $value->vido }}]<br/>
 				                             	Loại Hình Kinh Doanh: {{ $value->LoaiHinhKinhDoanh->tenloaihinhkinhdoanh }} <br/>
 				                             	Mô Hình Kinh Donah: {{ $value->MoHinhKinhDoanh->tenmohinhkinhdoanh }}<br/>
 				                             	Email: {{ $value->email }}<br/>

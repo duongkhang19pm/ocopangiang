@@ -9,6 +9,7 @@ class TinhImport implements ToModel,WithHeadingRow
 {
      public function model(array $row)
      {
+  
          return new Tinh([
          'tentinh' => $row['ten_tinh'],
          

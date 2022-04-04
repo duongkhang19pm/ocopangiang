@@ -30,7 +30,7 @@
                 <!-- metric column -->
                 <div class="col">
                   <!-- .metric -->
-                  <a href="user-teams.html" class="metric metric-bordered align-items-center">
+                  <a href="{{route('admin.taikhoan_admin')}}" class="metric metric-bordered align-items-center">
                     <h2 class="metric-label"> Người Dùng Quản Trị </h2>
                     <p class="metric-value h3">
                       <sub><i class="oi oi-people"></i></sub> <span class="value">{{count($taikhoan_quanly)}}</span>
@@ -40,7 +40,7 @@
 
                 <div class="col">
                   <!-- .metric -->
-                  <a href="user-teams.html" class="metric metric-bordered align-items-center">
+                  <a href="{{route('admin.taikhoan_donviquanly')}}" class="metric metric-bordered align-items-center">
                     <h2 class="metric-label">Người Dùng Cán Bộ Đơn Vị Quản Lý </h2>
                     <p class="metric-value h3">
                       <sub><i class="oi oi-people"></i></sub> <span class="value">{{count($taikhoan_donvi)}}</span>
@@ -50,7 +50,7 @@
                 <!-- metric column -->
                  <div class="col">
                   <!-- .metric -->
-                  <a href="user-teams.html" class="metric metric-bordered align-items-center">
+                  <a href="{{route('admin.taikhoan_khachhang')}}" class="metric metric-bordered align-items-center">
                     <h2 class="metric-label">Người Dùng Khách Hàng</h2>
                     <p class="metric-value h3">
                       <sub><i class="oi oi-people"></i></sub> <span class="value">{{count($taikhoan_khachhang)}}</span>

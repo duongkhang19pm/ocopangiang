@@ -37,7 +37,7 @@
 						<img class="img-fluid" src="{{ asset('public/backend/images/403.svg') }}" style="max-width:300px;" />
 					</div>
 					<h3 class="state-header">Lỗi 403 - Cấm truy cập!</h3>
-					<p class="state-description lead">Người dùng không đủ quyền hạn để truy cập vào trang này!</p>
+					<p class="state-description lead">{{session('error_message') }}</p>
 					<div class="state-action">
 						<a href="#quaylai" onclick="window.history.back();" class="btn btn-lg btn-light"><i class="fa fa-angle-right"></i> Quay lại trang trước</a>
 					</div>

@@ -55,11 +55,12 @@
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
-                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-5.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thuc-pham'])}}">Thực Phẩm</a></h5>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/dichvu.png') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'dich-vu'])}}">Dịch Vụ</a></h5>
                         </div>
                     </div>
+                    
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-4.jpg') }}">
                             <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'do-uong'])}}">Đồ Uống</a></h5>
@@ -76,15 +77,16 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{  asset('public/Image/tieudung.png') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'tieu-dung'])}}">Tiêu Dùng</a></h5>
+                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-5.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thuc-pham'])}}">Thực Phẩm</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/dichvu.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'dich-vu'])}}">Dịch Vụ</a></h5>
+                        <div class="categories__item set-bg " data-setbg="{{  asset('public/Image/tieudung.jpg') }}">
+                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'tieu-dung'])}}">Tiêu Dùng</a></h5>
                         </div>
                     </div>
+                    
                   
                     
                    
@@ -121,8 +123,25 @@
 
 
                                     <ul class="featured__item__pic__hover">
-                                        
-                                        <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-retweet"></i></a></li>
+                                    @guest
+                                    @else
+                                        @php
+                                            $yeuthich = false;
+                                        @endphp
+                                        @foreach($sanphamyeuthich as $sp_yeuthich)
+                                            @if($sp_yeuthich->sanpham_id == $value->id)
+                                                @php
+                                                    $yeuthich = true;
+                                                @endphp
+                                                <li><a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-heart text-danger"></i></a></li>
+                                                @break
+                                            @endif                                      
+                                        @endforeach
+                                        @if($yeuthich==false)
+                                            <li><a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-heart "></i></a></li>
+                                         @endif
+                                    @endguest
+                                        <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye"></i></a></li>
                                         <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -224,11 +243,12 @@
 
                     @foreach($doanhnghiep as $value)
                      <div class="col-lg-3">
-                         @if(empty($value->hinhanh))
+                         @if(empty($value->hinhanh) || $value->hinhanh == 'N/A')
                                    <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
                                         <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
                                     </div>
                                   @else
+                                  
                                   <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
                                           <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
                                     </div>
@@ -304,7 +324,7 @@
 
                     @foreach($donviquanly as $value)
                      <div class="col-lg-3">
-                         @if(empty($value->hinhanh))
+                         @if(empty($value->hinhanh)|| $value->hinhanh == 'N/A')
                                    <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
                                         <h5><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a></h5>
                                     </div>

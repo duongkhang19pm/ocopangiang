@@ -28,7 +28,15 @@
             <div class="col-lg-9">
               <div class="metric-row metric-flush">
                 <!-- metric column -->
-                
+                <div class="col">
+                  <!-- .metric -->
+                  <a href="{{route('doanhnghiep.sanpham.saphet')}}" class="metric metric-bordered align-items-center">
+                    <h2 class="metric-label"> Sản phẩm sắp hết </h2>
+                    <p class="metric-value h3">
+                      <sub><i class="fas fa-file-invoice-dollar"></i></sub> <span class="value">{{count($sanpham_saphet)}}</span>
+                    </p>
+                  </a> <!-- /.metric -->
+                </div>
                 <div class="col">
                   <!-- .metric -->
                   <a href="{{route('doanhnghiep.donhang.moi')}}" class="metric metric-bordered align-items-center">
@@ -112,7 +120,7 @@
         datasets: [
           {
             label: "Doanh Thu",
-            data: cData.data,
+            data: cData.data ,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
@@ -124,7 +132,7 @@
   
       const config = {
         type: 'line',
-        data: data,
+        data: data ,
         
       };
       const myChart = new Chart(
