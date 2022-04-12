@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-	
     <section class="hero">
         <div class="container">
             <div class="row">
@@ -17,21 +16,31 @@
                         </div>
                         <ul>
                             @foreach($nhomsanpham as $value)
-                                <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>$value->tennhom_slug])}}">{{$value->tennhom}}</a></li>
+                                <li><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>$value->tennhom_slug])}}">{{$value->tennhom}}</a>
+                                    
+
+                                </li>
                             @endforeach
                            
                         </ul>
                     </div>
                 </div>
+               
                 <div class="col-lg-9">
+                    <div class="hero__search__form " style="width: 500px;">
+                        <form  >
+                       
+                            <input type="search" name="q" class="search-input" style="width: 500px;" placeholder="Bạn tìm gì ..." >
+                            
+                            
+                        </form>  
+                                       
+                    </div>
+                    <div class="input-group-append" style="height: 50px;"> 
+                        <span class="site-btn" id="basic-addon2"><i class="fas fa-search"></i></span>
+                    </div>
                     <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="{{route('frontend.timkiem')}}">
-                             @csrf
-                                <input type="text" name="key" placeholder="Bạn cần tìm gì ?">
-                                <button type="submit" class="site-btn">Tìm Kiếm</button>
-                            </form>
-                        </div>
+                       
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
@@ -41,6 +50,7 @@
                                 <span>Hỗ Trợ 24/7</span>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="hero__item set-bg "  data-setbg="{{ asset('public/Image/background1.jpg') }}" >
                        
@@ -97,7 +107,7 @@
     @if(session('status'))
         <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
             <span class="fas fa-check-circle"></span>
-            <span class="msg">{!! session('status') !!}</span>           
+            <span class="msg" >{!! session('status') !!}</span>           
         </div>    
     @endif
     <!-- Featured Section Begin -->
@@ -244,14 +254,25 @@
                     @foreach($doanhnghiep as $value)
                      <div class="col-lg-3">
                          @if(empty($value->hinhanh) || $value->hinhanh == 'N/A')
-                                   <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
-                                        <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
+                                 
+                                    <div class="card bg-dark text-white categories__item set-bg">
+                                        <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" class="card-img" alt="..."  height ="270px" width = "100%">
+                                        <div class="card-img-overlay d-flex align-items-end ">
+                                        
+                                            <a class="btn btn-outline-success w-100"href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a>
+                                            
+                                        </div>
                                     </div>
                                   @else
-                                  
-                                  <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
-                                          <h5><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a></h5>
+                                  <div class="card bg-dark text-white categories__item set-bg">
+                                        <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" class="card-img" alt="..."  height ="270px" width = "100%">
+                                        <div class="card-img-overlay d-flex align-items-end ">
+                                        
+                                            <a class="btn btn-outline-success text-center"href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a>
+                                            
+                                        </div>
                                     </div>
+                                 
                                  
                                   @endif
                         
@@ -313,7 +334,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Đơn Vị Quản Lý</h2>
+                        <h2>Liên Kết Đơn Vị</h2>
                     </div>
                   
                 </div>
@@ -325,13 +346,26 @@
                     @foreach($donviquanly as $value)
                      <div class="col-lg-3">
                          @if(empty($value->hinhanh)|| $value->hinhanh == 'N/A')
-                                   <div  class="categories__item set-bg" data-setbg="{{env('APP_URL').'/public/Image/noimage.png'}}">
-                                        <h5><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a></h5>
+                                 <div class="card bg-dark text-white categories__item set-bg">
+                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" class="card-img" alt="..."  height ="270px" width = "100%">
+                                    <div class="card-img-overlay d-flex align-items-end ">
+                                       
+                                        <a class="btn btn-outline-success"href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a>
+                                        
                                     </div>
+                                </div>
+                                
                                   @else
-                                  <div class="categories__item set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
-                                          <h5><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a></h5>
+                                  <div class="card bg-dark text-white categories__item set-bg">
+                                    <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" class="card-img" alt="..."  height ="270px" width = "100%">
+                                    <div class="card-img-overlay d-flex align-items-end ">
+                                       
+                                        <a class="btn btn-outline-success"href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a>
+                                        
                                     </div>
+                                </div>
+                                 
+                                  
                                  
                                   @endif
                         
@@ -346,7 +380,53 @@
         </div>
     </section>
      
- 
 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
 
+    <!-- Typeahead.js Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+       <script type="text/javascript">
+           $(document).ready(function($) {
+              var engine1 = new Bloodhound({
+                  remote: {
+                      url: 'http://127.0.0.1/ocopangiang/search/tensanpham?value=%QUERY%',
+                      wildcard: '%QUERY%'
+                  },
+                  datumTokenizer: Bloodhound.tokenizers.whitespace('value'),
+                  queryTokenizer: Bloodhound.tokenizers.whitespace
+              });
+
+              
+              $(".search-input").typeahead({
+                  hint: true,
+                  highlight: true,
+                  minLength: 1
+                }, [
+                    {
+                        source: engine1.ttAdapter(),
+                        name: 'sanpham-tensanpham',
+                        display: function(data) {
+                            
+                            return data.tensanpham;
+
+                        },
+                       
+                        templates: {
+
+                            empty: [
+                               '<div class="list-group"><a class="list-group-item list-group-item-action list-group-item-light" style="width: 500px;">Không có kết quả phù hợp.</a></div>'
+                            ],
+                           header: [
+                            '<div class="list-group  " ><li class="list-group-item list-group-item-action list-group-item-secondary">Sản phẩm gợi ý</li></div>'
+                            ],
+                            suggestion: function (data) {
+                                return '<a href="http://127.0.0.1/ocopangiang/san-pham/' +  data.tennhom_slug+'/'+data.tenloai_slug+'/'+data.tensanpham_slug+ '" class="list-group-item list-group-item-action list-group-item-light" style="width: 500px;"><div class="row"><div class="col-md-2"><img src="http://localhost/ocopangiang/storage/app/'+ data.hinhanh +'" width="70" height="80" alt=""></div><div class="col-md-4"> ' + data.tensanpham + ' </br><small>'+data.dongia+' <sup>VNĐ</sup></small></div></div></a>';
+                            }
+                        }
+                    }
+              ]);
+            });
+
+      </script>
 @endsection

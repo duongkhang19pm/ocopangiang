@@ -173,8 +173,9 @@
                                                         <img src="{{env('APP_URL').'/storage/app/'.$doanhnghiep->hinhanh  }}"height="150" width="250"  />
                                                         @endif
                                                     </div>
-                                                    <div class="col-lg-10  text-center">
+                                                    <div class="col-lg-10 float-end ">
                                                         <h6>{{$doanhnghiep->tendoanhnghiep}}</h6>
+                                                        <span>Thuộc đơn vị quản lý:</span><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $doanhnghiep->donviquanly->tendonviquanly_slug])}}"> {{$doanhnghiep->donviquanly->tendonviquanly}}</a>
                                                     </div>
                                                     
                                                 </div>

@@ -31,6 +31,7 @@
         <div class="container">
            
             @if(!empty($taikhoan))
+            @if(($baiviet)->isNotEmpty())
             <div class="section-title product__discount__title text-center">
                 <h2>Bài Viết</h2>
             </div>            
@@ -62,7 +63,8 @@
                 
                
             </div>
-                @endif
+            @endif
+            @endif
             
             <div class="section-title product__discount__title text-center">
                 <h2>Thông Tin Đơn Vị Quản Lý</h2>
@@ -85,12 +87,21 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                         <div class="product__details__tab__desc">
-                                            <h6>{{$donviquanly->tendonviquanly}}</h6>
-                                        @if(empty($donviquanly->hinhanh)||$donviquanly->hinhanh == 'N/A')
-                                            <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="250" width="300"  >
-                                        @else
-                                            <img src="{{env('APP_URL').'/storage/app/'.$donviquanly->hinhanh  }}"height="250" width="300"  />
-                                        @endif
+                                        <div class="row mt-3">
+                                            <div class="col-lg-2">
+                                                @if(empty($donviquanly->hinhanh)||$donviquanly->hinhanh == 'N/A')
+                                                    <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="150" width="250"  >
+                                                @else
+                                                    <img src="{{env('APP_URL').'/storage/app/'.$donviquanly->hinhanh  }}"height="150" width="250" />
+                                                @endif
+                                            </div>
+                                            <div class="col-lg-10 float-end ">
+                                                <h6>{{$donviquanly->tendonviquanly}}</h6>
+                                            </div>
+                                            
+                                        </div>
+                                           
+                                      
                                         <div class="row mt-3">
                                             <div class="col-lg-6">
                                                 <p> <strong>Tên Thủ Trưởng:</strong> {{$donviquanly->tenthutruong}}</p>

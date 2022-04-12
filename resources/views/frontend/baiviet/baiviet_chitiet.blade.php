@@ -75,7 +75,7 @@
                     </div>
                     <div class="blog__details__content">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                 <div class="blog__details__author">
                                     <div class="blog__details__author__pic">
                                         @if(($bv->taikhoan->hinhanh)==null)
@@ -85,12 +85,16 @@
                                         @endif
                                     </div>
                                     <div class="blog__details__author__text">
-                                        <h6>{{$bv->taikhoan->name}} - {{$bv->taikhoan->donviquanly->tendonviquanly}} - {{$bv->taikhoan->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</h6>
-                                        <span>quyền hạn: {{$bv->taikhoan->privilege}}</span>
+                                        <h6>Họ & Tên: {{$bv->taikhoan->name}}</h6>
+                                        @if(($bv->taikhoan->doanhnghiep) != null)
+                                        <span>Thuộc doanh nghiệp:</span><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $bv->taikhoan->doanhnghiep->tendoanhnghiep_slug])}}"> {{$bv->taikhoan->doanhnghiep->tendoanhnghiep ?? 'N/A' }}</a> </br>
+                                        @endif
+                                        <span>Thuộc đơn vị quản lý:</span><a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $bv->taikhoan->donviquanly->tendonviquanly_slug])}}"> {{$bv->taikhoan->donviquanly->tendonviquanly}}</a>
+                                    
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="blog__details__widget">
                                     <ul>
                                         <li><span>Chủ đề:</span> {{$bv->ChuDe->tenchude}}</li>

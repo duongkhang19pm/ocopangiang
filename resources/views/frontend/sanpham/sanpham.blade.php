@@ -202,12 +202,12 @@
             </div>
             <div class="filter__item">
                         <div class="row">
-                            <div class="col-lg-4 col-md-5">
+                            <div class="col-lg-5 col-md-3">
                                 <div class="filter__sort">
                                     
                                     <form action="{{ route('frontend.sanpham') }}" method="post">
                                          @csrf
-                                         <select class="form-control form-control-sm" id="sapxep" name="sapxep" onchange="if(this.value != 0) { this.form.submit(); }">
+                                         <select class="form-control form-control-sm w-50" id="sapxep" name="sapxep" onchange="if(this.value != 0) { this.form.submit(); }">
                                          <option value="default" {{ session('sapxep') == 'default' ? 'selected' : '' }}>Sắp xếp mặc định</option>
                                          <option value="BUY" {{ session('sapxep') == 'BUY' ? 'selected' : '' }}>Mua nhiều nhất</option>
                                          <option value="NEW" {{ session('sapxep') == 'NEW' ? 'selected' : '' }}>Hàng mới nhất</option>
@@ -217,15 +217,25 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4">
+                            <div class="col-lg-2 col-md-4">
                                 <div class="filter__found">
                                     <h6><span>{{$sanpham->count()}}</span>sản phẩm</h6>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
-                                    <span class="icon_grid-2x2"></span>
-                                    <span class="icon_ul"></span>
+                            <div class="col-lg-5 col-md-3">
+                                <div class="filter__sort">
+                                    
+                                    <form action="{{ route('frontend.sanpham.locgia') }}" method="post">
+                                         @csrf
+                                         <select class="form-control form-control-sm  float-right w-50"   id="locgia" name="locgia" onchange="if(this.value != 0) { this.form.submit(); }">
+                                         <option value="default" {{ session('locgia') == 'default' ? 'selected' : '' }}>Sắp xếp giá mặc định</option>
+                                         <option value="D200" {{ session('locgia') == 'D200' ? 'selected' : '' }}>Dưới 200.000 VNĐ</option>
+                                         <option value="D400" {{ session('locgia') == 'D400' ? 'selected' : '' }}>Từ 200.000 VNĐ - 400.000 VNĐ</option>
+                                         <option value="D600" {{ session('locgia') == 'D600' ? 'selected' : '' }}>Từ 400.000 VNĐ - 600.000 VNĐ</option>
+                                         <option value="D800" {{ session('locgia') == 'D800' ? 'selected' : '' }}>Từ 600.000 VNĐ - 800.000 VNĐ</option>
+                                         <option value="D1000" {{ session('locgia') == 'D1000' ? 'selected' : '' }}>Trên 1.000.000 VNĐ</option>
+                                         </select>
+                                    </form>
                                 </div>
                             </div>
                         </div>

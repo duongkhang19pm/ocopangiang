@@ -29,16 +29,18 @@ use App\Http\Controllers\QuyCachController;
 use App\Http\Controllers\HinhThucThanhToanController;
 use App\Http\Controllers\ChiTietPhanHangSanPhamController;
 use App\Http\Controllers\DanhGiaController;
-
+use App\Models\TaiKhoan;
 // Trang chủ
 Route::get('/', [HomeController::class, 'getHome'])->name('frontend');
 
 Route::get('/403', [HomeController::class, 'getForbidden'])->name('403');
 
+
+Route::get('/search/tensanpham', [HomeController::class, 'searchSanPham'])->name('search.tensanpham');
 // Google OAuth
 Route::get('/login/google', [HomeController::class, 'getGoogleLogin'])->name('google.login');
 Route::get('/login/google/callback', [HomeController::class, 'getGoogleCallback'])->name('google.callback');
-Route::get('/timkiem', [HomeController::class, 'getTimKiem'])->name('frontend.timkiem');
+
 //Đăng Ký, đăng nhập, quên mật khẩu,...
 Auth::routes();
 // Trang Liên hệ
@@ -52,6 +54,8 @@ Route::get('/san-pham', [HomeController::class, 'getSanPham'])->name('frontend.s
 Route::post('/san-pham', [HomeController::class, 'postSanPham'])->name('frontend.sanpham');
 Route::post('/san-pham/show', [HomeController::class, 'postSanPham_Show'])->name('frontend.sanpham.show');
 Route::get('/san-pham/phan-hang/{tenphanhang_slug}', [HomeController::class, 'getSanPham_PhanHang'])->name('frontend.phanhang');
+
+Route::post('/san-pham/loc', [HomeController::class, 'postSanPham_LocDonGia'])->name('frontend.sanpham.locgia');
 
 Route::get('/san-pham/{tennhom_slug}', [HomeController::class, 'getSanPham_Nhom'])->name('frontend.sanpham.nhomsanpham');
 Route::post('/san-pham/show/{tennhom_slug}', [HomeController::class, 'postSanPham_NhomShow'])->name('frontend.sanpham.nhomsanpham.show');

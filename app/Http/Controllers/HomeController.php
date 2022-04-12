@@ -60,6 +60,20 @@ class HomeController extends Controller
         return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly'));
         
     }
+     
+
+    public function searchSanPham(Request $request)
+    {
+
+        $sanpham = SanPham::join('loaisanpham','sanpham.loaisanpham_id','=','loaisanpham.id')
+        ->join('nhomsanpham','loaisanpham.nhomsanpham_id','=','nhomsanpham.id')
+        ->where('tensanpham', 'like', '%' . $request->value . '%')
+        ->select('sanpham.*','loaisanpham.tenloai_slug','nhomsanpham.tennhom_slug')
+        ->get();
+       //dd(response()->json($taikhoan));
+        return response()->json($sanpham); 
+
+    }
     public function getGoogleLogin()
     {
         return Socialite::driver('google')->redirect();
@@ -102,19 +116,7 @@ class HomeController extends Controller
         }
     }
 
-    public function getTimKiem(Request $request)
-    {
-       
-        $key = $request->get('key');
-        $sanpham = SanPham::where('tensanpham','like','%'.$key.'%')->where('hienthi',1)->where('soluong','>',0)->orderBy('created_at', 'desc')->paginate(21);
-        
-        $nhomsanpham = NhomSanPham::all();
-        $phanhang= PhanHang::all();
-        return view('frontend.sanpham.timkiem', compact('key','sanpham','nhomsanpham','phanhang'));
-
-      
-    }
-
+  
     public function getDonViQuanLy($tendonviquanly_slug)
     {
         $donviquanly = DonViQuanLy::where('tendonviquanly_slug',$tendonviquanly_slug)->first();
@@ -169,6 +171,41 @@ class HomeController extends Controller
         else
         return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
     }
+    public function postSanPham_LocDonGia(Request $request)
+    {
+        $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
+        $phanhang= PhanHang::all();
+       if($request->locgia == 'D200')
+       {
+            $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->where('dongia','<',200000)->get(); 
+            session()->put('locgia', 'D200');
+       }
+       elseif ($request->locgia == 'D400')
+       {
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->whereBetween('dongia',[200000,400000])->get(); 
+        session()->put('locgia', 'D400');
+       }
+       elseif ($request->locgia == 'D600')
+       {
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->whereBetween('dongia',[400000,600000])->get(); 
+        session()->put('locgia', 'D600');
+       }
+       elseif ($request->locgia == 'D800')
+       {
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->whereBetween('dongia',[600000,800000])->get(); 
+        session()->put('locgia', 'D800');
+       }
+       elseif ($request->locgia == 'D1000')
+       {
+        $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->where('dongia','>',1000000)->get(); 
+        session()->put('locgia', 'D40D10000');
+       }
+       else{
+            $sanpham = SanPham::where('hienthi',1)->where('soluong','>',0)->get(); 
+            session()->put('locgia', 'default');
+       }
+       return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
+    }
     public function postSanPham(Request $request)
     {
         if($request->sapxep == 'BUY')
@@ -211,6 +248,7 @@ class HomeController extends Controller
         $phanhang= PhanHang::all();
         return view('frontend.sanpham.sanpham',compact('sanpham','nhomsanpham','phanhang'));
     }
+
     public function getSanPham_Nhom($tennhom_slug)
     {
         $nhomsanpham = NhomSanPham::where('tennhom_slug',$tennhom_slug)->first();

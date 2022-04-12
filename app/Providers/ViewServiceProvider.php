@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\NhomSanPham;
 use App\Models\SanPhamYeuThich;
+use App\Models\DoanhNghiep;
 use Illuminate\Support\Facades\Auth;
 class ViewServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,10 @@ class ViewServiceProvider extends ServiceProvider
         View::Composer('frontend.nav',function($view){
             $nhomsanpham = NhomSanPham::orderBy('tennhom')->get();
             $view->with('nhomsanpham',$nhomsanpham);
+        });
+        View::Composer('layouts.frontend',function($view){
+            $doanhnghiep = DoanhNghiep::orderBy('tendoanhnghiep')->get();
+            $view->with('doanhnghiep',$doanhnghiep);
         });
         if(Auth::check())
         {

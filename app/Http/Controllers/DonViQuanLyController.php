@@ -46,6 +46,7 @@ class DonViQuanLyController extends Controller
     public function getHuyen(Request $request)
     {
         $huyen = Huyen::where("tinh_id", $request->tinh_id)->pluck("tenhuyen", "id");
+       
         return response()->json($huyen);
     }
 

@@ -44,9 +44,14 @@
 										@endif
 									@csrf
 									<div class="form-group">								
-										<input type="text" class="form-control{{ ($errors->has('email') || $errors->has('username')) ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Tên đăng nhập hoặc Email *" required />
+										<input type="text" class="form-control form-control-lg{{ ($errors->has('email') || $errors->has('username')) ? ' is-invalid' : '' }}" id="email" name="email" value="{{ old('email') }}" placeholder="Email hoặc Tên đăng nhập" required />
+
 										@if ($errors->has('email') || $errors->has('username'))
-											<span class="invalid-feedback" role="alert"><strong>{{ empty($errors->first('email')) ? $errors->first('username') : $errors->first('email') }}</strong></span>
+										<span class="invalid-feedback">
+											<strong><i class="fa fa-exclamation-circle fa-fw"></i> 
+											{{ empty($errors->first('email')) ? $errors->first('username') : $errors->first('email') }}
+											</strong>
+										</span>
 										@endif
 									</div>
 									<div class="form-group">							

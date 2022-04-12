@@ -82,17 +82,17 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{{route('frontend')}}">Trang Chủ</a></li>
-                <li><a href="{{route('frontend.sanpham')}}">Sản Phẩm</a></li>
+                
                 <li><a href="{{route('frontend.baiviet')}}">Tin Tức</a></li>
                 <li><a href="{{route('frontend.lienhe')}}">Liên Hệ</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
         <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
         </div>
         <div class="humberger__menu__contact">
             <ul>
@@ -119,10 +119,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-pinterest"></i></a>
                             </div>
                             <div class="header__top__right__language">
                                 <img src="img/language.png" alt="">
@@ -178,8 +178,17 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{{route('frontend')}}">Trang Chủ</a></li>
-                            <li><a href="{{route('frontend.sanpham')}}">Sản Phẩm</a></li>
                             
+                            <li><a href="#">Doanh Nghiệp</a>
+                                <ul class="header__menu__dropdown" style="background-color: #669900;  width: 500px;">
+                                    @foreach($doanhnghiep as $value)
+                                    <div class="col mb-4 ms-2 ps-2">
+                                        <li><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}" >{{ $value->tendoanhnghiep}}</a></li>
+                                    </div>
+                                    @endforeach
+
+                                </ul>
+                            </li>
                             <li><a href="{{route('frontend.baiviet')}}">Tin Tức</a></li>
                             <li><a href="{{route('frontend.lienhe')}}">Liên Hệ</a></li>
                         </ul>

@@ -76,7 +76,7 @@ class BaiVietController extends Controller
 
         // Sửa
         $orm = BaiViet::find($id);
-       $orm->chude_id = $request->chude_id;
+        $orm->chude_id = $request->chude_id;
         $orm->taikhoan_id = Auth::user()->id;
         $orm->tieude = $request->tieude;
         $orm->tieude_slug = Str::slug($request->tieude, '-');

@@ -215,7 +215,7 @@
                     @endif
                @else
 
-               <li class="menu-header">Doanh Mục</li>
+               <li class="menu-header">Danh Mục</li>
                 <!-- /Doanh Mục -->
                <li class="menu-item has-child">
                   <a href="#" class="menu-link">
