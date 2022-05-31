@@ -295,7 +295,7 @@
                 </li>
                 <li class="menu-item has-child">
                   <a href="#" class="menu-link">
-                   <span class="menu-icon fas fa-dice-d20"></span>
+                   <span class="menu-icon fas fa-book"></span>
                     <span class="menu-text">Bài Viết </span>
                   </a>
                   <!-- child menu -->

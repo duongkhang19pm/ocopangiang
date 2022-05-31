@@ -89,8 +89,8 @@
         </div><!-- /.section-block -->
         <!-- grid row -->
         <div class="container-fluid pt-4 px-4">
-                <div>
-          <canvas id="myChart"></canvas>
+          <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
         </div>  
                 
                         
@@ -105,43 +105,29 @@
 @endsection
 @section('javascript')
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
- <script>
-  $(function(){
-      //get the pie chart canvas
-      var cData = JSON.parse('<?php echo $chart_data; ?>');
-      
- 
-      //pie chart data
-      var data = {
-      
-        labels:cData.label ,
-        datasets: [
-          {
-            label: "Doanh Thu",
-            data: cData.data ,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-            
-          }
-        ]
-      };
- 
-  
-      const config = {
-        type: 'line',
-        data: data ,
-        
-      };
-      const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
-      
- 
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+  window.onload = function () {
+    var dataPoints = JSON.parse('<?php echo json_encode($chart_data, JSON_NUMERIC_CHECK); ?>');
+  var chart = new CanvasJS.Chart("chartContainer", {
+    title: {
+      text: "Doanh Thu"
+    },
+    axisY: {
+      title: "thành tiền",
+      suffix: " đ",
+    },
+    data: [{
+      type: "line",
+      yValueFormatString: "#,##0.## đ",
+      dataPoints: dataPoints
+    }]
   });
+  chart.render();
+  
+  }
 </script>
+
 
 @endsection

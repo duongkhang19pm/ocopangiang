@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="csrf-token" content="1yxYZsLmDwhQaeiIBi3sHC1u6kNOiA0dh4gBmga4" />
+  <meta name="author" content="AGChain Lab." />
+  <meta name="theme-color" content="#3063A0" />
+  <title>	Đơn Vị Quản Lý
+ - Ocop An Giang</title>
+  <link rel="apple-touch-icon" sizes="144x144" href="http://127.0.0.1/ocopangiang/public/assets/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="http://127.0.0.1/ocopangiang/public/Image/logo.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/@fortawesome/fontawesome-pro/css/all.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/flatpickr/flatpickr.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/theme.min.css" data-skin="default" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/theme-dark.min.css" data-skin="dark" />
+    <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/custom.css" />
+  <script>
+    var skin = localStorage.getItem('skin') || 'default';
+    var isCompact = JSON.parse(localStorage.getItem('hasCompactMenu'));
+    var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+    disabledSkinStylesheet.setAttribute('rel', '');
+    disabledSkinStylesheet.setAttribute('disabled', true);
+    if (isCompact == true) document.querySelector('html').classList.add('preparing-compact-menu');
+  </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/frontend/assets/css/thongbao.css">
+  </head>
+  <body>
+    <!-- .app -->
+    <div class="app">
+        <header class="app-header app-header-dark">
+      <div class="top-bar">
+        <div class="top-bar-brand">
+          <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu" aria-label="toggle aside menu">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
+          <a href="http://127.0.0.1/ocopangiang/admin/home">
+            <img src="http://127.0.0.1/ocopangiang/public/Image/logo.png" height="50" />
+          </a>
+        </div>
+        <div class="top-bar-list">
+          <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
+            <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="toggle menu">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+          </div>
+          <div class="top-bar-item top-bar-item-full">
+            <form class="top-bar-search">
+              <div class="input-group input-group-search dropdown">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Tìm kiếm" />
+              </div>
+            </form>
+          </div>
+          <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+            <ul class="header-nav nav">
+              <li class="nav-item dropdown header-nav-dropdown">
+                <a class="nav-link" href="#truycapnhanh" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-grid-three-up"></span></a>
+                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+                  <div class="dropdown-arrow"></div>
+                  <div class="dropdown-sheets">
+                    <div class="dropdown-sheet-item">
+                      <a href="#" class="tile-wrapper">
+                        <span class="tile tile-lg bg-indigo"><i class="oi oi-people"></i></span>
+                        <span class="tile-peek">Hướng dẫn</span>
+                      </a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="#" class="tile-wrapper">
+                        <span class="tile tile-lg bg-teal"><i class="oi oi-fork"></i></span>
+                        <span class="tile-peek">Yêu cầu trợ giúp</span>
+                      </a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="#" class="tile-wrapper">
+                        <span class="tile tile-lg bg-pink"><i class="fa fa-tasks"></i></span>
+                        <span class="tile-peek">Biểu mẫu</span>
+                      </a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="#" class="tile-wrapper">
+                        <span class="tile tile-lg bg-yellow"><i class="oi oi-fire"></i></span>
+                        <span class="tile-peek">Văn bản</span>
+                      </a>
+                    </div>
+                    <div class="dropdown-sheet-item">
+                      <a href="#" class="tile-wrapper">
+                        <span class="tile tile-lg bg-cyan"><i class="oi oi-document"></i></span>
+                        <span class="tile-peek">Thông tin dự án</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+                          <div class="dropdown d-none d-md-flex">
+                <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="user-avatar user-avatar-md">
+                                         <img src="http://localhost/ocopangiang/public/Image/noimage.png" >
+                                      </span>
+                  <span class="account-summary pr-lg-4 d-none d-lg-block">
+                    <span class="account-name">Administrator</span>
+                    <span class="account-description">Quyền hạn: admin</span>
+                  </span>
+                </button>
+                <div class="dropdown-menu">
+                  <div class="dropdown-arrow d-lg-none" x-arrow=""></div>
+                  <div class="dropdown-arrow ml-3 d-none d-lg-block"></div>
+                  <h6 class="dropdown-header d-none d-md-block d-lg-none">Administrator</h6>
+                  <a class="dropdown-item" href="http://127.0.0.1/ocopangiang/admin/taikhoan/admin/hosocanhan/1">
+                  <span class="dropdown-icon oi oi-person"></span> Hồ sơ cá nhân</a>
+                  
+                  <a class="dropdown-item" href="http://127.0.0.1/ocopangiang/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="dropdown-icon oi oi-account-logout"></span> Đăng xuất hệ thống</a>
+                  <form id="logout-form" action="http://127.0.0.1/ocopangiang/logout" method="post" style="display:none;"><input type="hidden" name="_token" value="1yxYZsLmDwhQaeiIBi3sHC1u6kNOiA0dh4gBmga4"></form>
+                </div>
+              </div>
+                      </div>
+        </div>
+      </div>
+    </header>
+    
+      <!-- .app-aside -->
+      <aside class="app-aside app-aside-expand-md app-aside-light">
+        <!-- .aside-content -->
+        <div class="aside-content">
+                  <!-- .aside-header -->
+          <header class="aside-header d-block d-md-none">
+            <!-- .btn-account -->
+            <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
+              <span class="user-avatar user-avatar-lg">
+                                      <img src="http://localhost/ocopangiang/public/Image/noimage.png" >
+                                  </span>
+              <span class="account-icon">
+                <span class="fa fa-caret-down fa-lg"></span>
+              </span>
+              <span class="account-summary">
+                <span class="account-name">Administrator</span>
+          
+              </span>
+            </button>
+            <!-- /.btn-account -->
+            <!-- .dropdown-aside -->
+            
+            <div id="dropdown-aside" class="dropdown-aside collapse">
+              <!-- dropdown-items -->
+              <div class="pb-3">
+                <a class="dropdown-item" href="http://127.0.0.1/ocopangiang/admin/taikhoan/admin/hosocanhan/1">
+                  <span class="dropdown-icon oi oi-person"></span> Hồ sơ cá nhân</a>
+                <a class="dropdown-item" href="http://127.0.0.1/ocopangiang/logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                  <span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+                   <form id="logout-form" action="http://127.0.0.1/ocopangiang/logout" method="post" class="d-none">
+                  <input type="hidden" name="_token" value="1yxYZsLmDwhQaeiIBi3sHC1u6kNOiA0dh4gBmga4">                  </form>
+                
+              </div>
+              <!-- /dropdown-items -->
+            </div>
+           
+            <!-- /.dropdown-aside -->
+          </header>
+                     <!-- /.aside-header -->
+          <!-- .aside-menu -->
+         <div class="aside-menu overflow-hidden">
+            <!-- .stacked-menu -->
+            <nav id="stacked-menu" class="stacked-menu">
+              <!-- .menu -->
+              <ul class="menu">
+                <!-- .menu-item -->
+                <li class="menu-item has-active">
+                  <a href="http://127.0.0.1/ocopangiang/admin/home" class="menu-link">
+                    <span class="menu-icon fas fa-home"></span>
+                    <span class="menu-text">Trang Chủ</span>
+                  </a>
+                </li>
+                <!-- /.menu-item -->
+                
+               <li class="menu-header">Danh Mục</li>
+                <!-- /Doanh Mục -->
+               <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+
+                    <span class="menu-icon fas fa-globe-americas"></span>
+                    <span class="menu-text">Vị Trí</span>
+                  </a>
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/tinh" class="menu-link">Tỉnh/Thành Phố</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/huyen" class="menu-link">Quận/Huyện</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/xa" class="menu-link">Xã/Phường</a>
+                    </li>
+                   
+                   
+                     
+                  </ul>
+                 
+                </li>
+
+                 <!-- /Đơn Vị-->
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-layer-group"></span>
+                    <span class="menu-text">Doanh Nghiệp </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/chucvu" class="menu-link">Chức Vụ</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/loaihinhkinhdoanh" class="menu-link">Loại Hình Kinh Doanh</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/mohinhkinhdoanh" class="menu-link">Mô Hình Kinh Doanh</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/hinhthucthanhtoan" class="menu-link">Hình Thức Thanh Toán</a>
+                    </li>
+                  </ul>
+                 
+                </li>
+
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-dice-d20"></span>
+                    <span class="menu-text">Sản Phẩm </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/donvitinh" class="menu-link">Đơn Vị Tính</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/tinhtrang" class="menu-link">Tình Trạng</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/phanhang" class="menu-link">Phân Hạng</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/nhomsanpham" class="menu-link">Nhóm sản phẩm</a>
+                    </li>
+                    <hr/>
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/loaisanpham" class="menu-link">Loại sản phẩm</a>
+                    </li>
+                     <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/quycach" class="menu-link">Quy Cách Đóng Gói</a>
+                    </li>
+                  </ul>
+                 
+                </li>
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-book"></span>
+                    <span class="menu-text">Bài Viết </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/chude" class="menu-link">Chủ Đề</a>
+                   
+                  </ul>
+                 
+                </li>
+                <li class="menu-header">Đơn Vị</li>
+                 <!-- /Đơn Vị-->
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                    <span class="menu-icon fas fa-city"></span>
+                    <span class="menu-text">Quản Lý </span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/donviquanly" class="menu-link">Đơn Vị Quản Lý</a>
+                    </li>
+                    
+                  </ul>
+                 
+                </li>
+
+                
+                
+                <li class="menu-header">Tài Khoản</li>
+                <!-- Tài Khoản -->
+                <li class="menu-item has-child">
+                  <a href="#" class="menu-link">
+                   <span class="menu-icon fas fa-user-circle"></span>
+                    <span class="menu-text">Tài Khoản</span>
+                  </a>
+                  <!-- child menu -->
+                  <ul class="menu">
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/taikhoan/admin" class="menu-link">Quản Trị Viên</a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/taikhoan/donviquanly" class="menu-link">Đơn Vị Quản Lý</a>
+                    </li>
+                 
+                    <li class="menu-item">
+                      <a href="http://127.0.0.1/ocopangiang/admin/taikhoan/khachhang" class="menu-link">Khách Hàng</a>
+                    </li>
+                  
+                  </ul>
+                 
+                </li>
+                
+                
+                
+                
+                                  
+                <!-- /.menu-item -->
+              </ul>
+              <!-- /.menu -->
+            </nav>
+            <!-- /.stacked-menu -->
+          </div>
+          <footer class="aside-footer border-top p-2">
+            <button class="btn btn-light btn-block text-primary" data-toggle="skin">
+              <span class="d-compact-menu-none">Chế độ ban đêm</span> <i class="fas fa-moon ml-1"></i>
+            </button>
+          </footer>
+          <!-- /.aside-menu -->
+        </div>
+        <!-- /.aside-content -->
+      </aside>
+      <!-- /.app-aside -->
+      <!-- .app-main -->
+      <main class="app-main">
+      <div class="wrapper">
+        <table>
+                                <thead style="background-color: green; color: skyblue; border: 3px solid #ee00ee">
+                                    <tr>
+                                        <th width="10">Tỉnh</th>
+                                        <th width="10">Huyện</th>
+                                        <th width="10">Xã</th>
+                                        <th width="10">Tên Đường</th>
+                                        <th width="10">Tên Đơn Vị</th>
+                                        <th width="10">Họ Tên Thủ Trưởng</th>
+                                        <th width="10">Email</th>
+                                        <th width="10">Điện Thoại</th>
+                                        <th width="10">Website</th>
+                                        <th width="10">Hình Ảnh</th>  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thành phố Long Xuyên</td>
+                                            <td>Phường Mỹ Bình</td>
+                                            <td>03 Lê Triệu Kiết</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TP Long Xuyên</td>
+                                            <td>Phạm Minh Tâm</td>
+                                            <td>sokhdtlx@angiang.gov.vn</td>
+                                            <td>02963852913</td>
+                                            <td>https://longxuyen.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tp-long-xuyen.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Chợ Mới</td>
+                                            <td>Thị trấn Chợ Mới</td>
+                                            <td>Đường Nguyễn Huệ, Ấp Thị</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Chợ Mới</td>
+                                            <td>Trần Minh Dững</td>
+                                            <td>sokhdtcm@angiang.gov.vn</td>
+                                            <td>02963883217</td>
+                                            <td>https://chomoi.angiang.gov.vn</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-cho-moi.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thành phố Châu Đốc</td>
+                                            <td>Phường Châu Phú B</td>
+                                            <td>số , Lê Lợi</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TP Châu Đốc</td>
+                                            <td>Lâm Quang Thi</td>
+                                            <td>sokhdtcd@angiang.gov.vn</td>
+                                            <td>0296386910</td>
+                                            <td>https://chaudoc.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tp-chau-doc.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện An Phú</td>
+                                            <td>Thị trấn An Phú</td>
+                                            <td>số 4252, đường Bạch Đằng</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện An Phú</td>
+                                            <td>Trần Hòa Hợp</td>
+                                            <td>sokhdtap@angiang.gov.vn</td>
+                                            <td>02963826693</td>
+                                            <td>https://anphu.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-an-phu.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thị xã Tân Châu</td>
+                                            <td>Phường Long Thạnh</td>
+                                            <td>đường Trần Hưng Đạo</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TX Tân Châu</td>
+                                            <td>Trần Thị Hòa Bình</td>
+                                            <td>sokhdttxtc@angiang.gov.vn</td>
+                                            <td>02963532708</td>
+                                            <td>https://tanchau.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tx-tan-chau.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh Cà Mau</td>
+                                            <td>Huyện Phú Tân</td>
+                                            <td>Thị trấn Phú Mỹ</td>
+                                            <td>số 1 , đường Trương Định</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Phú Tân</td>
+                                            <td>Ngô Thanh Trí</td>
+                                            <td>sokhdtpt@angiang.gov.vn</td>
+                                            <td>0296827227</td>
+                                            <td>https://phutan.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-phu-tan.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Châu Phú</td>
+                                            <td>Thị trấn Cái Dầu</td>
+                                            <td>ấp Vĩnh Thành</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Châu Phú</td>
+                                            <td>Nguyễn Phước Nên</td>
+                                            <td>sokhdtcp@angiang.gov.vn</td>
+                                            <td>02963688635</td>
+                                            <td>https://chauphu.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-chau-phu.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Tịnh Biên</td>
+                                            <td>Thị trấn Tịnh Biên</td>
+                                            <td>khóm xuân hòa</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Tịnh Biên</td>
+                                            <td>Nguyễn Thành Huân</td>
+                                            <td>sokhdttb@angiang.gov.vn</td>
+                                            <td>02963875298</td>
+                                            <td>https://tinhbien.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-tinh-bien.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Tri Tôn</td>
+                                            <td>Thị trấn Tri Tôn</td>
+                                            <td>152 Trần Hưng Đạo</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Tri Tôn</td>
+                                            <td>Phạm Thu Hương</td>
+                                            <td>sokhdttt@angiang.gov.vn</td>
+                                            <td>02963874351</td>
+                                            <td>https://triton.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-tri-ton.jpg</td>
+                                            
+                                        </tr>
+                                                                    </tbody>
+                            </table>
+       </div>
+      
+      <footer class="app-footer">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Hỗ trợ</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Hướng dẫn sử dụng</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Thông tin phần mềm</a>
+          </li>
+        </ul>
+        <div class="copyright">Bản quyền &copy 2022. Thiết kế và xây dựng bởi <a href="#" target="_blank">Dương Văn Khang</div>
+      </footer>
+    </main>
+      <!-- /.app-main -->
+    </div>
+    <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/jquery/jquery.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/popper.js/umd/popper.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/pace-progress/pace.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/stacked-menu/js/stacked-menu.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/flatpickr/flatpickr.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/easy-pie-chart/jquery.easypiechart.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/chart.js/Chart.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/javascript/theme.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/javascript/main.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+  <script>
+    
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+       
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tất cả"]],
+        "iDisplayLength": 10,
+        "oLanguage": {
+          "sLengthMenu": "Hiện _MENU_ dòng",
+          "oPaginate": {
+            "sFirst": "<i class='fas fa-step-backward'></i>",
+            "sLast": "<i class='fas fa-step-forward'></i>",
+            "sNext": "<i class='fas fa-chevron-right'></i>",
+            "sPrevious": "<i class='fas fa-chevron-left'></i>"
+          },
+          "sEmptyTable": "Không có dữ liệu",
+          "sSearch": "Tìm kiếm:",
+          "sZeroRecords": "Không có dữ liệu",
+          "sInfo": "Hiện từ _START_ đến _END_ của _TOTAL_ dòng",
+          "sInfoEmpty" : "Không tìm thấy",
+          "sInfoFiltered": " (tổng số _MAX_ dòng)"
+        }
+        
+    } );
+    
+} );
+  </script>
+  <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+           $('.thongbao').addClass("showAlert");
+           $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
+    </script>
+    </body>
+</html>

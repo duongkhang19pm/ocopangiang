@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/style.css' ) }}" type="text/css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/thongbao.css')}}">
    
 </head>
 
@@ -272,6 +273,15 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         }
+    </script>
+    <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+        $('.thongbao').addClass("showAlert");
+        $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
     </script>
       @yield('javascript')
       

@@ -105,13 +105,13 @@
                                         <div class="row mt-3">
                                             <div class="col-lg-6">
                                                 <p> <strong>Tên Thủ Trưởng:</strong> {{$donviquanly->tenthutruong}}</p>
-                                                <p> <strong>Địa Chỉ:</strong> {{ $donviquanly->Xa->Huyen->Tinh->tentinh }} - {{ $donviquanly->Xa->Huyen->tenhuyen }} - {{ $donviquanly->Xa->tenxa }}  -  Đường:{{ $donviquanly->tenduong }}</p>
+                                                <p> <strong>Địa Chỉ: </strong>  {{ $donviquanly->tenduong }} -  {{ $donviquanly->Xa->tenxa }} - {{ $donviquanly->Xa->Huyen->tenhuyen }} - {{ $donviquanly->Xa->Huyen->Tinh->tentinh }}    </p>
                                                 
                                             </div>
                                             <div class="col-lg-6">
                                                 <p> <strong>Email:</strong> {{$donviquanly->email}}</p>
                                                 <p> <strong>Điện Thoại:</strong> {{$donviquanly->SDT}}</p>
-                                                <p> <strong>Website:</strong> {{$donviquanly->website}}</p>
+                                                <p> <strong>Website:</strong> <a href="{{$donviquanly->website}}" target="_blank"><i class="fas fa-fw fa-link"></i>{{$donviquanly->website}}</a></p>
                                                 
                                             </div>
                                         </div>

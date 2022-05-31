@@ -83,8 +83,8 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <!-- .table -->
-                          <h4 class="text-center">Doanh Thu của {{$doanhnghiep->tendoanhnghiep}} </h4>
-                          <h4 class="text-center">từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></h4>
+                          
+                          <h4 class="text-center">Doanh thu từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></br>với đơn giá hiện tại</h4>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -97,21 +97,25 @@
                                     </tr>
                                 </thead>
                             <tbody>
-                                 @php $tong = 0; @endphp            
+                                 @php $tong = 0; @endphp   
+                                 @php $stt = 1; @endphp           
                                 @foreach($doanhthu as $value)
+                                     @if($value->dongiasanpham == $value->dongia)     
+                                        <tr>
+                                            <td class="align-middle">{{ $stt++ }}</td>
+                                            <td class="align-middle">{{ $value->tensanpham }}</td>
+                                            <td class="align-middle">{{ $value->tongsoluongban }}</td>
+                                            <td class="align-middle">{{ number_format($value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+
+                                            <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+                                             @php $tong += $value->tongsoluongban * $value->dongiasanpham; @endphp
+                                         </tr>
                                         
-                                    <tr>
-                                        <td class="align-middle">{{ $loop->iteration }}</td>
-                                        <td class="align-middle">{{ $value->tensanpham }}</td>
-                                        <td class="align-middle">{{ $value->tongsoluongban }}</td>
-                                        <td class="align-middle">{{ number_format($value->dongia) }} VNĐ</td>
-                                        <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongia) }} VNĐ</td>
-                                         @php $tong += $value->tongsoluongban * $value->dongia; @endphp
-                                     </tr>
+                                         @endif
                                 @endforeach
                                     <tr >
                                         <td colspan="4" class="fw-bold" >Tổng doanh thu</td>
-                                        <td colspan="4" class="fw-bold">{{number_format( $tong) }} VNĐ</td>
+                                        <td colspan="4" class="fw-bold">{{number_format( $tong) }} <sup><u>đ</u></sup></td>
 
                                     </tr>
                              </tbody>
@@ -122,7 +126,54 @@
                          
                       </div>
                     </section>
-               
+                    <section class="card card-fluid">
+                      <!-- .card-body -->
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <!-- .table -->
+  
+                          <h4 class="text-center">Doanh thu từ <strong>{{date('d-m-Y', strtotime($session_title_dateStart))}}</strong> đến <strong> {{date('d-m-Y', strtotime($session_title_dateEnd))}}</strong></br>với đơn giá cũ</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th >#</th>
+                                        <th >Tên Sản Phẩm</th>
+                                        <th>Số Lượng Bán </th>
+                                        <th>Đơn Giá</th>
+                                        <th>Tổng Tiền</th>
+                                        <th style="width:100px; min-width:100px;"> &nbsp; </th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                 @php $tong = 0; @endphp   
+                                 @php $stt = 1; @endphp            
+                                @foreach($doanhthu as $value)
+                                     @if($value->dongiasanpham != $value->dongia)     
+                                        <tr>
+                                            <td class="align-middle">{{$stt++ }}</td>
+                                            <td class="align-middle">{{ $value->tensanpham }}</td>
+                                            <td class="align-middle">{{ $value->tongsoluongban }}</td>
+                                            <td class="align-middle">{{ number_format($value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+
+                                            <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+                                             @php $tong += $value->tongsoluongban * $value->dongiasanpham; @endphp
+                                         </tr>
+                                         
+                                         @endif
+                                @endforeach
+                                    <tr >
+                                        <td colspan="4" class="fw-bold" >Tổng doanh thu</td>
+                                        <td colspan="4" class="fw-bold">{{number_format( $tong) }} <sup><u>đ</u></sup></td>
+
+                                    </tr>
+                             </tbody>
+                          </table>
+                        
+                          <!-- /.table -->
+                        </div>
+                         
+                      </div>
+                    </section>
                 </div> 
             @endif
          
@@ -178,7 +229,7 @@
                       <div class="card-body">
                         <div class="table-responsive">
                           <!-- .table -->
-                          <h4 class="text-center">Tổng Doanh Thu Của {{$doanhnghiep->tendoanhnghiep}}</h4>
+                          <h4 class="text-center">Tổng doanh thu với</br> đơn giá hiện tại</h4>
                              <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -192,22 +243,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     @php $tong = 0; @endphp            
+                                     @php $tong = 0; @endphp   
+                                     @php $stt = 1; @endphp         
                                     @foreach($tongdoanhthu as $value)
-                                            
+                                       @if($value->dongiasanpham == $value->dongia)     
                                         <tr>
-                                            <td class="align-middle">{{ $loop->iteration }}</td>
+                                            <td class="align-middle">{{ $stt++ }}</td>
                                             <td class="align-middle">{{ $value->tensanpham }}</td>
                                             <td class="align-middle">{{ $value->tongsoluongban }}</td>
-                                            <td class="align-middle">{{ number_format($value->dongia) }} VNĐ</td>
+                                            <td class="align-middle">{{ number_format($value->dongiasanpham) }} <sup><u>đ</u></sup></td>
 
-                                            <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongia) }} VNĐ</td>
-                                             @php $tong += $value->tongsoluongban * $value->dongia; @endphp
+                                            <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+                                             @php $tong += $value->tongsoluongban * $value->dongiasanpham; @endphp
                                          </tr>
+                                        
+                                         @endif
                                     @endforeach
                                         <tr >
                                             <td colspan="4" class="fw-bold" >Tổng doanh thu</td>
-                                            <td colspan="4" class="fw-bold">{{number_format( $tong) }} VNĐ</td>
+                                            <td colspan="4" class="fw-bold">{{number_format( $tong) }} <sup><u>đ</u></sup></td>
 
                                         </tr>
                                  </tbody>
@@ -218,7 +272,54 @@
                          
                       </div>
                     </section>
-               
+                    <section class="card card-fluid">
+                      <!-- .card-body -->
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <!-- .table -->
+                          <h4 class="text-center">Tổng doanh thu với</br> đơn giá cũ</h4>
+                             <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th >#</th>
+                                        <th >Tên Sản Phẩm</th>
+                                        <th>Số Lượng Bán </th>
+                                        <th>Đơn Giá</th>
+                                        
+                                        <th>Tổng Tiền</th>
+                                        <th style="width:100px; min-width:100px;"> &nbsp; </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     @php $tong = 0; @endphp    
+                                     @php $stt = 1; @endphp             
+                                    @foreach($tongdoanhthu as $value)
+                                       @if($value->dongiasanpham != $value->dongia)     
+                                        <tr>
+                                            <td class="align-middle">{{ $stt++ }}</td>
+                                            <td class="align-middle">{{ $value->tensanpham }}</td>
+                                            <td class="align-middle">{{ $value->tongsoluongban }}</td>
+                                            <td class="align-middle">{{ number_format($value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+
+                                            <td class="align-middle">{{ number_format($value->tongsoluongban * $value->dongiasanpham) }} <sup><u>đ</u></sup></td>
+                                             @php $tong += $value->tongsoluongban * $value->dongiasanpham; @endphp
+                                         </tr>
+                                         
+                                         @endif
+                                    @endforeach
+                                        <tr >
+                                            <td colspan="4" class="fw-bold" >Tổng doanh thu</td>
+                                            <td colspan="4" class="fw-bold">{{number_format( $tong) }} <sup><u>đ</u></sup></td>
+
+                                        </tr>
+                                 </tbody>
+                          </table>
+                        
+                          <!-- /.table -->
+                        </div>
+                         
+                      </div>
+                    </section>
                 </div>     
           </div>
         </div>

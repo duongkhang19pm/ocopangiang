@@ -48,7 +48,7 @@ class HomeController extends Controller
        
         $sanpham = SanPham::where('sanpham.hienthi',1)->where('sanpham.soluong','>',0)->orderBy('created_at', 'desc')->paginate(8);
         $doanhnghiep = DoanhNghiep::all();
-        $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(3);
+        $baiviet = BaiViet::where('kiemduyet',1)->orderBy('created_at', 'desc')->paginate(6);
         $nhomsanpham = NhomSanPham::orderBy('created_at', 'desc')->get();
         $donviquanly = DonViQuanLy::all();
         if(Auth::check())
@@ -58,6 +58,90 @@ class HomeController extends Controller
         }
         else
         return view('frontend.index',compact('sanpham','doanhnghiep','baiviet','nhomsanpham','donviquanly'));
+        
+    }
+
+    public function getThongKe()
+    {
+       
+        $sanpham = SanPham::where([['sanpham.hienthi',1],['sanpham.soluong','>',0]])->get();
+        $doanhnghiep = DoanhNghiep::all();
+        $sanpham5sao = ChiTiet_PhanHang_SanPham::join('sanpham','chitiet_phanhang_sanpham.sanpham_id','=','sanpham.id')
+            ->join('phanhang','chitiet_phanhang_sanpham.phanhang_id','=','phanhang.id')
+            ->where([['chitiet_phanhang_sanpham.phanhang_id',5],['sanpham.hienthi',1],['sanpham.soluong','>',0]])
+            ->get();
+
+
+        $thongke_theonhom = ChiTiet_PhanHang_SanPham::join('sanpham','chitiet_phanhang_sanpham.sanpham_id','=','sanpham.id')
+        ->join('phanhang','chitiet_phanhang_sanpham.phanhang_id','=','phanhang.id')
+        ->join('loaisanpham','sanpham.loaisanpham_id','=','loaisanpham.id')
+            ->leftJoin('nhomsanpham','nhomsanpham.id','=','loaisanpham.nhomsanpham_id')
+            ->where([['chitiet_phanhang_sanpham.phanhang_id',5],['sanpham.hienthi',1],['sanpham.soluong','>',0]])
+            ->select( 'nhomsanpham.tennhom as ten', DB::raw('COUNT(sanpham.id) as soluong'))
+            ->groupBy('nhomsanpham.tennhom')
+            ->get();
+
+        foreach($thongke_theonhom as $row) 
+        {
+            $data[] = array(
+                'label'=> $row->ten,
+                'y'=> $row->soluong,
+                
+            );
+           
+        }
+        $data['chart_data'] = ($data);
+
+        
+
+        $sanpham_doanhnghiep = ChiTiet_PhanHang_SanPham::join('sanpham','chitiet_phanhang_sanpham.sanpham_id','=','sanpham.id')
+        ->join('phanhang','chitiet_phanhang_sanpham.phanhang_id','=','phanhang.id')
+        ->join('loaisanpham','sanpham.loaisanpham_id','=','loaisanpham.id')
+            ->join('doanhnghiep','sanpham.doanhnghiep_id','=','doanhnghiep.id')
+            ->where([['chitiet_phanhang_sanpham.phanhang_id',5],['sanpham.hienthi',1],['sanpham.soluong','>',0]])
+            ->select('doanhnghiep.tendoanhnghiep as tendoanhnghiep', DB::raw('COUNT(sanpham.id) as soluong'))
+            ->groupBy('doanhnghiep.tendoanhnghiep')
+            ->get();
+      //  dd($sanpham_doanhnghiep);
+        foreach($sanpham_doanhnghiep as $row) 
+        {
+            $data1[] = array(
+                'label'=> $row->tendoanhnghiep,
+                'y'=> $row->soluong,
+                
+            );
+           
+        }
+       $data['chart_doanhnghiep_sanpham'] = ($data1) ;
+
+
+       $sanpham = SanPham::where([['sanpham.hienthi',1],['sanpham.soluong','>',0]])->get();
+       
+            foreach($sanpham as $row) 
+            {
+                $data2[] = array(
+                    'name'=> $row->tensanpham,
+                    'x'=> $row->dongia,
+                    'y'=> $row->id,
+                    'z'=>$row->luotxem,
+                    
+                );
+            
+            }
+        
+            $data['chart_sanpham_yeuthich'] = ($data2) ;
+       
+       //dd($sanpham_yeuthich);
+      
+      
+        //dd([$data,$data1]);
+        if(Auth::check())
+        {
+            $sanphamyeuthich = SanPhamYeuThich::where('taikhoan_id',Auth::user()->id)->get();
+            return view('frontend.thongke.thongke',compact('sanpham','doanhnghiep','sanpham5sao','sanphamyeuthich'),$data);
+        }
+        else
+        return view('frontend.thongke.thongke',compact('sanpham','doanhnghiep','sanpham5sao'),$data);
         
     }
      
@@ -71,6 +155,7 @@ class HomeController extends Controller
         ->select('sanpham.*','loaisanpham.tenloai_slug','nhomsanpham.tennhom_slug')
         ->get();
        //dd(response()->json($taikhoan));
+
         return response()->json($sanpham); 
 
     }
@@ -319,6 +404,14 @@ class HomeController extends Controller
         }
         $danhgia = DanhGia::where('sanpham_id',$sanpham->id)->where('hienthi',1)->get();
         
+        $idsanpham = 'SP'.$sanpham->id;
+        if(!session()->has($idsanpham))
+        {
+            $orm = SanPham::find($sanpham->id);
+            $orm->luotxem = $orm->luotxem +1;
+            $orm->save();
+            session()->put($idsanpham,1);
+        }
 
 
 
@@ -618,14 +711,9 @@ class HomeController extends Controller
         $tenduong = Session::get('tenduong');
         $email = Session::get('email');
         $dienthoaigiaohang = Session::get('dienthoaigiaohang');
-
-
-
         $tinh = Tinh::where('id',$tinh)->first();
         $huyen = Huyen::where('id',$huyen)->first();
         $xa = Xa::where('id',$xa)->first();
-
-
          // Lưu vào đơn hàng
         $dh = new DonHang();
         if(Auth::check())
@@ -639,37 +727,31 @@ class HomeController extends Controller
       
         $dh->xa_id = $xa->id;
         $dh->hinhthucthanhtoan_id = $request->hinhthucthanhtoan_id;
-        
-        
         $dh->hoten = $hoten;
         $dh->email = $email;
-        
-        
-        
-        
         $dh->tenduong = $tenduong;
-       
         $dh->dienthoaigiaohang = $dienthoaigiaohang;
         $dh->ghichu = $request->ghichu;
         $dh->save();
         
-         $phi = Huyen::where('id',$dh->huyen_id)->first();
-         // Lưu vào đơn hàng chi tiết
+        //$phi = Huyen::where('id',$dh->huyen_id)->first();
+        // Lưu vào đơn hàng chi tiết
 
          foreach(Cart::content() as $value)
          {
             //$tong = $phi->phivanchuyen + $value->priceTotal;
-         $ct = new DonHang_ChiTiet();
-         $ct->donhang_id = $dh->id;
-         $ct->sanpham_id = $value->id;
+            $ct = new DonHang_ChiTiet();
+            $ct->donhang_id = $dh->id;
+            $ct->sanpham_id = $value->id;
             $ct->tinhtrang_id = 1; // Đơn hàng mới
-         $ct->soluongban = $value->qty;
-         $ct->dongiaban = $value->priceTotal;
+            
+            $ct->soluongban = $value->qty;
+            $ct->dongiaban = $value->price;
 
-         $ct->save();
-         $sp = SanPham::find($value->id);
-         $sp->soluong -=  $value->qty;
-         $sp->save();
+            $ct->save();
+            $sp = SanPham::find($value->id);
+            $sp->soluong -=  $value->qty;
+            $sp->save();
          }
      Mail::to( $dh->email)->send(new DatHangEmail($dh));
      return redirect()->route('frontend.dathangthanhcong')->with('status', 'Bạn đã đặt hàng thành công');

@@ -53,7 +53,7 @@ Route::get('/don-vi-quan-ly/{tendonviquanly_slug}', [HomeController::class, 'get
 Route::get('/san-pham', [HomeController::class, 'getSanPham'])->name('frontend.sanpham');
 Route::post('/san-pham', [HomeController::class, 'postSanPham'])->name('frontend.sanpham');
 Route::post('/san-pham/show', [HomeController::class, 'postSanPham_Show'])->name('frontend.sanpham.show');
-Route::get('/san-pham/phan-hang/{tenphanhang_slug}', [HomeController::class, 'getSanPham_PhanHang'])->name('frontend.phanhang');
+Route::get('/san-pham/phan-hang/ocop/{tenphanhang_slug}', [HomeController::class, 'getSanPham_PhanHang'])->name('frontend.phanhang');
 
 Route::post('/san-pham/loc', [HomeController::class, 'postSanPham_LocDonGia'])->name('frontend.sanpham.locgia');
 
@@ -62,11 +62,13 @@ Route::post('/san-pham/show/{tennhom_slug}', [HomeController::class, 'postSanPha
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}', [HomeController::class, 'getSanPham_Loai'])->name('frontend.sanpham.loaisanpham');
 Route::get('/san-pham/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeController::class, 'getSanPham_ChiTiet'])->name('frontend.sanpham.chitiet');
 Route::post('/san-pham/danh-gia/{tennhom_slug}/{tenloai_slug}/{tensanpham_slug}', [HomeController::class, 'postDanhGia'])->name('frontend.sanpham.danhgia');
-// Trang Khách Hàng
+
+// Trang thống kê
+Route::get('/thong-ke', [HomeController::class, 'getThongKe'])->name('frontend.thongke');
+
+
 
 //Trang bai viet
-
-
 Route::get('/bai-viet', [HomeController::class, 'getBaiViet'])->name('frontend.baiviet');
 Route::get('/bai-viet/{tenchude_slug}/{tieude_slug}', [HomeController::class, 'getBaiViet_ChiTiet'])->name('frontend.baiviet.chitiet');
 Route::get('/bai-viet/{tenchude_slug}', [HomeController::class, 'getBaiViet_ChuDe'])->name('frontend.baiviet.chude');
@@ -114,7 +116,7 @@ Route::prefix('khach-hang')->name('khachhang.')->group(function()
 
     // Xem và cập nhật trạng thái đơn hàng
     Route::get('/don-hang/{id}', [TKKhachHangController::class, 'getDonHang'])->name('donhang');
-    Route::get('/don-hang/huy/{taikhoan}/{id}', [TKKhachHangController::class, 'getDonHang_Huy'])->name('donhang.huy');
+    Route::get('/don-hang/huy/{id}', [TKKhachHangController::class, 'getDonHang_Huy'])->name('donhang.huy');
     Route::get('/don-hang/hienthi/{taikhoan}/{id}', [TKKhachHangController::class, 'getDonHang_HienThi'])->name('donhang.hienthi');
  
     // Cập nhật thông tin tài khoản

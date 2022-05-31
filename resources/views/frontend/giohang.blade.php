@@ -107,9 +107,9 @@
                     <div class="shoping__checkout">
                         <h5>Tổng Tiền </h5>
                         <ul>
-                            <li>Tổng tiền sản phẩm <span>{{ Cart::subtotal() }}<sup>VNĐ</sup></span></li>
-                            <li>Tổng tiền thuế VAT (10%) <span>{{ Cart::tax() }}<sup>VNĐ</sup></span></li>
-                            <li>Tổng tiền đơn hàng <span>{{ Cart::priceTotal() }} <sup>VNĐ</sup></span></li>
+                            <li>Tiền Hàng (Tạm Tính) <span>{{ Cart::subtotal() }}<sup>VNĐ</sup></span></li>
+                         
+                            
                         </ul>
                         <a href="{{ route('frontend.nhapthongtin') }}" class="primary-btn">TIẾP THEO</a>
                     </div>

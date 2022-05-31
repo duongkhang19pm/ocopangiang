@@ -18,6 +18,7 @@ class CreateDonHangChiTietsTable extends Migration
         $table->foreignId('donhang_id')->constrained('donhang')->onDelete('cascade');
         $table->foreignId('sanpham_id')->constrained('sanpham')->onDelete('cascade');
         $table->foreignId('tinhtrang_id')->constrained('tinhtrang')->onDelete('cascade');
+      
         $table->integer('soluongban');
         $table->double('dongiaban');
         $table->timestamp('created_at')->useCurrent();

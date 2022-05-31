@@ -189,7 +189,7 @@
                                                     <div class="col-lg-6">
                                                         <p> <strong>Email:</strong> {{$doanhnghiep->email}}</p>
                                                         <p> <strong>Điện Thoại:</strong> {{$doanhnghiep->SDT}}</p>
-                                                        <p> <strong>Website:</strong> {{$doanhnghiep->website}}</p>
+                                                        <p> <strong>Website:</strong> <a href="{{$doanhnghiep->website}}" target="_blank"><i class="fas fa-fw fa-link"></i>{{$doanhnghiep->website}}</a></p>
                                                         <p> <strong>Ngày Thành Lập:</strong> {{ Carbon\Carbon::parse( $doanhnghiep->ngaythanhlap)->format('d/m/Y') }}</p>
                                                     </div>
                                                 </div>

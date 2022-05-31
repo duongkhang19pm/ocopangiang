@@ -87,14 +87,14 @@
 													@php $tongtien = 0; @endphp
 													@php $stt = 1; @endphp
 													@foreach($value->donhang_chitiet as $chitiet)
+													
 														@if( $chitiet->sanpham->doanhnghiep->id == Auth::user()->doanhnghiep->id)
 															<tr>
 																<td class="align-middle">{{ $stt++ }}</td>
 																<td class="align-middle">{{ $chitiet->sanpham->tensanpham }}</td>
+																<td class="text-end">{{ number_format($chitiet->dongiaban) }} <sup><u>đ</u></sup></td>
 																<td class="align-middle">{{ $chitiet->soluongban }}</td>
-																<td class="text-end">{{ number_format($chitiet->sanpham->dongia) }}<sup><u>đ</u></sup></td>
-															
-																<td class="text-end">{{ number_format($chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
+																<td class="text-end">{{ number_format($chitiet->dongiaban * $chitiet->soluongban) }} <sup><u>đ</u></sup></td>
 																<td class="text-end"> 
 																	@if($chitiet->tinhtrang_id == 10)
 														
@@ -276,7 +276,7 @@
 																	@endif
 																</td>
 															</tr>
-															@php $tongtien += $chitiet->dongiaban; @endphp
+															@php $tongtien += $chitiet->dongiaban * $chitiet->soluongban; @endphp
 														@endif
 													@endforeach
 													<tr>

@@ -277,7 +277,7 @@
                                                 <li><a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-heart "></i></a></li>
                                             @endif
                                         @endguest
-                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye">{{$value->luotxem}}</i></a></li>
                                             <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>

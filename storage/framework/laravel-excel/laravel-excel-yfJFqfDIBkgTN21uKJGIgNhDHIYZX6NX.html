@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="csrf-token" content="1yxYZsLmDwhQaeiIBi3sHC1u6kNOiA0dh4gBmga4" />
+  <meta name="author" content="AGChain Lab." />
+  <meta name="theme-color" content="#3063A0" />
+  <title>Trang chủ - Ocop An Giang</title>
+  <link rel="apple-touch-icon" sizes="144x144" href="http://127.0.0.1/ocopangiang/public/assets/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="http://127.0.0.1/ocopangiang/public/Image/logo.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/@fortawesome/fontawesome-pro/css/all.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/vendor/flatpickr/flatpickr.min.css" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/theme.min.css" data-skin="default" />
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/theme-dark.min.css" data-skin="dark" />
+    <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/backend/stylesheets/custom.css" />
+  <script>
+    var skin = localStorage.getItem('skin') || 'default';
+    var isCompact = JSON.parse(localStorage.getItem('hasCompactMenu'));
+    var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+    disabledSkinStylesheet.setAttribute('rel', '');
+    disabledSkinStylesheet.setAttribute('disabled', true);
+    if (isCompact == true) document.querySelector('html').classList.add('preparing-compact-menu');
+  </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="http://127.0.0.1/ocopangiang/public/frontend/assets/css/thongbao.css">
+  </head>
+  <body>
+<div class="wrapper">
+  <!-- .page -->
+    <div class="page"><div class="sidebar-backdrop"></div>
+        <!-- .page-inner -->
+        <div class="page-inner">
+          <!-- .page-title-bar -->
+            <header class="page-title-bar">  
+                <div class="d-md-flex align-items-md-start">
+                <h1 class="page-title mr-sm-auto"> Đơn Vị Quản Lý </h1>
+                </div>
+            <!-- /title and toolbar -->
+            </header>
+            <div class="page-section">
+                <!-- .card -->
+                <section class="card card-fluid">
+                  <!-- .card-body -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead style="background-color: green; color: skyblue; border: 3px solid #ee00ee">
+                                    <tr>
+                                        <th width="10">Tỉnh</th>
+                                        <th width="10">Huyện</th>
+                                        <th width="10">Xã</th>
+                                        <th width="10">Tên Đường</th>
+                                        <th width="10">Tên Đơn Vị</th>
+                                        <th width="10">Họ Tên Thủ Trưởng</th>
+                                        <th width="10">Email</th>
+                                        <th width="10">Điện Thoại</th>
+                                        <th width="10">Website</th>
+                                        <th width="10">Hình Ảnh</th>  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thành phố Long Xuyên</td>
+                                            <td>Phường Mỹ Bình</td>
+                                            <td>03 Lê Triệu Kiết</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TP Long Xuyên</td>
+                                            <td>Phạm Minh Tâm</td>
+                                            <td>sokhdtlx@angiang.gov.vn</td>
+                                            <td>02963852913</td>
+                                            <td>https://longxuyen.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tp-long-xuyen.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Chợ Mới</td>
+                                            <td>Thị trấn Chợ Mới</td>
+                                            <td>Đường Nguyễn Huệ, Ấp Thị</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Chợ Mới</td>
+                                            <td>Trần Minh Dững</td>
+                                            <td>sokhdtcm@angiang.gov.vn</td>
+                                            <td>02963883217</td>
+                                            <td>https://chomoi.angiang.gov.vn</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-cho-moi.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thành phố Châu Đốc</td>
+                                            <td>Phường Châu Phú B</td>
+                                            <td>số , Lê Lợi</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TP Châu Đốc</td>
+                                            <td>Lâm Quang Thi</td>
+                                            <td>sokhdtcd@angiang.gov.vn</td>
+                                            <td>0296386910</td>
+                                            <td>https://chaudoc.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tp-chau-doc.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện An Phú</td>
+                                            <td>Thị trấn An Phú</td>
+                                            <td>số 4252, đường Bạch Đằng</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện An Phú</td>
+                                            <td>Trần Hòa Hợp</td>
+                                            <td>sokhdtap@angiang.gov.vn</td>
+                                            <td>02963826693</td>
+                                            <td>https://anphu.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-an-phu.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Thị xã Tân Châu</td>
+                                            <td>Phường Long Thạnh</td>
+                                            <td>đường Trần Hưng Đạo</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư TX Tân Châu</td>
+                                            <td>Trần Thị Hòa Bình</td>
+                                            <td>sokhdttxtc@angiang.gov.vn</td>
+                                            <td>02963532708</td>
+                                            <td>https://tanchau.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-tx-tan-chau.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh Cà Mau</td>
+                                            <td>Huyện Phú Tân</td>
+                                            <td>Thị trấn Phú Mỹ</td>
+                                            <td>số 1 , đường Trương Định</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Phú Tân</td>
+                                            <td>Ngô Thanh Trí</td>
+                                            <td>sokhdtpt@angiang.gov.vn</td>
+                                            <td>0296827227</td>
+                                            <td>https://phutan.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-phu-tan.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Châu Phú</td>
+                                            <td>Thị trấn Cái Dầu</td>
+                                            <td>ấp Vĩnh Thành</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Châu Phú</td>
+                                            <td>Nguyễn Phước Nên</td>
+                                            <td>sokhdtcp@angiang.gov.vn</td>
+                                            <td>02963688635</td>
+                                            <td>https://chauphu.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-chau-phu.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Tịnh Biên</td>
+                                            <td>Thị trấn Tịnh Biên</td>
+                                            <td>khóm xuân hòa</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Tịnh Biên</td>
+                                            <td>Nguyễn Thành Huân</td>
+                                            <td>sokhdttb@angiang.gov.vn</td>
+                                            <td>02963875298</td>
+                                            <td>https://tinhbien.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-tinh-bien.jpg</td>
+                                            
+                                        </tr>
+                                                                            <tr>
+                                            <td>Tỉnh An Giang</td>
+                                            <td>Huyện Tri Tôn</td>
+                                            <td>Thị trấn Tri Tôn</td>
+                                            <td>152 Trần Hưng Đạo</td>
+                                            <td>Sơ Kế Hoạch Và Đầu Tư Huyện Tri Tôn</td>
+                                            <td>Phạm Thu Hương</td>
+                                            <td>sokhdttt@angiang.gov.vn</td>
+                                            <td>02963874351</td>
+                                            <td>https://triton.angiang.gov.vn/</td>
+                                            <td>donviquanly/so-ke-hoach-va-dau-tu-huyen-tri-ton.jpg</td>
+                                            
+                                        </tr>
+                                                                    </tbody>
+                            </table>
+                        </div>
+                      
+                     </div>
+                </section>
+                   
+            </div>
+              <!-- /.page-section -->
+        </div>
+            <!-- /.page-inner -->
+    </div>
+      <!-- /.page -->
+</div>
+<script src="http://127.0.0.1/ocopangiang/public/backend/vendor/jquery/jquery.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/popper.js/umd/popper.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/pace-progress/pace.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/stacked-menu/js/stacked-menu.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/flatpickr/flatpickr.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/easy-pie-chart/jquery.easypiechart.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/vendor/chart.js/Chart.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/javascript/theme.min.js"></script>
+  <script src="http://127.0.0.1/ocopangiang/public/backend/javascript/main.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+  <script>
+    
+    $(document).ready(function() {
+    $('#table_id').DataTable( {
+       
+      "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tất cả"]],
+        "iDisplayLength": 10,
+        "oLanguage": {
+          "sLengthMenu": "Hiện _MENU_ dòng",
+          "oPaginate": {
+            "sFirst": "<i class='fas fa-step-backward'></i>",
+            "sLast": "<i class='fas fa-step-forward'></i>",
+            "sNext": "<i class='fas fa-chevron-right'></i>",
+            "sPrevious": "<i class='fas fa-chevron-left'></i>"
+          },
+          "sEmptyTable": "Không có dữ liệu",
+          "sSearch": "Tìm kiếm:",
+          "sZeroRecords": "Không có dữ liệu",
+          "sInfo": "Hiện từ _START_ đến _END_ của _TOTAL_ dòng",
+          "sInfoEmpty" : "Không tìm thấy",
+          "sInfoFiltered": " (tổng số _MAX_ dòng)"
+        }
+        
+    } );
+    
+} );
+  </script>
+  <script>
+
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+           $('.thongbao').addClass("showAlert");
+           $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
+    </script>
+    </body>
+</html>

@@ -46,10 +46,10 @@
 		                         <th >Hình ảnh đại diện</th>
 		                         <th>Thông Tin Sản Phẩm</th>
 		                         <th>Tên Sản Phẩm Không Dấu</th>
+								 <th> Lượt Xem</th>
 		                         <th> Đánh Giá</th>
-		                       		<th>Hiển Thị</th>
-
-															<th style="width:100px; min-width:100px;"> &nbsp; </th>
+		                       	<th>Hiển Thị</th>
+								<th style="width:100px; min-width:100px;"> &nbsp; </th>
 		                     </tr>
 		                 </thead>
 		                 <tbody>
@@ -58,10 +58,10 @@
 		                             <td class="align-middle">{{ $loop->iteration }}</td>
 		                             <td class="align-middle">
 		                             	@if(empty($value->hinhanh)||$value->hinhanh == 'N/A')
-                                   <img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
-                                  @else
-                                  <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"height="90" width="100" />
-                                  @endif
+											<img src="{{env('APP_URL').'/public/Image/noimage.png'}}"height="90" width="100" >
+										@else
+											<img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"height="90" width="100" />
+										@endif
 		                             </td>
 		                             <td class="align-middle">
 		                             	<strong >Tên Sản Phẩm: </strong> <a href="{{ route('doanhnghiep.sanpham.sua', ['id' => $value->id]) }}">{{ $value->tensanpham }}</a><br/>
@@ -185,34 +185,36 @@
 				                              <br/>
 
 
-		                             	<strong>Ngày Bắt Đầu: </strong>{{ Carbon\Carbon::parse($ct->ngaybatdau)->format('d/m/Y') }}<br/>
-										 @if($ct->ngayketthuc != null)
-		                             	<strong>Ngày Kết Thúc: </strong>{{ Carbon\Carbon::parse($ct->ngayketthuc)->format('d/m/Y') }}<br/>
-										 @else
-										 <strong>Ngày Kết Thúc: </strong><br/>
-										 @endif
+											<strong>Ngày Bắt Đầu: </strong>{{ Carbon\Carbon::parse($ct->ngaybatdau)->format('d/m/Y') }}<br/>
+											@if($ct->ngayketthuc != null)
+											<strong>Ngày Kết Thúc: </strong>{{ Carbon\Carbon::parse($ct->ngayketthuc)->format('d/m/Y') }}<br/>
+											@else
+											<strong>Ngày Kết Thúc: </strong><br/>
+											@endif
 
-		                             	
-		                             	@endforeach
+											
+											@endforeach
 
-		                             	<strong>Nguyên Liệu: </strong>{{ $value->nguyenlieu ?? 'N/A'}}<br/>
-		                             	<strong>Tiêu Chuẩn: </strong>{{ $value->tieuchuan ?? 'N/A'}}<br/>
-		                             	<strong>Điều Kiện Lưu Trữ :</strong>{{ $value->dieukienluutru ?? 'N/A'}}<br/>
-		                             	<strong>Điều Kiện Vận Chuyển: </strong>{{ $value->dieukienvanchuyen ?? 'N/A'}}<br/>
-		                             	<strong>Khối Lượng Riêng: </strong>{{ $value->khoiluongrieng }}<br/>
-		                             	<strong>Đơn Giá: </strong>{{ number_format($value->dongia) }} VNĐ<br/>
-		                             	<strong>Số Lượng: </strong>{{ $value->soluong }}<br/>
-		                             <strong>Đơn Vị Tính: </strong>{{ $value->QuyCach->DonViTinh->tendonvitinh }}<br/>
-		                             	<strong>Quy Cách Đóng Gói: </strong>{{ $value->QuyCach->tenquycach }}<br/>
-		                             	<strong>Hạn Sử Dụng: </strong>{{ $value->hansudung ?? 'N/A'}}<br/>
-		                             	<strong>Hạn Sử Dụng Sau Khi Mở Hộp :</strong> {{ $value->hansudungsaumohop ?? 'N/A'}}<br/>
-		                             	<strong>Hình Ảnh Đính Kèm :</strong>
-		                             	@if(!empty($value->thumuc))
-																		<a href="#hinhanh" onclick="getXemHinh({{ $value->id }})"><i class="fas fa-images fa-2x"></i></a>
-																	@endif
+											<strong>Nguyên Liệu: </strong>{{ $value->nguyenlieu ?? 'N/A'}}<br/>
+											<strong>Tiêu Chuẩn: </strong>{{ $value->tieuchuan ?? 'N/A'}}<br/>
+											<strong>Điều Kiện Lưu Trữ :</strong>{{ $value->dieukienluutru ?? 'N/A'}}<br/>
+											<strong>Điều Kiện Vận Chuyển: </strong>{{ $value->dieukienvanchuyen ?? 'N/A'}}<br/>
+											<strong>Khối Lượng Riêng: </strong>{{ $value->khoiluongrieng }}<br/>
+											<strong>Đơn Giá: </strong>{{ number_format($value->dongia) }} <sup><u>đ</u></sup><br/>
+											<strong>Số Lượng: </strong>{{ $value->soluong }}<br/>
+										<strong>Đơn Vị Tính: </strong>{{ $value->QuyCach->DonViTinh->tendonvitinh }}<br/>
+											<strong>Quy Cách Đóng Gói: </strong>{{ $value->QuyCach->tenquycach }}<br/>
+											<strong>Hạn Sử Dụng: </strong>{{ $value->hansudung ?? 'N/A'}}<br/>
+											<strong>Hạn Sử Dụng Sau Khi Mở Hộp :</strong> {{ $value->hansudungsaumohop ?? 'N/A'}}<br/>
+											<strong>Hình Ảnh Đính Kèm :</strong>
+											@if(!empty($value->thumuc))
+																			<a href="#hinhanh" onclick="getXemHinh({{ $value->id }})"><i class="fas fa-images fa-2x"></i></a>
+																		@endif
 		                             </td>
-		                            <td>{{ $value->tensanpham_slug }}</td>
-		                            <td>
+									
+		                            <td class="align-middle">{{ $value->tensanpham_slug }}</td>
+									<td class="align-middle">{{ $value->luotxem }}</td>
+		                            <td class="align-middle">
 		                             	@if($value->danhgia == 0)
 																			<a  href="{{ route('doanhnghiep.sanpham.danhgia', ['id' => $value->id])  }}"><i class="fas fa-ban text-danger"></i></a>
 																		@endif
@@ -220,7 +222,7 @@
 																			<a href="{{ route('doanhnghiep.sanpham.danhgia', ['id' => $value->id])  }}"><i class="fas fa-check-circle text-info"></i></a>
 																		@endif
 																	</td>
-		                             <td>
+		                             <td class="align-middle">
 		                             	@if($value->hienthi == 0)
 																			<a  href="{{ route('doanhnghiep.sanpham.hienthi', ['id' => $value->id])  }}"><i class="fas fa-ban text-danger"></i></a>
 																		@endif

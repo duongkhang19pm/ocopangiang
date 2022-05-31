@@ -212,9 +212,7 @@ class DonHangController extends Controller
         {
             $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
             ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
-            ->select('sanpham.*',
-                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
-                    )
+            ->select('sanpham.*',DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban'),'donhang_chitiet.dongiaban as dongiasanpham')
             ->where([
                 //['donhang.created_at', '>=', $request->dateStart],
                 //['donhang.created_at', '<=', $request->dateEnd],
@@ -222,7 +220,9 @@ class DonHangController extends Controller
                 ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
             ])
             ->whereBetween('donhang.created_at', [ Carbon::parse($request->dateStart)->format('Y-m-d')." 00:00:00", Carbon::parse($request->dateEnd)->format('Y-m-d')." 23:59:59"])
+            ->groupBy('donhang_chitiet.dongiaban')
             ->groupBy('sanpham.id')
+
             ->get();
      
             $session_title_dateStart = $request->dateStart;
@@ -232,21 +232,22 @@ class DonHangController extends Controller
         }
         else
         {
-            $tongdoanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
-            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
-            ->select('sanpham.*',
-                      DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban')
-                    )
+            $tongdoanhthu = DonHang_ChiTiet::join('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->join('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select('sanpham.*',DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban'),'donhang_chitiet.dongiaban as dongiasanpham')
             ->where([
-                //['donhang.created_at', '>=', $request->dateStart],
-                //['donhang.created_at', '<=', $request->dateEnd],
                 ['donhang_chitiet.tinhtrang_id',10],
                 ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
             ])
-          
+     
+         
+           
+            ->groupBy('donhang_chitiet.dongiaban')
             ->groupBy('sanpham.id')
         
+           
             ->get();
+        //dd($tongdoanhthu);
             return view('doanhnghiep.donhang.doanhthu',compact('tongdoanhthu','doanhnghiep'));
         }
         

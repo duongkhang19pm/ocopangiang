@@ -55,7 +55,30 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{$sanpham->tensanpham}}</h3>
+                        <h3>{{$sanpham->tensanpham}} </h3>
+                        @guest
+                                    @else
+                                        @php
+                                            $yeuthich = false;
+                                        @endphp
+                                        @foreach($sanphamyeuthich as $sp_yeuthich)
+                                            @if($sp_yeuthich->sanpham_id == $sanpham->id)
+                                                @php
+                                                    $yeuthich = true;
+                                                @endphp
+                                                <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><i class="fas fa-heart text-danger"></i></a>
+
+                                                @break
+                                            @endif                                      
+                                        @endforeach
+                                        @if($yeuthich==false)
+                                        <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><i class="far fa-heart"></i></a>
+                                        @endif
+                            @endguest
+                            <a class="heart-icon"><i class="far fa-eye mr-2"></i><sup>{{$sanpham->luotxem}} </sup></a>
+
+                        
+                       
                         <div class="product__details__rating">
                             @foreach($sanpham->ChiTiet_PhanHang_SanPham as $ct)
                                 @if( $ct->phanhang_id  == 1)
@@ -123,25 +146,7 @@
                                 </div>
 
                             <button type="submit" class="btn primary-btn">THÊM VÀO GIỎ HÀNG</button>
-                            @guest
-                                    @else
-                                        @php
-                                            $yeuthich = false;
-                                        @endphp
-                                        @foreach($sanphamyeuthich as $sp_yeuthich)
-                                            @if($sp_yeuthich->sanpham_id == $sanpham->id)
-                                                @php
-                                                    $yeuthich = true;
-                                                @endphp
-                                                <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><span class="icon_heart_alt text-danger"></span></a>
-
-                                                @break
-                                            @endif                                      
-                                        @endforeach
-                                        @if($yeuthich==false)
-                                        <a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $sanpham->tensanpham_slug]) }}" class="heart-icon"><span class="icon_heart_alt "></span></a>
-                                        @endif
-                            @endguest
+                          
                             
                         </form>
                         

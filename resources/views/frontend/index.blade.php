@@ -52,193 +52,41 @@
                         </div>
                         
                     </div>
-                    <div class="hero__item set-bg "  data-setbg="{{ asset('public/Image/background1.jpg') }}" >
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-     
-    <!-- Categories Section Begin -->
-    <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/dichvu.png') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'dich-vu'])}}">Dịch Vụ</a></h5>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-4.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'do-uong'])}}">Đồ Uống</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-3.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'nong-san'])}}">Nông Sản</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/Image/thaoduoc.png') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thao-duoc'])}}">Thảo Dược</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset('public/frontend/assets/img/categories/cat-5.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'thuc-pham'])}}">Thực Phẩm</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg " data-setbg="{{  asset('public/Image/tieudung.jpg') }}">
-                            <h5><a href="{{route('frontend.sanpham.nhomsanpham',['tennhom_slug'=>'tieu-dung'])}}">Tiêu Dùng</a></h5>
-                        </div>
-                    </div>
-                    
-                  
-                    
-                   
-                </div>
-            </div>
-        </div>
-    </section>
-    @if(session('status'))
-        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
-            <span class="fas fa-check-circle"></span>
-            <span class="msg" >{!! session('status') !!}</span>           
-        </div>    
-    @endif
-    <!-- Featured Section Begin -->
-    <section class="featured spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Sản Phẩm OCOP</h2>
-                    </div>
-                  
-                </div>
-            </div>
-            <div class="row featured__filter">
-              
-                    @foreach($sanpham as $value)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix ">
-                        
-                        <div class="featured__item">
-                           
-                            
-                                <div class="featured__item__pic set-bg" data-setbg="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}">
-
-
-                                    <ul class="featured__item__pic__hover">
-                                    @guest
-                                    @else
-                                        @php
-                                            $yeuthich = false;
-                                        @endphp
-                                        @foreach($sanphamyeuthich as $sp_yeuthich)
-                                            @if($sp_yeuthich->sanpham_id == $value->id)
-                                                @php
-                                                    $yeuthich = true;
-                                                @endphp
-                                                <li><a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-heart text-danger"></i></a></li>
-                                                @break
-                                            @endif                                      
-                                        @endforeach
-                                        @if($yeuthich==false)
-                                            <li><a href="{{ route('frontend.sanphamyeuthich.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-heart "></i></a></li>
-                                         @endif
-                                    @endguest
-                                        <li><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="{{ route('frontend.giohang.them', ['tensanpham_slug' => $value->tensanpham_slug]) }}" ><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                             
-
-                              
-                            
-                         
-                            
-                            <div class="featured__item__text">
-                                 <h6><a href="{{ route('frontend.sanpham.chitiet', ['tennhom_slug' => $value->loaisanpham->nhomsanpham->tennhom_slug,'tenloai_slug' => $value->loaisanpham->tenloai_slug,'tensanpham_slug' => $value->tensanpham_slug]) }}">{{$value->tensanpham}}</a></h6>
-                                <h5>{{ number_format($value->dongia ) }} <sup>VNĐ</sup></h5>
-                                 @foreach($value->ChiTiet_PhanHang_SanPham as $ct)
-                                    @if( $ct->phanhang_id  == 1)
-                                        <span class="fa fa-star " style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                    @endif
-                                    @if( $ct->phanhang_id  == 2)
-                                        <span class="fa fa-star " style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                    @endif
-                                    @if( $ct->phanhang_id  == 3)
-                                        <span class="fa fa-star " style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                    @endif
-                                    @if( $ct->phanhang_id  == 4)
-                                        <span class="fa fa-star " style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:SlateGray"></span>
-                                    @endif
-                                    @if( $ct->phanhang_id  == 5)
-                                        <span class="fa fa-star " style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                        <span class="fa fa-star"style="color:Gold"></span>
-                                    @endif
-                                @endforeach
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img src="{{ asset('public/Image/5.jpg') }}" class="d-block w-100 "  style ="height: 450px" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                            <img src="{{ asset('public/Image/2.jpg') }}" class="d-block w-100 " style ="height: 450px"alt="...">
+                            </div>
+                            <div class="carousel-item">
+                            <img src="{{ asset('public/Image/7.jpg') }}" class="d-block w-100 " style ="height: 450px"alt="...">
                             </div>
                         </div>
-                        
+                        <div class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </div>
+                        <div class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </div>
                     </div>
-                    
-                    @endforeach
-
-              
-            </div>
-             <div class="section-title from-blog__title">
-                <a href="{{route('frontend.sanpham')}}"  class="primary-btn ">XEM NHIỀU HƠN</a>
+                </div>
             </div>
         </div>
     </section>
-    <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
-    <div class="banner">
+    <!-- Categories Section Begin -->
+    <section class="categories mt-3">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('public/Image/banner1.jpg') }}"  alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('public/Image/banner2.png') }}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner End -->
-
-    <!-- Latest Product Section Begin -->
-     <section class="categories mt-3">
-        <div class="container">
+            
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
@@ -248,47 +96,42 @@
                 </div>
             </div>
             <div class="row">
-                 
-                <div class="categories__slider owl-carousel">
-
-                    @foreach($doanhnghiep as $value)
-                     <div class="col-lg-3">
-                         @if(empty($value->hinhanh) || $value->hinhanh == 'N/A')
-                                 
-                                    <div class="card bg-dark text-white categories__item set-bg">
-                                        <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" class="card-img" alt="..."  height ="270px" width = "100%">
-                                        <div class="card-img-overlay d-flex align-items-end ">
-                                        
-                                            <a class="btn btn-outline-success w-100"href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a>
-                                            
-                                        </div>
-                                    </div>
-                                  @else
-                                  <div class="card bg-dark text-white categories__item set-bg">
-                                        <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" class="card-img" alt="..."  height ="270px" width = "100%">
-                                        <div class="card-img-overlay d-flex align-items-end ">
-                                        
-                                            <a class="btn btn-outline-success text-center"href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}">{{$value->tendoanhnghiep}}</a>
-                                            
-                                        </div>
-                                    </div>
-                                 
-                                 
-                                  @endif
-                        
-                    </div>
-                    @endforeach
-                  
+               
+                <div class="col-lg-12">
                     
-                   
+                    <div class="product__details__pic">
+                        
+                        <div class="product__details__pic__item">
+                            @foreach($doanhnghiep as $value)
+                                
+                                        <img class="product__details__pic__item--large"
+                                            src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" height="500" alt="">
+                                            
+                                    
+                                @break
+                            @endforeach
+                        </div>
+                            
+                        
+                        <div class="product__details__pic__slider owl-carousel">
+                            @foreach($doanhnghiep as $value)
+                            <img data-imgbigurl="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"
+                                src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}"height ="270px" width = "100%" alt="">
+                            
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <!-- Latest Product Section End -->
-
-    <!-- Blog Section Begin -->
+    @if(session('status'))
+        <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
+            <span class="fas fa-check-circle"></span>
+            <span class="msg" >{!! session('status') !!}</span>           
+        </div>    
+    @endif
     <section class="from-blog spad">
         <div class="container">
             <div class="row">
@@ -325,10 +168,32 @@
                 
                
             </div>
+            <div class="section-title from-blog__title">
+                <a href="{{route('frontend.baiviet')}}"  class="primary-btn ">XEM NHIỀU HƠN</a>
+            </div>
         </div>
        
     </section>
-    <!-- Latest Product Section Begin -->
+   
+
+    <!-- Banner Begin -->
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('public/Image/banner1.jpg') }}"  alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="{{ asset('public/Image/banner2.png') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
     <section class="categories mt-3">
         <div class="container">
             <div class="row">
@@ -350,7 +215,7 @@
                                     <img src="{{env('APP_URL').'/public/Image/noimage.png'}}" class="card-img" alt="..."  height ="270px" width = "100%">
                                     <div class="card-img-overlay d-flex align-items-end ">
                                        
-                                        <a class="btn btn-outline-success"href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a>
+                                        <a href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}"></a>
                                         
                                     </div>
                                 </div>
@@ -358,12 +223,13 @@
                                   @else
                                   <div class="card bg-dark text-white categories__item set-bg">
                                     <img src="{{env('APP_URL').'/storage/app/'.$value->hinhanh  }}" class="card-img" alt="..."  height ="270px" width = "100%">
-                                    <div class="card-img-overlay d-flex align-items-end ">
+                                    
+                                </div>
+                                <div class="card-img-overlay d-flex align-items-end ">
                                        
                                         <a class="btn btn-outline-success"href="{{route('frontend.donviquanly',['tendonviquanly_slug' => $value->tendonviquanly_slug])}}">{{$value->tendonviquanly}}</a>
                                         
                                     </div>
-                                </div>
                                  
                                   
                                  
@@ -381,16 +247,15 @@
     </section>
      
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-
-    <!-- Typeahead.js Bundle -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
        <script type="text/javascript">
            $(document).ready(function($) {
               var engine1 = new Bloodhound({
                   remote: {
-                      url: 'http://127.0.0.1/ocopangiang/search/tensanpham?value=%QUERY%',
+                      url: "{{ route('search.tensanpham') }}?value=%QUERY%",
                       wildcard: '%QUERY%'
                   },
                   datumTokenizer: Bloodhound.tokenizers.whitespace('value'),
@@ -415,13 +280,13 @@
                         templates: {
 
                             empty: [
-                               '<div class="list-group"><a class="list-group-item list-group-item-action list-group-item-light" style="width: 500px;">Không có kết quả phù hợp.</a></div>'
+                               '<div class="list-group"><a class="list-group-item list-group-item-action list-group-item-light" style="width: 600px;">Không có kết quả phù hợp.</a></div>'
                             ],
                            header: [
                             '<div class="list-group  " ><li class="list-group-item list-group-item-action list-group-item-secondary">Sản phẩm gợi ý</li></div>'
                             ],
                             suggestion: function (data) {
-                                return '<a href="http://127.0.0.1/ocopangiang/san-pham/' +  data.tennhom_slug+'/'+data.tenloai_slug+'/'+data.tensanpham_slug+ '" class="list-group-item list-group-item-action list-group-item-light" style="width: 500px;"><div class="row"><div class="col-md-2"><img src="http://localhost/ocopangiang/storage/app/'+ data.hinhanh +'" width="70" height="80" alt=""></div><div class="col-md-4"> ' + data.tensanpham + ' </br><small>'+data.dongia+' <sup>VNĐ</sup></small></div></div></a>';
+                                return '<a href="http://127.0.0.1/ocopangiang/san-pham/' +  data.tennhom_slug+'/'+data.tenloai_slug+'/'+data.tensanpham_slug+ '" class="list-group-item list-group-item-action list-group-item-light" style="width: 600px;"><div class="row"><div class="col-md-2"><img src="http://localhost/ocopangiang/storage/app/'+ data.hinhanh +'" width="70" height="80" alt=""></div><div class="col-md-4"> ' + data.tensanpham + ' </br><small>'+data.dongia+' <sup>VNĐ</sup></small></div></div></a>';
                             }
                         }
                     }
@@ -429,4 +294,7 @@
             });
 
       </script>
+@endsection
+@section('javascript')
+  <script src="{{ asset('public/frontend/assets/js/jquery.nice-select.min.js' ) }}"></script>
 @endsection

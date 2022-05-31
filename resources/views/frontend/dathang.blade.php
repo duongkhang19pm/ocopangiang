@@ -165,20 +165,19 @@
                         <div class="col-lg-5 col-md-6">
                             <div class="checkout__order">
                                 <h4>ĐƠN HÀNG CỦA BẠN</h4>
-                                <div class="checkout__order__products">Sản Phẩm (Số Lượng) <span>Tổng Tiền</span></div>
+                                <div class="checkout__order__products">Sản Phẩm X Số Lượng <span>Tổng Tiền</span></div>
                                 <ul>
                                     @php $tongtien = 0; @endphp
                                     @foreach(Cart::content() as $value)
-                                    <li>{{ $value->name }} ({{$value->qty}}) <span>{{ number_format($value->price * $value->qty)}}<sup>VNĐ</sup> </span>
+                                    <li>{{ $value->name }} X {{$value->qty}} <span>{{ number_format($value->price * $value->qty)}}<sup>VNĐ</sup> </span>
                                     </li>
                                      @php $tongtien += $value->price * $value->qty; @endphp
                                     @endforeach   
 
                                     
                                 </ul>
-                                <div class="checkout__order__subtotal">Tổng tiền sản phẩm <span>{{ Cart::subtotal() }}<sup>VND</sup></span></div>
-                                <div class="checkout__order__subtotal">Thuế VAT (10%)<span>{{ Cart::tax() }}<sup>VND</sup></span></div>
-                                <div class="checkout__order__subtotal">Phí Vận Chuyển<span >
+                                <div class="checkout__order__subtotal">Tiền Hàng (Tạm Tính) <span>{{ Cart::subtotal() }}<sup>VND</sup></span></div>
+                                <div class="checkout__order__subtotal">Phí Giao Hàng<span >
                                     {{ number_format($huyen->phivanchuyen)}} 
                                     <sup>VND</sup></span>
 
@@ -186,7 +185,7 @@
                                 </div>
 
 
-                                <div class="checkout__order__total">Tổng Thanh Toán <span>{{ number_format($tongtien + $huyen->phivanchuyen)}}  <sup>VND</sup></span></div>
+                                <div class="checkout__order__total">Tổng Tiền (Đã bao gồm VAT) <span>{{ number_format($tongtien + $huyen->phivanchuyen)}}  <sup>VND</sup></span></div>
                                
                                 <button type="submit" class="site-btn" href="{{ route('frontend.dathang') }}"onclick="event.preventDefault();document.getElementById('checkoutform').submit();">TIẾN HÀNH ĐẶT HÀNG</button>
                             </div>

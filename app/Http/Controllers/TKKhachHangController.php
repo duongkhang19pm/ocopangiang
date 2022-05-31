@@ -9,6 +9,7 @@ use App\Models\TaiKhoan;
 use App\Models\Tinh;
 use App\Models\Huyen;
 use App\Models\Xa;
+use App\Models\SanPham;
 use App\Models\DonHang_ChiTiet;
 use Storage;
 use Str;
@@ -54,27 +55,28 @@ class TKKhachHangController extends Controller
     }
 
 
-    public function getDonHang_Huy($taikhoan,$id)
+    public function getDonHang_Huy($id)
      {
 
- 
-         $chitiet = DonHang_ChiTiet::find($id);
-         
-            if($chitiet->tinhtrang_id < 3)
-            {
-                $chitiet->tinhtrang_id = 3;
-                $chitiet->save();
-                return redirect()->route('khachhang.donhang',['id'=>$taikhoan]);
+        $dh = DonHang::find($id);
+        $donhang = DonHang::where('taikhoan_id',Auth::user()->id)->where('hienthi',1)->orderBy('created_at','desc')->get();
+        if($dh->save())
+        {
+            $donhang_chitiet = DonHang_ChiTiet::where('donhang_id',$id)->get();
+            foreach($donhang_chitiet as $value)
+            {   if($value->tinhtrang_id < 3 )
+                {
+                    $sanpham = SanPham::find($value->sanpham_id);
+                    $sanpham->soluong += $value->soluongban;
+                    $sanpham->save();
+    
+                    $value->tinhtrang_id = 3;
+                    $value->save();
+                }
+               
             }
-            else
-            {
-                return redirect()->route('khachhang.donhang',['id'=>$taikhoan])->with('status','Đơn hàng trong tình trạng không thể hủy <strong>');
-            }
-        
-
-       
-        
-         
+            return redirect()->back()->with('status','Khách hàng hủy đơn hàng thành công');
+        } 
     }
 
     public function getDonHang_HienThi($taikhoan,$id)
@@ -89,7 +91,7 @@ class TKKhachHangController extends Controller
         }
         
         $orm->save();
-         return redirect()->route('khachhang.donhang',['id'=>$taikhoan]);
+         return redirect()->back()->with('status','Khách hàng xóa đơn hàng thành công');
 
     }
     public function getCapNhatHoSo($id)

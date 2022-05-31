@@ -26,7 +26,7 @@
     @if(session('status'))
         <div id="thongbao" class="alert alert-success hide thongbao" role="alert">
             <span class="fas fa-check-circle"></span>
-            <span class="msg">{!! session('status') !!}</span>           
+            <span class="msg" >{!! session('status') !!}</span>           
         </div>    
     @endif
     <!-- Product Section Begin -->
@@ -90,7 +90,7 @@
                                     <th >#</th>
                                   
                                     <th>Thông tin giao hàng </th>
-                               
+                                    <th style="width:100px; min-width:100px;"> &nbsp; </th>
                                     <th style="width:100px; min-width:100px;"> &nbsp; </th>
                                 </tr>
                             </thead>
@@ -111,12 +111,13 @@
                                                         <thead>
                                                             <th >#</th>
                                                             <th >Sản phẩm</th>
-                                                            <th >Số lượng</th>
                                                             <th >Đơn giá</th>
-                                                            <th >VAT</th>
+                                                            <th >Số lượng</th>
+                                                            
+                                                       
                                                             <th >Thành tiền</th>
                                                             <th>Tình trạng</th>
-                                                            <th style="width:100px; min-width:100px;"> &nbsp; </th>
+                                                            
                                                         </thead>
                                                         <tbody>
                                                             @php $tongtien = 0; @endphp
@@ -126,31 +127,25 @@
                                                                     
                                                                     <td class="align-middle">{{ $loop->iteration }}</td>
                                                                     <td class="align-middle">{{ $chitiet->sanpham->tensanpham }}</td>
-                                                                    <td class="align-middle">{{ $chitiet->soluongban }}</td>
-                                                                    <td class="text-end">{{ number_format($chitiet->sanpham->dongia) }}<sup><u>đ</u></sup></td>
-                                                                    <td class="text-end">{{ number_format($chitiet->sanpham->dongia *0.1) }}<sup><u>đ</u></sup></td>
                                                                     <td class="text-end">{{ number_format($chitiet->dongiaban) }}<sup><u>đ</u></sup></td>
+                                                                    <td class="align-middle">{{ $chitiet->soluongban }}</td>
+                                                                    
+                                                                    
+                                                                    <td class="text-end">{{ number_format($chitiet->dongiaban * $chitiet->soluongban) }}<sup><u>đ</u></sup></td>
                                                                     <td> {{$chitiet->TinhTrang->tinhtrang}}</td>
-                                                                    <td class="align-middle text-right">
-                                                                          <a href="{{ route('khachhang.donhang.huy', ['taikhoan'=>$taikhoan->id,'id' => $chitiet->id]) }}" class="site-btn btn-danger">
-                                                                            
-                                                                            <span >Hủy Đơn</span>
-                                                                          </a>
-
-                                                                        
-                                                                    </td>
+                                                                    
                                                                 </tr>
                                                                 @php $tongtien += $chitiet->soluongban * $chitiet->dongiaban; @endphp
                                                            
                                                             @endforeach
                                                             <tr>
-                                                                <td colspan="6" class="text-left">Phí vận chuyển:</td>
+                                                                <td colspan="5" class="text-left">Phí vận chuyển:</td>
                                                                 
                                                                 <td class="text-end"><strong>{{ number_format($value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
                                                             </tr>
                                                              <tr>
                                                                     
-                                                                <td colspan="6" class="text-left">Tổng tiền sản phẩm:</td>
+                                                                <td colspan="5" class="text-left">Tổng tiền sản phẩm:</td>
                                                                 <td class="text-end"><strong>{{ number_format($tongtien + $value->Xa->Huyen->phivanchuyen) }}</strong><sup><u>đ</u></sup></td>
                                                             </tr>
                                                         
@@ -159,12 +154,14 @@
 
                                                 
                                             </td>
-                                           
-                                             <td class="align-middle text-right">
-                                                 
-                                                   @if($value->hienthi == 1)
-                                                    <a href="{{ route('khachhang.donhang.hienthi', ['taikhoan'=>$taikhoan->id,'id' => $value->id])  }}" class="site-btn"><span >Xóa Đơn</span></a>
-                                                @endif
+                                            <td class="align-middle text-right">
+                                                    <a href="{{ route('khachhang.donhang.huy', ['id' => $value->id])  }}" class="site-btn"><span >Hủy Đơn</span></a>
+                                                    
+                                            </td>
+                                            <td class="align-middle text-right">
+                                                    @if($value->hienthi == 1)
+                                                        <a href="{{ route('khachhang.donhang.hienthi', ['taikhoan'=>$taikhoan->id,'id' => $value->id])  }}" class="site-btn"><span >Xóa Đơn</span></a>
+                                                     @endif
                                             </td>
                                             
                                          </tr>

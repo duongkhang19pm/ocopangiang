@@ -32,6 +32,7 @@ class CreateSanPhamsTable extends Migration
             $table->string('hinhanh')->nullable();
             $table->string('thumuc')->nullable();
             $table->text('motasanpham')->nullable();
+            $table->Integer('luotxem')->default(0);
             $table->unsignedTinyInteger('hienthi')->default(1);//duyệt
              $table->unsignedTinyInteger('danhgia')->default(0);//chưa duyệt bình luận 
             $table->timestamp('created_at')->useCurrent();

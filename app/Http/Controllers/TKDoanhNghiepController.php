@@ -49,18 +49,7 @@ class TKDoanhNghiepController extends Controller
             ->groupBy('donhang.id')
             ->get();
             
-            $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
-            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
-            ->select('donhang_chitiet.dongiaban as giaban','donhang_chitiet.created_at as day'
-                      
-                    )
-            ->where([
-               
-                ['donhang_chitiet.tinhtrang_id',10],
-                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
-            ])
-            ->groupBy('donhang_chitiet.id')
-            ->get();
+            
 
             $date = Carbon::today();//lay ngay hien tai
 
@@ -79,16 +68,37 @@ class TKDoanhNghiepController extends Controller
                 ->groupBy('sanpham.id')
                 ->get();
 
-
-                $data = [];
- 
+            $doanhthu = DonHang_ChiTiet::leftJoin('donhang', 'donhang.id', '=', 'donhang_chitiet.donhang_id')
+            ->leftJoin('sanpham', 'sanpham.id', '=', 'donhang_chitiet.sanpham_id')
+            ->select(DB::raw('sum(donhang_chitiet.soluongban) AS tongsoluongban'),DB::raw('sum(donhang_chitiet.dongiaban) AS dongiaban'),'donhang.created_at as ngay')
+            ->where([
+                
+                ['donhang_chitiet.tinhtrang_id',10],
+                ['sanpham.doanhnghiep_id',Auth::user()->doanhnghiep->id]
+            ])
+            ->groupBy('donhang.created_at')
+            ->get();
+         
                 foreach($doanhthu as $row) {
+                    $data[] = array(
+                        'label'=>  $row->ngay,
+                        'y'=> $row->tongsoluongban +  $row->dongiaban,
                     
-                    $data['label'][] = Carbon::parse($row->day)->format('d/m/Y');
-                    $data['data'][] = $row->giaban;
+                        
+                    );
+                
+                }
+                if(!empty($data)){
+                $data['chart_data'] = $data;
+
+                }
+                else{
+
+                    $data['chart_data'] = null;
                 }
             
-                $data['chart_data'] = json_encode($data);
+           // dd($data);
+                
             
             return view('doanhnghiep.index',compact('baiviet','sanpham','donhang','doanhthuhomnay','sanpham_saphet'),$data);
         

@@ -32,7 +32,6 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
@@ -43,7 +42,7 @@
            <ul>       
                 <li><a href="{{ route('frontend.giohang') }}"><i class="fa fa-shopping-bag"></i> <span>{{Cart::count() > 0 ? Cart::count() : ''}}</span></a></li>     
             </ul>
-            <div class="header__cart__price">Tạm Tính: <span>{{ Cart::total() }} <sup>VNĐ</sup></span></div>
+            <div class="header__cart__price">Tạm Tính: <span>{{ Cart::priceTotal() }} <sup>VNĐ</sup></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -76,14 +75,21 @@
                         </ul>
                     </div>
                 @endguest
-
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{{route('frontend')}}">Trang Chủ</a></li>
-                
-                <li><a href="{{route('frontend.baiviet')}}">Tin Tức</a></li>
+                <li><a href="#">Doanh Nghiệp</a>
+                    <ul class="header__menu__dropdown" >
+                        @foreach($doanhnghiep as $value)
+                        <div class="col mb-4 ms-2 ps-2">
+                            <li><a href="{{route('frontend.doanhnghiep',['tendoanhnghiep_slug' => $value->tendoanhnghiep_slug])}}" >{{ $value->tendoanhnghiep}}</a></li>
+                        </div>
+                        @endforeach
+                    </ul>
+                </li>
+                <li><a href="{{route('frontend.sanpham')}}">Sản Phẩm</a></li>
                 <li><a href="{{route('frontend.lienhe')}}">Liên Hệ</a></li>
             </ul>
         </nav>
@@ -174,7 +180,7 @@
                         <a href="{{route('frontend')}}"><img src="{{ asset('public/Image/logo.png') }}" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{{route('frontend')}}">Trang Chủ</a></li>
@@ -189,12 +195,14 @@
 
                                 </ul>
                             </li>
-                            <li><a href="{{route('frontend.baiviet')}}">Tin Tức</a></li>
+
+                            <li><a href="{{route('frontend.sanpham')}}">Sản Phẩm</a></li>
+                            <li><a href="{{route('frontend.thongke')}}">Thống Kê</a></li>
                             <li><a href="{{route('frontend.lienhe')}}">Liên Hệ</a></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="header__cart">
                         <ul>
                         <li><a href="{{ route('frontend.sanphamyeuthich')}}"><i class="fa fa-heart"></i> 
@@ -212,7 +220,7 @@
                                 {{Cart::count() > 0 ? Cart::count() : '0'}}</span></a></li>    
                         </ul>
                         
-                        <div class="header__cart__price">Tạm Tính: <span>{{ Cart::total() }} <sup>VNĐ</sup></span></div>
+                        <div class="header__cart__price">Tạm Tính: <span>{{ Cart::priceTotal() }} <sup>VNĐ</sup></span></div>
                     </div>
                 </div>
             </div>
@@ -311,13 +319,13 @@
     </script>
      <script>
 
-$(document).ready(function() {
-    $('.thongbao').addClass("show");
-   $('.thongbao').addClass("showAlert");
-   $('.thongbao').removeClass('hide');
-    $('.thongbao').delay(3000).slideUp(500);
-});
-</script>
+        $(document).ready(function() {
+            $('.thongbao').addClass("show");
+        $('.thongbao').addClass("showAlert");
+        $('.thongbao').removeClass('hide');
+            $('.thongbao').delay(3000).slideUp(500);
+        });
+    </script>
 </body>
 
 </html>
